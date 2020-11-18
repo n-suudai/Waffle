@@ -62,7 +62,7 @@ public:
         return Flags<BitType>(m_mask ^ rhs.m_mask);
     }
 
-    constexpr bool operator!() const
+    constexpr EBool operator!() const
     {
         return !m_mask;
     }
@@ -72,17 +72,17 @@ public:
     //    return Flags<BitType>(m_mask ^ FlagTraits<BitType>::allFlags);
     //}
 
-    constexpr bool operator==(Flags<BitType> const& rhs) const
+    constexpr EBool operator==(Flags<BitType> const& rhs) const
     {
         return m_mask == rhs.m_mask;
     }
 
-    constexpr bool operator!=(Flags<BitType> const& rhs) const
+    constexpr EBool operator!=(Flags<BitType> const& rhs) const
     {
         return m_mask != rhs.m_mask;
     }
 
-    explicit constexpr operator bool() const
+    explicit constexpr operator EBool() const
     {
         return !!m_mask;
     }
@@ -115,13 +115,13 @@ constexpr Flags<BitType> operator^(BitType bit, Flags<BitType> const& flags)
 }
 
 template <typename BitType>
-constexpr bool operator==(BitType bit, Flags<BitType> const& flags)
+constexpr EBool operator==(BitType bit, Flags<BitType> const& flags)
 {
     return flags == bit;
 }
 
 template <typename BitType>
-constexpr bool operator!=(BitType bit, Flags<BitType> const& flags)
+constexpr EBool operator!=(BitType bit, Flags<BitType> const& flags)
 {
     return flags != bit;
 }
