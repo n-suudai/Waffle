@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="source">
+      <UniqueIdentifier>{94b23662-504a-4441-860d-3079484dc704}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\platform">
+      <UniqueIdentifier>{f75ab12f-fb79-4cf9-9bae-a6307c35d597}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\platform\windows">
+      <UniqueIdentifier>{ee67d58d-176d-4f42-a0d5-c2c544ec237c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\source\engine\common\types.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\source\engine\common\platform\platform.h">
+      <Filter>source\platform</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\source\engine\common\platform\windows\windows_prerequisites.h">
+      <Filter>source\platform\windows</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

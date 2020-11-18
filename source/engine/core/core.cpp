@@ -1,15 +1,21 @@
 #include "core.h"
+#include "logging/logging.h"
 
-namespace engine {
-namespace core {
+namespace Engine {
+namespace Core {
 
-bool initialize()
+
+EBool Initialize()
 {
+    OutputLog("[Core] Initialize");
     return true;
 }
 
-void finalize()
-{}
+EVoid Finalize()
+{
+    OutputLog("[Core] Finalize");
+}
 
-} // namespace core
-} // namespace engine
+
+} // namespace Core
+} // namespace Engine

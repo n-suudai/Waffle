@@ -5,7 +5,7 @@
 
 
 namespace Engine {
-namespace Core {
+namespace Render {
 
 
 EBool Initialize();
@@ -13,6 +13,5 @@ EBool Initialize();
 EVoid Finalize();
 
 
-} // namespace Core
+} // namespace Render
 } // namespace Engine
-

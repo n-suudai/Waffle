@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include "common/types.h"
 
 
@@ -8,9 +7,7 @@ namespace Engine {
 namespace Core {
 
 
-EBool Initialize();
-
-EVoid Finalize();
+EVoid OutputLog(const EChar* text);
 
 
 } // namespace Core

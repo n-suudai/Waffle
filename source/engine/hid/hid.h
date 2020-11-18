@@ -5,7 +5,7 @@
 
 
 namespace Engine {
-namespace Core {
+namespace HID {
 
 
 EBool Initialize();
@@ -13,6 +13,5 @@ EBool Initialize();
 EVoid Finalize();
 
 
-} // namespace Core
+} // namespace HID
 } // namespace Engine
-
