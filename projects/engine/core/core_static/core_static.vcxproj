@@ -24,6 +24,11 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="..\..\..\..\source\engine\core\logging\logging.h" />
+    <ClInclude Include="..\..\..\..\source\engine\core\memory\alloc_header.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\engine\core\memory\config.h" />
     <ClInclude Include="..\..\..\..\source\engine\core\memory\memory.h">
       <SubType>
       </SubType>
@@ -35,6 +40,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\engine\core\logging\platform\windows\logging.cpp" />
+    <ClCompile Include="..\..\..\..\source\engine\core\memory\alloc_header.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\engine\core\memory\memory.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

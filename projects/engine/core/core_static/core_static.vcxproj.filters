@@ -27,6 +27,12 @@
     <ClInclude Include="..\..\..\..\source\engine\core\memory\memory.h">
       <Filter>source\memory</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\source\engine\core\memory\alloc_header.h">
+      <Filter>source\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\engine\core\memory\config.h">
+      <Filter>source\memory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\engine\core\core.cpp">
@@ -34,6 +40,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\engine\core\logging\platform\windows\logging.cpp">
       <Filter>source\logging\platform\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\engine\core\memory\alloc_header.cpp">
+      <Filter>source\memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\engine\core\memory\memory.cpp">
+      <Filter>source\memory</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

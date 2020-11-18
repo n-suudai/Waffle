@@ -10,6 +10,9 @@
     <Filter Include="source\platform\windows">
       <UniqueIdentifier>{ee67d58d-176d-4f42-a0d5-c2c544ec237c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\utility">
+      <UniqueIdentifier>{a3574833-65b0-4497-8e00-f4ae903a9191}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\source\engine\common\types.h">
@@ -20,6 +23,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\source\engine\common\platform\windows\windows_prerequisites.h">
       <Filter>source\platform\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\source\engine\common\utility\flags.h">
+      <Filter>source\utility</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

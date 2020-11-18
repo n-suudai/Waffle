@@ -17,5 +17,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\source\engine\common\platform\platform.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\source\engine\common\platform\windows\windows_prerequisites.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\source\engine\common\types.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\source\engine\common\utility\flags.h" />
   </ItemGroup>
 </Project>

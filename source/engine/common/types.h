@@ -1,6 +1,8 @@
 #pragma once
 
+#include <cstddef>
 #include <cstdint>
+#include <array>
 
 
 typedef void EVoid;
@@ -17,6 +19,8 @@ typedef std::uint16_t EUInt16;
 typedef std::uint32_t EUInt32;
 typedef std::uint64_t EUInt64;
 
+typedef std::size_t ESize;
+
 typedef float EFloat;
 typedef double EDouble;
 
@@ -25,4 +29,10 @@ typedef char16_t EChar16;
 typedef char32_t EChar32;
 
 typedef wchar_t EWChar;
+
+typedef std::ptrdiff_t EPtrDiff;
+
+
+template<class T, ESize Size>
+using EArray = std::array<T, Size>;
 
