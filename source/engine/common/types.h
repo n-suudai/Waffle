@@ -3,23 +3,27 @@
 #include <cstddef>
 #include <cstdint>
 #include <array>
+#include <bitset>
+
+
+namespace stl = std;
 
 
 typedef void EVoid;
 
 typedef bool EBool;
 
-typedef std::int8_t  EInt8;
-typedef std::int16_t EInt16;
-typedef std::int32_t EInt32;
-typedef std::int64_t EInt64;
+typedef stl::int8_t  EInt8;
+typedef stl::int16_t EInt16;
+typedef stl::int32_t EInt32;
+typedef stl::int64_t EInt64;
 
-typedef std::uint8_t  EUInt8;
-typedef std::uint16_t EUInt16;
-typedef std::uint32_t EUInt32;
-typedef std::uint64_t EUInt64;
+typedef stl::uint8_t  EUInt8;
+typedef stl::uint16_t EUInt16;
+typedef stl::uint32_t EUInt32;
+typedef stl::uint64_t EUInt64;
 
-typedef std::size_t ESize;
+typedef stl::size_t ESize;
 
 typedef float EFloat;
 typedef double EDouble;
@@ -30,9 +34,5 @@ typedef char32_t EChar32;
 
 typedef wchar_t EWChar;
 
-typedef std::ptrdiff_t EPtrDiff;
-
-
-template<class T, ESize Size>
-using EArray = std::array<T, Size>;
+typedef stl::ptrdiff_t EPtrDiff;
 

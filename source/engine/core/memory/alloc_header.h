@@ -138,7 +138,7 @@ public:
 
 private:
     static EPtrDiff s_HeaderSize; // ヘッダ情報の全体サイズ
-    static EArray<EPtrDiff, HEADER_INFO_BIT_COUNT> s_HeaderInfoOffsets; // ヘッダ情報メンバアドレスへのオフセット値
+    static stl::array<EPtrDiff, HEADER_INFO_BIT_COUNT> s_HeaderInfoOffsets; // ヘッダ情報メンバアドレスへのオフセット値
     static HeaderInfoFlags s_HeaderInfos; // 有効なヘッダ情報
 };
 

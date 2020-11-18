@@ -9,7 +9,7 @@ namespace Memory {
 EPtrDiff AllocHeader::s_HeaderSize = 0;
 
 // ヘッダ情報メンバアドレスへのオフセット値
-EArray<EPtrDiff, AllocHeader::HEADER_INFO_BIT_COUNT> AllocHeader::s_HeaderInfoOffsets = { 0 };
+stl::array<EPtrDiff, AllocHeader::HEADER_INFO_BIT_COUNT> AllocHeader::s_HeaderInfoOffsets = { 0 };
 
 // 有効なヘッダ情報
 HeaderInfoFlags AllocHeader::s_HeaderInfos = HeaderInfoFlagBits::Required;
