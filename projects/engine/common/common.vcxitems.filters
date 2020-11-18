@@ -27,5 +27,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\source\engine\common\utility\flags.h">
       <Filter>source\utility</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\source\engine\common\utility\bitwise.h">
+      <Filter>source\utility</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
