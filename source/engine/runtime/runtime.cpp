@@ -3,7 +3,6 @@
 #include "render/render.h"
 #include "sound/sound.h"
 #include "hid/hid.h"
-#include "test/test.h"
 
 
 namespace Engine {
@@ -16,11 +15,6 @@ EInt32 RuntimeMain()
     Render::Initialize();
     Sound::Initialize();
     HID::Initialize();
-
-
-    Initialize_Test();
-
-    Finalize_Test();
 
 
     HID::Finalize();
