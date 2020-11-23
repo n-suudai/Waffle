@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{2fd25da0-77bd-47e2-80ed-0c94df5730d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{dbd78b7e-1def-46bc-8826-851a87214845}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\memory">
+      <UniqueIdentifier>{92021cb1-6eab-478c-b8e5-c7960999f571}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\memory">
+      <UniqueIdentifier>{99abff04-f918-4ff5-b646-645457c98cce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\memory\policy">
+      <UniqueIdentifier>{97693976-07d2-4128-b0a0-a7c4f06bda99}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\memory.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\memory\alloc_header.h">
+      <Filter>include\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\memory\config.h">
+      <Filter>include\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\memory\heap.h">
+      <Filter>include\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\memory\policy.h">
+      <Filter>include\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\memory\policy\policy_nedmalloc_pooling.h">
+      <Filter>include\memory\policy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\memory\policy\policy_nedmalloc.h">
+      <Filter>include\memory\policy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\memory\policy\policy_standard.h">
+      <Filter>include\memory\policy</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\source\memory\alloc_header.cpp">
+      <Filter>source\memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\memory\memory.cpp">
+      <Filter>source\memory</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
