@@ -1,4 +1,4 @@
-#include "core.h"
+﻿#include "core.h"
 #include "memory/memory.h"
 #include "core/logging.h"
 

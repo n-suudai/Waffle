@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 
 #include "common/utility/flags.h"
@@ -11,44 +11,44 @@ namespace memory {
 
 enum class HeaderInfoIndex : wfl::uint16_t
 {
-      MemoryBlock       // ƒAƒhƒŒƒX
-    , MemoryBytes       // Šm•ÛƒTƒCƒY
-    , FileName          // ƒtƒ@ƒCƒ‹–¼
-    , Line              // s”
-    , FunctionName      // ŠÖ”–¼
-    , DateTime          // Šm•Û“ú
-    , BackTraceHash     // ƒoƒbƒNƒgƒŒ[ƒX‚ÌƒnƒbƒVƒ…’l
-    , Signature         // ƒƒ‚ƒŠ”j‰óŒŸo—pƒVƒOƒlƒ`ƒƒ
-    , Bookmark          // ƒuƒbƒNƒ}[ƒN
-    , Heap              // eƒq[ƒv—Ìˆæ
-    , Next              // Ÿ‚Ìƒwƒbƒ_‚Ö‚Ìƒ|ƒCƒ“ƒ^ (ƒq[ƒv‚ğƒEƒH[ƒN‚·‚é‚Ì‚É•K—v)
-    , Prev              // ‘O‚Ìƒwƒbƒ_‚Ö‚Ìƒ|ƒCƒ“ƒ^ (ƒq[ƒv‚ğƒEƒH[ƒN‚·‚é‚Ì‚É•K—v)
+      MemoryBlock       // ã‚¢ãƒ‰ãƒ¬ã‚¹
+    , MemoryBytes       // ç¢ºä¿ã‚µã‚¤ã‚º
+    , FileName          // ãƒ•ã‚¡ã‚¤ãƒ«å
+    , Line              // è¡Œæ•°
+    , FunctionName      // é–¢æ•°å
+    , DateTime          // ç¢ºä¿æ—¥æ™‚
+    , BackTraceHash     // ãƒãƒƒã‚¯ãƒˆãƒ¬ãƒ¼ã‚¹ã®ãƒãƒƒã‚·ãƒ¥å€¤
+    , Signature         // ãƒ¡ãƒ¢ãƒªç ´å£Šæ¤œå‡ºç”¨ã‚·ã‚°ãƒãƒãƒ£
+    , Bookmark          // ãƒ–ãƒƒã‚¯ãƒãƒ¼ã‚¯
+    , Heap              // è¦ªãƒ’ãƒ¼ãƒ—é ˜åŸŸ
+    , Next              // æ¬¡ã®ãƒ˜ãƒƒãƒ€ã¸ã®ãƒã‚¤ãƒ³ã‚¿ (ãƒ’ãƒ¼ãƒ—ã‚’ã‚¦ã‚©ãƒ¼ã‚¯ã™ã‚‹ã®ã«å¿…è¦)
+    , Prev              // å‰ã®ãƒ˜ãƒƒãƒ€ã¸ã®ãƒã‚¤ãƒ³ã‚¿ (ãƒ’ãƒ¼ãƒ—ã‚’ã‚¦ã‚©ãƒ¼ã‚¯ã™ã‚‹ã®ã«å¿…è¦)
     , Num
 };
 
 enum class HeaderInfoFlagBits
 {
-      MemoryBlock   = (1 << static_cast<wfl::uint16_t>(HeaderInfoIndex::MemoryBlock))   // ƒAƒhƒŒƒX
-    , MemoryBytes   = (1 << static_cast<wfl::uint16_t>(HeaderInfoIndex::MemoryBytes))   // Šm•ÛƒTƒCƒY
-    , FileName      = (1 << static_cast<wfl::uint16_t>(HeaderInfoIndex::FileName))      // ƒtƒ@ƒCƒ‹–¼
-    , Line          = (1 << static_cast<wfl::uint16_t>(HeaderInfoIndex::Line))          // s”
-    , FunctionName  = (1 << static_cast<wfl::uint16_t>(HeaderInfoIndex::FunctionName))  // ŠÖ”–¼
-    , DateTime      = (1 << static_cast<wfl::uint16_t>(HeaderInfoIndex::DateTime))      // Šm•Û“ú
-    , BackTraceHash = (1 << static_cast<wfl::uint16_t>(HeaderInfoIndex::BackTraceHash)) // ƒoƒbƒNƒgƒŒ[ƒX‚ÌƒnƒbƒVƒ…’l
-    , Signature     = (1 << static_cast<wfl::uint16_t>(HeaderInfoIndex::Signature))     // ƒƒ‚ƒŠ”j‰óŒŸo—pƒVƒOƒlƒ`ƒƒ
-    , Bookmark      = (1 << static_cast<wfl::uint16_t>(HeaderInfoIndex::Bookmark))      // ƒuƒbƒNƒ}[ƒN
-    , Heap          = (1 << static_cast<wfl::uint16_t>(HeaderInfoIndex::Heap))          // eƒq[ƒv—Ìˆæ
-    , Next          = (1 << static_cast<wfl::uint16_t>(HeaderInfoIndex::Next))          // Ÿ‚Ìƒwƒbƒ_‚Ö‚Ìƒ|ƒCƒ“ƒ^ (ƒq[ƒv‚ğƒEƒH[ƒN‚·‚é‚Ì‚É•K—v)
-    , Prev          = (1 << static_cast<wfl::uint16_t>(HeaderInfoIndex::Prev))          // ‘O‚Ìƒwƒbƒ_‚Ö‚Ìƒ|ƒCƒ“ƒ^ (ƒq[ƒv‚ğƒEƒH[ƒN‚·‚é‚Ì‚É•K—v)
+      MemoryBlock   = (1 << static_cast<wfl::uint16_t>(HeaderInfoIndex::MemoryBlock))   // ã‚¢ãƒ‰ãƒ¬ã‚¹
+    , MemoryBytes   = (1 << static_cast<wfl::uint16_t>(HeaderInfoIndex::MemoryBytes))   // ç¢ºä¿ã‚µã‚¤ã‚º
+    , FileName      = (1 << static_cast<wfl::uint16_t>(HeaderInfoIndex::FileName))      // ãƒ•ã‚¡ã‚¤ãƒ«å
+    , Line          = (1 << static_cast<wfl::uint16_t>(HeaderInfoIndex::Line))          // è¡Œæ•°
+    , FunctionName  = (1 << static_cast<wfl::uint16_t>(HeaderInfoIndex::FunctionName))  // é–¢æ•°å
+    , DateTime      = (1 << static_cast<wfl::uint16_t>(HeaderInfoIndex::DateTime))      // ç¢ºä¿æ—¥æ™‚
+    , BackTraceHash = (1 << static_cast<wfl::uint16_t>(HeaderInfoIndex::BackTraceHash)) // ãƒãƒƒã‚¯ãƒˆãƒ¬ãƒ¼ã‚¹ã®ãƒãƒƒã‚·ãƒ¥å€¤
+    , Signature     = (1 << static_cast<wfl::uint16_t>(HeaderInfoIndex::Signature))     // ãƒ¡ãƒ¢ãƒªç ´å£Šæ¤œå‡ºç”¨ã‚·ã‚°ãƒãƒãƒ£
+    , Bookmark      = (1 << static_cast<wfl::uint16_t>(HeaderInfoIndex::Bookmark))      // ãƒ–ãƒƒã‚¯ãƒãƒ¼ã‚¯
+    , Heap          = (1 << static_cast<wfl::uint16_t>(HeaderInfoIndex::Heap))          // è¦ªãƒ’ãƒ¼ãƒ—é ˜åŸŸ
+    , Next          = (1 << static_cast<wfl::uint16_t>(HeaderInfoIndex::Next))          // æ¬¡ã®ãƒ˜ãƒƒãƒ€ã¸ã®ãƒã‚¤ãƒ³ã‚¿ (ãƒ’ãƒ¼ãƒ—ã‚’ã‚¦ã‚©ãƒ¼ã‚¯ã™ã‚‹ã®ã«å¿…è¦)
+    , Prev          = (1 << static_cast<wfl::uint16_t>(HeaderInfoIndex::Prev))          // å‰ã®ãƒ˜ãƒƒãƒ€ã¸ã®ãƒã‚¤ãƒ³ã‚¿ (ãƒ’ãƒ¼ãƒ—ã‚’ã‚¦ã‚©ãƒ¼ã‚¯ã™ã‚‹ã®ã«å¿…è¦)
 
-    // •K{
+    // å¿…é ˆ
     , Required = MemoryBlock
         | MemoryBytes
         | Heap
         | Next
         | Prev
 
-    // ‚·‚×‚Ä
+    // ã™ã¹ã¦
     , All = MemoryBlock
         | MemoryBytes
         | FileName
@@ -68,78 +68,101 @@ typedef Flags<HeaderInfoFlagBits> HeaderInfoFlags;
 
 class Heap;
 
-// ƒwƒbƒ_î•ñ
+// ãƒ˜ãƒƒãƒ€æƒ…å ±
 class AllocHeader
 {
 public:
+    static void* operator new(wfl::size_t bytes);
+    static void operator delete(void* pBlock);
+
+public:
     typedef wfl::uint32_t Signature;
 
-    // ƒVƒOƒlƒ`ƒƒ’è‹`
+    // ã‚·ã‚°ãƒãƒãƒ£å®šç¾©
     static constexpr Signature SIGNATURE = 0xCDCDCDCD;
 
-    // ƒwƒbƒ_î•ñ‚ÌÅ‘åƒƒ“ƒo”
+    // ãƒ˜ãƒƒãƒ€æƒ…å ±ã®æœ€å¤§ãƒ¡ãƒ³ãƒæ•°
     static constexpr wfl::size_t HEADER_INFO_BIT_COUNT = sizeof(HeaderInfoFlagBits) * 8;
 
 public:
-    // ‚Ç‚Ìƒwƒbƒ_î•ñ‚ğ•Û‚·‚é‚©‚ğ“n‚µ‚Ä‰Šú‰»
+    // ã©ã®ãƒ˜ãƒƒãƒ€æƒ…å ±ã‚’ä¿æŒã™ã‚‹ã‹ã‚’æ¸¡ã—ã¦åˆæœŸåŒ–
     static bool initialize(HeaderInfoFlags headerInfos = HeaderInfoFlagBits::Required);
 
-    // I—¹
+    // çµ‚äº†
     static void terminate();
 
-    // —LŒø‰»‚³‚ê‚Ä‚¢‚é‚©
+    // æœ‰åŠ¹åŒ–ã•ã‚Œã¦ã„ã‚‹ã‹
     static bool isEnabled(HeaderInfoFlags headerInfos);
 
-    // ƒIƒtƒZƒbƒgæ“¾
+    // ã‚ªãƒ•ã‚»ãƒƒãƒˆå–å¾—
     static wfl::ptrdiff_t getHeaderOffset(HeaderInfoIndex headerInfoIndex);
 
-    // ƒwƒbƒ_î•ñ‚Ì‘S‘ÌƒTƒCƒY‚ğæ“¾
+    // ãƒ˜ãƒƒãƒ€æƒ…å ±ã®å…¨ä½“ã‚µã‚¤ã‚ºã‚’å–å¾—
     static wfl::size_t getHeaderSize();
 
-    // ƒAƒhƒŒƒX
+    // ã‚¢ãƒ‰ãƒ¬ã‚¹
     const void* getBlock() const;
     void* getBlock();
 
-    // Šm•ÛƒTƒCƒY
+    // ç¢ºä¿ã‚µã‚¤ã‚º
     wfl::size_t getBytes() const;
 
-    // ƒtƒ@ƒCƒ‹–¼
+    // ãƒ•ã‚¡ã‚¤ãƒ«å
     const char* getFileName() const;
 
-    // s”
-    wfl::uint32_t getLine() const;
+    // è¡Œæ•°
+    wfl::int32_t getLine() const;
 
-    // ŠÖ”–¼
+    // é–¢æ•°å
     const char* getFunctionName() const;
 
-    // Šm•Û“ú
+    // ç¢ºä¿æ—¥æ™‚
     time_t getDateTime() const;
 
-    // ƒoƒbƒNƒgƒŒ[ƒX‚ÌƒnƒbƒVƒ…’l
+    // ãƒãƒƒã‚¯ãƒˆãƒ¬ãƒ¼ã‚¹ã®ãƒãƒƒã‚·ãƒ¥å€¤
     wfl::size_t getBackTraceHash() const;
 
-    // ƒƒ‚ƒŠ”j‰óŒŸo—pƒVƒOƒlƒ`ƒƒ
+    // ãƒ¡ãƒ¢ãƒªç ´å£Šæ¤œå‡ºç”¨ã‚·ã‚°ãƒãƒãƒ£
     Signature getSignature() const;
 
-    // ƒuƒbƒNƒ}[ƒN
+    // ãƒ–ãƒƒã‚¯ãƒãƒ¼ã‚¯
     wfl::size_t getBookmark() const;
 
-    // eƒq[ƒv—Ìˆæ
+    // è¦ªãƒ’ãƒ¼ãƒ—é ˜åŸŸ
     const Heap* getHeap() const;
     Heap* getHeap();
 
-    // Ÿ‚Ìƒwƒbƒ_‚Ö‚Ìƒ|ƒCƒ“ƒ^ (ƒq[ƒv‚ğƒEƒH[ƒN‚·‚é‚Ì‚É•K—v)
+    // æ¬¡ã®ãƒ˜ãƒƒãƒ€ã¸ã®ãƒã‚¤ãƒ³ã‚¿ (ãƒ’ãƒ¼ãƒ—ã‚’ã‚¦ã‚©ãƒ¼ã‚¯ã™ã‚‹ã®ã«å¿…è¦)
     const AllocHeader* getNext() const;
     AllocHeader* getNext();
 
-    // ‘O‚Ìƒwƒbƒ_‚Ö‚Ìƒ|ƒCƒ“ƒ^ (ƒq[ƒv‚ğƒEƒH[ƒN‚·‚é‚Ì‚É•K—v)
+    // å‰ã®ãƒ˜ãƒƒãƒ€ã¸ã®ãƒã‚¤ãƒ³ã‚¿ (ãƒ’ãƒ¼ãƒ—ã‚’ã‚¦ã‚©ãƒ¼ã‚¯ã™ã‚‹ã®ã«å¿…è¦)
     const AllocHeader* getPrev() const;
     AllocHeader* getPrev();
 
+    // ãƒªãƒ³ã‚¯ãƒªã‚¹ãƒˆã«è¿½åŠ 
+    void addLink(AllocHeader* pAllocHeader);
+
+    // ãƒªãƒ³ã‚¯ãƒªã‚¹ãƒˆã‹ã‚‰åˆ‡ã‚Šé›¢ã™
+    AllocHeader* deleteLink();
+
+    // æƒ…å ±æ›¸ãè¾¼ã¿
+    void record(
+        void* address,
+        wfl::size_t bytes,
+        const char* file,
+        wfl::int32_t line,
+        const char* function,
+        wfl::size_t backTraceHash,
+        wfl::size_t bookmark,
+        Heap* pHeap);
+
+    bool isValidSignature() const;
+
 private:
-    static wfl::ptrdiff_t s_HeaderSize; // ƒwƒbƒ_î•ñ‚Ì‘S‘ÌƒTƒCƒY
-    static wfl::array<wfl::ptrdiff_t, HEADER_INFO_BIT_COUNT> s_HeaderInfoOffsets; // ƒwƒbƒ_î•ñƒƒ“ƒoƒAƒhƒŒƒX‚Ö‚ÌƒIƒtƒZƒbƒg’l
-    static HeaderInfoFlags s_HeaderInfos; // —LŒø‚Èƒwƒbƒ_î•ñ
+    static wfl::ptrdiff_t s_HeaderSize; // ãƒ˜ãƒƒãƒ€æƒ…å ±ã®å…¨ä½“ã‚µã‚¤ã‚º
+    static wfl::array<wfl::ptrdiff_t, HEADER_INFO_BIT_COUNT> s_HeaderInfoOffsets; // ãƒ˜ãƒƒãƒ€æƒ…å ±ãƒ¡ãƒ³ãƒã‚¢ãƒ‰ãƒ¬ã‚¹ã¸ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆå€¤
+    static HeaderInfoFlags s_HeaderInfos; // æœ‰åŠ¹ãªãƒ˜ãƒƒãƒ€æƒ…å ±
 };
 
 

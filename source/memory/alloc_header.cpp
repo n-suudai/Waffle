@@ -1,21 +1,39 @@
-#include "memory/alloc_header.h"
+ï»¿#include "memory/alloc_header.h"
+#include <cassert>
+#include <time.h>
+
+
+// TODO : ãƒªãƒ•ã‚¡ã‚¯ã‚¿ãƒªãƒ³ã‚°
 
 
 namespace waffle {
 namespace memory {
 
 
-// ƒwƒbƒ_î•ñ‚Ì‘S‘ÌƒTƒCƒY
+// ãƒ˜ãƒƒãƒ€æƒ…å ±ã®å…¨ä½“ã‚µã‚¤ã‚º
 wfl::ptrdiff_t AllocHeader::s_HeaderSize = 0;
 
-// ƒwƒbƒ_î•ñƒƒ“ƒoƒAƒhƒŒƒX‚Ö‚ÌƒIƒtƒZƒbƒg’l
+// ãƒ˜ãƒƒãƒ€æƒ…å ±ãƒ¡ãƒ³ãƒã‚¢ãƒ‰ãƒ¬ã‚¹ã¸ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆå€¤
 wfl::array<wfl::ptrdiff_t, AllocHeader::HEADER_INFO_BIT_COUNT> AllocHeader::s_HeaderInfoOffsets = { 0 };
 
-// —LŒø‚Èƒwƒbƒ_î•ñ
+// æœ‰åŠ¹ãªãƒ˜ãƒƒãƒ€æƒ…å ±
 HeaderInfoFlags AllocHeader::s_HeaderInfos = HeaderInfoFlagBits::Required;
 
 
-// ‚Ç‚Ìƒwƒbƒ_î•ñ‚ğ•Û‚·‚é‚©‚ğ“n‚µ‚Ä‰Šú‰»
+// TODO : ã‚¢ãƒ­ã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãƒãƒªã‚·ãƒ¼ã«æ²¿ã£ã¦ãƒ¡ãƒ¢ãƒªç¢ºä¿
+void* AllocHeader::operator new(wfl::size_t bytes)
+{
+    return new char[bytes];
+}
+
+void AllocHeader::operator delete(void* pBlock)
+{
+    char* p = reinterpret_cast<char*>(pBlock);
+    delete[] p;
+}
+
+
+// ã©ã®ãƒ˜ãƒƒãƒ€æƒ…å ±ã‚’ä¿æŒã™ã‚‹ã‹ã‚’æ¸¡ã—ã¦åˆæœŸåŒ–
 bool AllocHeader::initialize(HeaderInfoFlags headerInfos)
 {
     if ((headerInfos & HeaderInfoFlagBits::Required) != HeaderInfoFlagBits::Required)
@@ -27,94 +45,97 @@ bool AllocHeader::initialize(HeaderInfoFlags headerInfos)
     s_HeaderInfoOffsets.fill(0);
     s_HeaderInfos = headerInfos;
 
-    // ƒAƒhƒŒƒX
+    // ã‚¢ãƒ‰ãƒ¬ã‚¹
     if (s_HeaderInfos & HeaderInfoFlagBits::MemoryBlock)
     {
         s_HeaderInfoOffsets[static_cast<int>(HeaderInfoIndex::MemoryBlock)] = s_HeaderSize;
         s_HeaderSize += sizeof(void*);
     }
 
-    // Šm•ÛƒTƒCƒY
+    // ç¢ºä¿ã‚µã‚¤ã‚º
     if (s_HeaderInfos & HeaderInfoFlagBits::MemoryBytes)
     {
         s_HeaderInfoOffsets[static_cast<int>(HeaderInfoIndex::MemoryBytes)] = s_HeaderSize;
         s_HeaderSize += sizeof(wfl::size_t);
     }
 
-    // ƒtƒ@ƒCƒ‹–¼
+    // ãƒ•ã‚¡ã‚¤ãƒ«å
     if (s_HeaderInfos & HeaderInfoFlagBits::FileName)
     {
         s_HeaderInfoOffsets[static_cast<int>(HeaderInfoIndex::FileName)] = s_HeaderSize;
         s_HeaderSize += sizeof(const char*);
     }
 
-    // s”
+    // è¡Œæ•°
     if (s_HeaderInfos & HeaderInfoFlagBits::Line)
     {
         s_HeaderInfoOffsets[static_cast<int>(HeaderInfoIndex::Line)] = s_HeaderSize;
         s_HeaderSize += sizeof(wfl::uint32_t);
     }
 
-    // ŠÖ”–¼
+    // é–¢æ•°å
     if (s_HeaderInfos & HeaderInfoFlagBits::FunctionName)
     {
         s_HeaderInfoOffsets[static_cast<int>(HeaderInfoIndex::FunctionName)] = s_HeaderSize;
         s_HeaderSize += sizeof(const char*);
     }
 
-    // Šm•Û“ú
+    // ç¢ºä¿æ—¥æ™‚
     if (s_HeaderInfos & HeaderInfoFlagBits::DateTime)
     {
         s_HeaderInfoOffsets[static_cast<int>(HeaderInfoIndex::DateTime)] = s_HeaderSize;
         s_HeaderSize += sizeof(time_t);
     }
 
-    // ƒoƒbƒNƒgƒŒ[ƒX‚ÌƒnƒbƒVƒ…’l
+    // ãƒãƒƒã‚¯ãƒˆãƒ¬ãƒ¼ã‚¹ã®ãƒãƒƒã‚·ãƒ¥å€¤
     if (s_HeaderInfos & HeaderInfoFlagBits::BackTraceHash)
     {
         s_HeaderInfoOffsets[static_cast<int>(HeaderInfoIndex::BackTraceHash)] = s_HeaderSize;
         s_HeaderSize += sizeof(wfl::size_t);
     }
 
-    // ƒƒ‚ƒŠ”j‰óŒŸo—pƒVƒOƒlƒ`ƒƒ
+    // ãƒ¡ãƒ¢ãƒªç ´å£Šæ¤œå‡ºç”¨ã‚·ã‚°ãƒãƒãƒ£
     if (s_HeaderInfos & HeaderInfoFlagBits::Signature)
     {
         s_HeaderInfoOffsets[static_cast<int>(HeaderInfoIndex::Signature)] = s_HeaderSize;
         s_HeaderSize += sizeof(Signature*);
     }
 
-    // ƒuƒbƒNƒ}[ƒN
+    // ãƒ–ãƒƒã‚¯ãƒãƒ¼ã‚¯
     if (s_HeaderInfos & HeaderInfoFlagBits::Bookmark)
     {
         s_HeaderInfoOffsets[static_cast<int>(HeaderInfoIndex::Bookmark)] = s_HeaderSize;
         s_HeaderSize += sizeof(wfl::size_t);
     }
 
-    // eƒq[ƒv—Ìˆæ
+    // è¦ªãƒ’ãƒ¼ãƒ—é ˜åŸŸ
     if (s_HeaderInfos & HeaderInfoFlagBits::Heap)
     {
         s_HeaderInfoOffsets[static_cast<int>(HeaderInfoIndex::Heap)] = s_HeaderSize;
         s_HeaderSize += sizeof(Heap*);
     }
 
-    // Ÿ‚Ìƒwƒbƒ_‚Ö‚Ìƒ|ƒCƒ“ƒ^ (ƒq[ƒv‚ğƒEƒH[ƒN‚·‚é‚Ì‚É•K—v)
+    // æ¬¡ã®ãƒ˜ãƒƒãƒ€ã¸ã®ãƒã‚¤ãƒ³ã‚¿ (ãƒ’ãƒ¼ãƒ—ã‚’ã‚¦ã‚©ãƒ¼ã‚¯ã™ã‚‹ã®ã«å¿…è¦)
     if (s_HeaderInfos & HeaderInfoFlagBits::Next)
     {
         s_HeaderInfoOffsets[static_cast<int>(HeaderInfoIndex::Next)] = s_HeaderSize;
         s_HeaderSize += sizeof(AllocHeader*);
     }
 
-    // ‘O‚Ìƒwƒbƒ_‚Ö‚Ìƒ|ƒCƒ“ƒ^ (ƒq[ƒv‚ğƒEƒH[ƒN‚·‚é‚Ì‚É•K—v)
+    // å‰ã®ãƒ˜ãƒƒãƒ€ã¸ã®ãƒã‚¤ãƒ³ã‚¿ (ãƒ’ãƒ¼ãƒ—ã‚’ã‚¦ã‚©ãƒ¼ã‚¯ã™ã‚‹ã®ã«å¿…è¦)
     if (s_HeaderInfos & HeaderInfoFlagBits::Prev)
     {
         s_HeaderInfoOffsets[static_cast<int>(HeaderInfoIndex::Prev)] = s_HeaderSize;
         s_HeaderSize += sizeof(AllocHeader*);
     }
 
+    // å¿…é ˆé …ç›®ãŒå«ã¾ã‚Œã¦ã„ã‚‹ã‹ãƒã‚§ãƒƒã‚¯
+    assert(isEnabled(HeaderInfoFlagBits::Required));
+
     return true;
 }
 
-// I—¹
+// çµ‚äº†
 void AllocHeader::terminate()
 {
     s_HeaderSize = 0;
@@ -122,25 +143,25 @@ void AllocHeader::terminate()
     s_HeaderInfos = HeaderInfoFlagBits::Required;
 }
 
-// —LŒø‰»‚³‚ê‚Ä‚¢‚é‚©
+// æœ‰åŠ¹åŒ–ã•ã‚Œã¦ã„ã‚‹ã‹
 bool AllocHeader::isEnabled(HeaderInfoFlags headerInfos)
 {
     return (bool)(s_HeaderInfos & headerInfos);
 }
 
-// ƒIƒtƒZƒbƒgæ“¾
+// ã‚ªãƒ•ã‚»ãƒƒãƒˆå–å¾—
 wfl::ptrdiff_t AllocHeader::getHeaderOffset(HeaderInfoIndex headerInfoIndex)
 {
     return s_HeaderInfoOffsets[static_cast<int>(headerInfoIndex)];
 }
 
-// ƒwƒbƒ_î•ñ‚Ì‘S‘ÌƒTƒCƒY‚ğæ“¾
+// ãƒ˜ãƒƒãƒ€æƒ…å ±ã®å…¨ä½“ã‚µã‚¤ã‚ºã‚’å–å¾—
 wfl::size_t AllocHeader::getHeaderSize()
 {
     return s_HeaderSize;
 }
 
-// ƒAƒhƒŒƒX
+// ã‚¢ãƒ‰ãƒ¬ã‚¹
 const void* AllocHeader::getBlock() const
 {
     const void* ptr = this + getHeaderOffset(HeaderInfoIndex::MemoryBlock);
@@ -153,63 +174,63 @@ void* AllocHeader::getBlock()
     return ptr;
 }
 
-// Šm•ÛƒTƒCƒY
+// ç¢ºä¿ã‚µã‚¤ã‚º
 wfl::size_t AllocHeader::getBytes() const
 {
     const void* ptr = this + getHeaderOffset(HeaderInfoIndex::MemoryBytes);
     return *reinterpret_cast<const wfl::size_t*>(ptr);
 }
 
-// ƒtƒ@ƒCƒ‹–¼
+// ãƒ•ã‚¡ã‚¤ãƒ«å
 const char* AllocHeader::getFileName() const
 {
     const void* ptr = this + getHeaderOffset(HeaderInfoIndex::FileName);
     return reinterpret_cast<const char*>(ptr);
 }
 
-// s”
-wfl::uint32_t AllocHeader::getLine() const
+// è¡Œæ•°
+wfl::int32_t AllocHeader::getLine() const
 {
     const void* ptr = this + getHeaderOffset(HeaderInfoIndex::Line);
-    return *reinterpret_cast<const wfl::uint32_t*>(ptr);
+    return *reinterpret_cast<const wfl::int32_t*>(ptr);
 }
 
-// ŠÖ”–¼
+// é–¢æ•°å
 const char* AllocHeader::getFunctionName() const
 {
     const void* ptr = this + getHeaderOffset(HeaderInfoIndex::FunctionName);
     return reinterpret_cast<const char*>(ptr);
 }
 
-// Šm•Û“ú
+// ç¢ºä¿æ—¥æ™‚
 time_t AllocHeader::getDateTime() const
 {
     const void* ptr = this + getHeaderOffset(HeaderInfoIndex::DateTime);
     return *reinterpret_cast<const time_t*>(ptr);
 }
 
-// ƒoƒbƒNƒgƒŒ[ƒX‚ÌƒnƒbƒVƒ…’l
+// ãƒãƒƒã‚¯ãƒˆãƒ¬ãƒ¼ã‚¹ã®ãƒãƒƒã‚·ãƒ¥å€¤
 wfl::size_t AllocHeader::getBackTraceHash() const
 {
     const void* ptr = this + getHeaderOffset(HeaderInfoIndex::BackTraceHash);
     return *reinterpret_cast<const wfl::size_t*>(ptr);
 }
 
-// ƒƒ‚ƒŠ”j‰óŒŸo—pƒVƒOƒlƒ`ƒƒ
+// ãƒ¡ãƒ¢ãƒªç ´å£Šæ¤œå‡ºç”¨ã‚·ã‚°ãƒãƒãƒ£
 AllocHeader::Signature AllocHeader::getSignature() const
 {
     const void* ptr = this + getHeaderOffset(HeaderInfoIndex::Signature);
     return *reinterpret_cast<const Signature*>(ptr);
 }
 
-// ƒuƒbƒNƒ}[ƒN
+// ãƒ–ãƒƒã‚¯ãƒãƒ¼ã‚¯
 wfl::size_t AllocHeader::getBookmark() const
 {
     const void* ptr = this + getHeaderOffset(HeaderInfoIndex::Bookmark);
     return *reinterpret_cast<const wfl::size_t*>(ptr);
 }
 
-// eƒq[ƒv—Ìˆæ
+// è¦ªãƒ’ãƒ¼ãƒ—é ˜åŸŸ
 const Heap* AllocHeader::getHeap() const
 {
     const void* ptr = this + getHeaderOffset(HeaderInfoIndex::Heap);
@@ -222,7 +243,7 @@ Heap* AllocHeader::getHeap()
     return reinterpret_cast<Heap*>(ptr);
 }
 
-// Ÿ‚Ìƒwƒbƒ_‚Ö‚Ìƒ|ƒCƒ“ƒ^ (ƒq[ƒv‚ğƒEƒH[ƒN‚·‚é‚Ì‚É•K—v)
+// æ¬¡ã®ãƒ˜ãƒƒãƒ€ã¸ã®ãƒã‚¤ãƒ³ã‚¿ (ãƒ’ãƒ¼ãƒ—ã‚’ã‚¦ã‚©ãƒ¼ã‚¯ã™ã‚‹ã®ã«å¿…è¦)
 const AllocHeader* AllocHeader::getNext() const
 {
     const void* ptr = this + getHeaderOffset(HeaderInfoIndex::Next);
@@ -235,7 +256,7 @@ AllocHeader* AllocHeader::getNext()
     return reinterpret_cast<AllocHeader*>(ptr);
 }
 
-// ‘O‚Ìƒwƒbƒ_‚Ö‚Ìƒ|ƒCƒ“ƒ^ (ƒq[ƒv‚ğƒEƒH[ƒN‚·‚é‚Ì‚É•K—v)
+// å‰ã®ãƒ˜ãƒƒãƒ€ã¸ã®ãƒã‚¤ãƒ³ã‚¿ (ãƒ’ãƒ¼ãƒ—ã‚’ã‚¦ã‚©ãƒ¼ã‚¯ã™ã‚‹ã®ã«å¿…è¦)
 const AllocHeader* AllocHeader::getPrev() const
 {
     const void* ptr = this + getHeaderOffset(HeaderInfoIndex::Prev);
@@ -246,6 +267,154 @@ AllocHeader* AllocHeader::getPrev()
 {
     void* ptr = this + getHeaderOffset(HeaderInfoIndex::Prev);
     return reinterpret_cast<AllocHeader*>(ptr);
+}
+
+// ãƒªãƒ³ã‚¯ãƒªã‚¹ãƒˆã«è¿½åŠ 
+void AllocHeader::addLink(AllocHeader* pAllocHeader)
+{
+    {
+        void* ptr = this + getHeaderOffset(HeaderInfoIndex::Next);
+        wfl::ptrdiff_t& addr = (*reinterpret_cast<wfl::ptrdiff_t*>(ptr));
+        addr = reinterpret_cast<wfl::ptrdiff_t>(pAllocHeader);
+    }
+
+    {
+        void* ptr = pAllocHeader + getHeaderOffset(HeaderInfoIndex::Prev);
+        wfl::ptrdiff_t& addr = (*reinterpret_cast<wfl::ptrdiff_t*>(ptr));
+        addr = reinterpret_cast<wfl::ptrdiff_t>(this);
+    }
+}
+
+// ãƒªãƒ³ã‚¯ãƒªã‚¹ãƒˆã‹ã‚‰åˆ‡ã‚Šé›¢ã™
+AllocHeader* AllocHeader::deleteLink()
+{
+    AllocHeader* pTop = nullptr;
+
+    if (getPrev() == nullptr)
+    {
+        pTop = getNext();
+    }
+    else
+    {
+        {
+            void* ptr = getPrev() + getHeaderOffset(HeaderInfoIndex::Next);
+            wfl::ptrdiff_t& addr = (*reinterpret_cast<wfl::ptrdiff_t*>(ptr));
+            addr = reinterpret_cast<wfl::ptrdiff_t>(getNext());
+        }
+    }
+
+    if (getNext() != nullptr)
+    {
+        {
+            void* ptr = getNext() + getHeaderOffset(HeaderInfoIndex::Prev);
+            wfl::ptrdiff_t& addr = (*reinterpret_cast<wfl::ptrdiff_t*>(ptr));
+            addr = reinterpret_cast<wfl::ptrdiff_t>(getPrev());
+        }
+    }
+
+    return pTop;
+}
+
+// æƒ…å ±æ›¸ãè¾¼ã¿
+void AllocHeader::record(
+    void* address,
+    wfl::size_t bytes,
+    const char* file,
+    wfl::int32_t line,
+    const char* function,
+    wfl::size_t backTraceHash,
+    wfl::size_t bookmark,
+    Heap* pHeap
+    )
+{
+    if (isEnabled(HeaderInfoFlagBits::MemoryBlock))
+    {
+        void* ptr = this + getHeaderOffset(HeaderInfoIndex::MemoryBlock);
+        wfl::ptrdiff_t& addr = (*reinterpret_cast<wfl::ptrdiff_t*>(ptr));
+        addr = reinterpret_cast<wfl::ptrdiff_t>(address);
+    }
+
+    if (isEnabled(HeaderInfoFlagBits::MemoryBytes))
+    {
+        void* ptr = this + getHeaderOffset(HeaderInfoIndex::MemoryBytes);
+        wfl::size_t& addr = (*reinterpret_cast<wfl::size_t*>(ptr));
+        addr = bytes;
+    }
+
+    if (isEnabled(HeaderInfoFlagBits::FileName))
+    {
+        void* ptr = this + getHeaderOffset(HeaderInfoIndex::FileName);
+        const char*& addr = (*reinterpret_cast<const char**>(ptr));
+        addr = file;
+    }
+
+    if (isEnabled(HeaderInfoFlagBits::Line))
+    {
+        void* ptr = this + getHeaderOffset(HeaderInfoIndex::Line);
+        wfl::int32_t& addr = (*reinterpret_cast<wfl::int32_t*>(ptr));
+        addr = line;
+    }
+
+    if (isEnabled(HeaderInfoFlagBits::FunctionName))
+    {
+        void* ptr = this + getHeaderOffset(HeaderInfoIndex::FunctionName);
+        const char*& addr = (*reinterpret_cast<const char**>(ptr));
+        addr = function;
+    }
+
+    if (isEnabled(HeaderInfoFlagBits::DateTime))
+    {
+        void* ptr = this + getHeaderOffset(HeaderInfoIndex::DateTime);
+        time_t& addr = (*reinterpret_cast<time_t*>(ptr));
+        addr = time(NULL); // TODO : ã‚¯ãƒ­ã‚¹ãƒ—ãƒ©ãƒƒãƒˆãƒ•ã‚©ãƒ¼ãƒ 
+    }
+
+    if (isEnabled(HeaderInfoFlagBits::BackTraceHash))
+    {
+        void* ptr = this + getHeaderOffset(HeaderInfoIndex::BackTraceHash);
+        wfl::size_t& addr = (*reinterpret_cast<wfl::size_t*>(ptr));
+        addr = backTraceHash;
+    }
+
+    if (isEnabled(HeaderInfoFlagBits::Signature))
+    {
+        void* ptr = this + getHeaderOffset(HeaderInfoIndex::Signature);
+        Signature& addr = (*reinterpret_cast<Signature*>(ptr));
+        addr = SIGNATURE;
+    }
+
+    if (isEnabled(HeaderInfoFlagBits::Bookmark))
+    {
+        void* ptr = this + getHeaderOffset(HeaderInfoIndex::Bookmark);
+        wfl::size_t& addr = (*reinterpret_cast<wfl::size_t*>(ptr));
+        addr = bookmark;
+    }
+
+    if (isEnabled(HeaderInfoFlagBits::Heap))
+    {
+        void* ptr = this + getHeaderOffset(HeaderInfoIndex::Heap);
+        Heap*& addr = (*reinterpret_cast<Heap**>(ptr));
+        addr = pHeap;
+    }
+
+    if (isEnabled(HeaderInfoFlagBits::Next))
+    {
+        void* ptr = this + getHeaderOffset(HeaderInfoIndex::Next);
+        wfl::nullptr_t& addr = (*reinterpret_cast<wfl::nullptr_t*>(ptr));
+        addr = nullptr;
+    }
+
+    if (isEnabled(HeaderInfoFlagBits::Prev))
+    {
+        void* ptr = this + getHeaderOffset(HeaderInfoIndex::Prev);
+        wfl::nullptr_t& addr = (*reinterpret_cast<wfl::nullptr_t*>(ptr));
+        addr = nullptr;
+    }
+}
+
+bool AllocHeader::isValidSignature() const
+{
+    return getSignature() == SIGNATURE;
 }
 
 

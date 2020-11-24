@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 
 #include <cstdint>
@@ -8,7 +8,7 @@
 namespace waffle {
 
 
-namespace wfl = std; // STL‚Ì–¼‘O‹óŠÔ‚ğæ‚è‚İ
+namespace wfl = std; // STLã®åå‰ç©ºé–“ã‚’å–ã‚Šè¾¼ã¿
 
 
 } // namespace waffle

@@ -1,4 +1,4 @@
-/*
+﻿/*
 
 This source code was created with reference to Ogre.
 

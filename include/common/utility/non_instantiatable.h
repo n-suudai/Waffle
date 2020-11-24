@@ -1,10 +1,10 @@
-#pragma once
+ï»¿#pragma once
 
 
 #ifndef WFL_NON_INSTANTIATABLE
 
 
-// ƒCƒ“ƒXƒ^ƒ“ƒX‰»•s‰Â
+// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–ä¸å¯
 #define WFL_NON_INSTANTIATABLE(class_name) \
 class_name() = delete; \
 ~class_name() = delete; \

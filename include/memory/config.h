@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 
 #define WFL_ALLOC_POLICY_NED_POOLING 1
@@ -10,7 +10,7 @@
 //#define WFL_ALLOC_POLICY WFL_ALLOC_POLICY_STANDARD
 
 #define WFL_SIMD_ALIGNMENT 128
-#define WFL_USE_HEAP_TRACKING 1 // Heapƒgƒ‰ƒbƒLƒ“ƒO‹@”\‚ðŽg—p
+#define WFL_USE_HEAP_TRACKING 1 // Heapãƒˆãƒ©ãƒƒã‚­ãƒ³ã‚°æ©Ÿèƒ½ã‚’ä½¿ç”¨
 
 #ifndef WFL_DECL_MALLOC
 

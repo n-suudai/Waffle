@@ -1,8 +1,10 @@
-#pragma once
+ï»¿#pragma once
 
 
-#include "common/types.h"
+#include "memory/alloc_header.h"
+#include "common/utility/no_new_delete.h"
 #include <mutex>
+#include <functional>
 
 
 namespace waffle {
@@ -16,6 +18,7 @@ class IMemoryAssertionReporter;
 
 class Heap final
 {
+    WFL_NO_NEW_DELETE;
 public:
     Heap();
 
@@ -52,27 +55,27 @@ public:
     template <typename Policy>
     inline void deallocateAligned(void* pBlock);
 
-    // ƒŠƒ“ƒNƒŠƒXƒg‚ğ\’z
+    // ãƒªãƒ³ã‚¯ãƒªã‚¹ãƒˆã‚’æ§‹ç¯‰
     void addAllocation(AllocHeader* pAllocation);
 
-    // ƒŠƒ“ƒNƒŠƒXƒg‚©‚çØ‚è—£‚·
+    // ãƒªãƒ³ã‚¯ãƒªã‚¹ãƒˆã‹ã‚‰åˆ‡ã‚Šé›¢ã™
     void eraseAllocation(AllocHeader* pAllocation);
 
-    // eqŠÖŒW‚Ì\’z‚ğ‚·‚éŠÖ”
+    // è¦ªå­é–¢ä¿‚ã®æ§‹ç¯‰ã‚’ã™ã‚‹é–¢æ•°
     void attachTo(Heap* pParent);
 
-    // ƒŠ[ƒN‚Ìƒ`ƒFƒbƒNŠÖ”
+    // ãƒªãƒ¼ã‚¯ã®ãƒã‚§ãƒƒã‚¯é–¢æ•°
     void memoryLeakCheck(
         IMemoryLeakReporter* pReporter,
         wfl::size_t bookmarkStart,
         wfl::size_t bookmarkEnd) const;
 
-    // î•ñûW‚Ì‚½‚ß‚ÌŠÖ”
+    // æƒ…å ±åé›†ã®ãŸã‚ã®é–¢æ•°
     void reportTreeStats(
         IHeapTreeStatsReporter* pAccumulator,
         wfl::int32_t depth) const;
 
-    // ƒƒ‚ƒŠ”j‰ó‚Ìƒ`ƒFƒbƒNŠÖ”
+    // ãƒ¡ãƒ¢ãƒªç ´å£Šã®ãƒã‚§ãƒƒã‚¯é–¢æ•°
     void memoryAssertionCheck(
         IMemoryAssertionReporter* pReporter,
         wfl::size_t bookmarkStart,
@@ -83,6 +86,8 @@ protected:
         wfl::size_t& totalBytes,
         wfl::size_t& totalPeakBytes,
         wfl::size_t& totalInstanceCount) const;
+
+    void eachChild(const wfl::function<void(const Heap*)>& function) const;
 
 private:
     wfl::recursive_mutex m_protection;
@@ -96,7 +101,7 @@ private:
     wfl::size_t m_totalAllocatedBytes;
     wfl::size_t m_peakAllocatedBytes;
     wfl::size_t m_allocatedInstanceCount;
-    AllocHeader* m_pAllocHeader; // ƒŠƒ“ƒNƒŠƒXƒg
+    AllocHeader* m_pAllocHeader; // ãƒªãƒ³ã‚¯ãƒªã‚¹ãƒˆ
 
     Heap* m_pParent;
     Heap* m_pFirstChild;
@@ -116,13 +121,13 @@ inline void* Heap::allocate(
 {
     std::lock_guard<std::recursive_mutex> lock(m_protection);
 
-    // ƒVƒOƒlƒ`ƒƒƒTƒCƒY‚ğƒvƒ‰ƒX
-    constexpr size_t signatureSize = sizeof(AllocationSignature);
+    // ã‚·ã‚°ãƒãƒãƒ£ã‚µã‚¤ã‚ºã‚’ãƒ—ãƒ©ã‚¹
+    constexpr size_t signatureSize = sizeof(AllocHeader::Signature);
 
-    // ƒ|ƒŠƒV[‚ğ—˜—p‚µ‚Äƒƒ‚ƒŠ‚ğŠm•Û
+    // ãƒãƒªã‚·ãƒ¼ã‚’åˆ©ç”¨ã—ã¦ãƒ¡ãƒ¢ãƒªã‚’ç¢ºä¿
     void* pBlock = Policy::allocate(bytes + signatureSize);
 
-    // ƒgƒ‰ƒbƒJ[‚Öî•ñ‚ğ“o˜^
+    // ãƒˆãƒ©ãƒƒã‚«ãƒ¼ã¸æƒ…å ±ã‚’ç™»éŒ²
     MemoryTracker::get().recordAllocation(
         pBlock,
         bytes,
@@ -144,13 +149,13 @@ inline void* Heap::allocateAligned(
 {
     std::lock_guard<std::recursive_mutex> lock(m_protection);
 
-    // ƒVƒOƒlƒ`ƒƒƒTƒCƒY‚ğƒvƒ‰ƒX
-    constexpr size_t signatureSize = sizeof(AllocationSignature);
+    // ã‚·ã‚°ãƒãƒãƒ£ã‚µã‚¤ã‚ºã‚’ãƒ—ãƒ©ã‚¹
+    constexpr size_t signatureSize = sizeof(AllocHeader::Signature);
 
-    // ƒ|ƒŠƒV[‚ğ—˜—p‚µ‚Äƒƒ‚ƒŠ‚ğŠm•Û
+    // ãƒãƒªã‚·ãƒ¼ã‚’åˆ©ç”¨ã—ã¦ãƒ¡ãƒ¢ãƒªã‚’ç¢ºä¿
     void* pBlock = Policy::allocateAligned(bytes + signatureSize);
 
-    // ƒgƒ‰ƒbƒJ[‚Öî•ñ‚ğ“o˜^
+    // ãƒˆãƒ©ãƒƒã‚«ãƒ¼ã¸æƒ…å ±ã‚’ç™»éŒ²
     MemoryTracker::get().recordAllocation(
         pBlock,
         bytes,
@@ -167,10 +172,10 @@ inline void Heap::deallocate(void* pBlock)
 {
     std::lock_guard<std::recursive_mutex> lock(m_protection);
 
-    // ƒgƒ‰ƒbƒJ[‚©‚çî•ñ‚ğíœ
+    // ãƒˆãƒ©ãƒƒã‚«ãƒ¼ã‹ã‚‰æƒ…å ±ã‚’å‰Šé™¤
     MemoryTracker::get().recordDeallocation(pBlock, this);
 
-    // ƒ|ƒŠƒV[‚ğ—˜—p‚µ‚Äƒƒ‚ƒŠ‚ğ”jŠü
+    // ãƒãƒªã‚·ãƒ¼ã‚’åˆ©ç”¨ã—ã¦ãƒ¡ãƒ¢ãƒªã‚’ç ´æ£„
     Policy::deallocate(pBlock);
 }
 
@@ -179,10 +184,10 @@ inline void Heap::deallocateAligned(void* pBlock)
 {
     std::lock_guard<std::recursive_mutex> lock(m_protection);
 
-    // ƒgƒ‰ƒbƒJ[‚©‚çî•ñ‚ğíœ
+    // ãƒˆãƒ©ãƒƒã‚«ãƒ¼ã‹ã‚‰æƒ…å ±ã‚’å‰Šé™¤
     MemoryTracker::get().recordDeallocation(pBlock, this);
 
-    // ƒ|ƒŠƒV[‚ğ—˜—p‚µ‚Äƒƒ‚ƒŠ‚ğ”jŠü
+    // ãƒãƒªã‚·ãƒ¼ã‚’åˆ©ç”¨ã—ã¦ãƒ¡ãƒ¢ãƒªã‚’ç ´æ£„
     Policy::deallocateAligned(pBlock);
 }
 
