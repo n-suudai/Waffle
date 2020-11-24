@@ -156,6 +156,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\common\utility\no_new_delete.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="..\..\..\include\core.h" />
     <ClInclude Include="..\..\..\include\core\logging.h" />
   </ItemGroup>

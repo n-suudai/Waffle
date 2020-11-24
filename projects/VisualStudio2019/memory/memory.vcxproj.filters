@@ -16,6 +16,9 @@
     <Filter Include="include\memory\policy">
       <UniqueIdentifier>{97693976-07d2-4128-b0a0-a7c4f06bda99}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\memory\policy">
+      <UniqueIdentifier>{5cf03f44-55a8-48ce-be51-6068f57f5b6c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\memory.h">
@@ -42,6 +45,12 @@
     <ClInclude Include="..\..\..\include\memory\policy\policy_standard.h">
       <Filter>include\memory\policy</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\memory\heap_walk.h">
+      <Filter>include\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\memory\memory_tracker.h">
+      <Filter>include\memory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\memory\alloc_header.cpp">
@@ -49,6 +58,21 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\memory\memory.cpp">
       <Filter>source\memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\memory\heap.cpp">
+      <Filter>source\memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\memory\memory_tracker.cpp">
+      <Filter>source\memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\memory\policy\policy_nedmalloc.cpp">
+      <Filter>source\memory\policy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\memory\policy\policy_nedmalloc_pooling.cpp">
+      <Filter>source\memory\policy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\memory\policy\policy_standard.cpp">
+      <Filter>source\memory\policy</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

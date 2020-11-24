@@ -153,6 +153,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\memory\heap_walk.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\memory\memory_tracker.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="..\..\..\include\memory\policy.h">
       <SubType>
       </SubType>
@@ -172,7 +180,27 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\memory\alloc_header.cpp" />
+    <ClCompile Include="..\..\..\source\memory\heap.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="..\..\..\source\memory\memory.cpp" />
+    <ClCompile Include="..\..\..\source\memory\memory_tracker.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\memory\policy\policy_nedmalloc.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\memory\policy\policy_nedmalloc_pooling.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\memory\policy\policy_standard.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
