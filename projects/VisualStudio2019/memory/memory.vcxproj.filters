@@ -51,6 +51,12 @@
     <ClInclude Include="..\..\..\include\memory\memory_tracker.h">
       <Filter>include\memory</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\memory\global_heap.h">
+      <Filter>include\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\memory\heap_factory.h">
+      <Filter>include\memory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\memory\alloc_header.cpp">
@@ -73,6 +79,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\memory\policy\policy_standard.cpp">
       <Filter>source\memory\policy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\memory\global_heap.cpp">
+      <Filter>source\memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\memory\heap_factory.cpp">
+      <Filter>source\memory</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

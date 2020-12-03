@@ -100,12 +100,7 @@ void Heap::eraseAllocation(AllocHeader* pAllocHeader)
 {
     std::lock_guard<std::recursive_mutex> lock(m_protection);
 
-    AllocHeader* pNextTop = pAllocHeader->deleteLink();
-    if (pNextTop != nullptr)
-    {
-        assert(pAllocHeader == m_pAllocHeader);
-        m_pAllocHeader = pNextTop;
-    }
+    pAllocHeader->deleteLink(m_pAllocHeader);
 
     // 確保サイズ情報更新
     m_totalAllocatedBytes -= pAllocHeader->getBytes();
@@ -151,7 +146,7 @@ void Heap::attachTo(Heap* pParent)
 }
 
 // リークのチェック関数
-void Heap::memoryLeakCheck(
+void Heap::reportMemoryLeaks(
     IMemoryLeakReporter* pReporter,
     wfl::size_t bookmarkStart,
     wfl::size_t bookmarkEnd) const
@@ -195,7 +190,7 @@ void Heap::reportTreeStats(
 }
 
 // メモリ破壊のチェック関数
-void Heap::memoryAssertionCheck(
+void Heap::reportMemoryAssertions(
     IMemoryAssertionReporter* pReporter,
     wfl::size_t bookmarkStart,
     wfl::size_t bookmarkEnd) const
@@ -208,7 +203,7 @@ void Heap::memoryAssertionCheck(
         if (pAllocHeader->getBookmark() >= bookmarkStart &&
             pAllocHeader->getBookmark() <= bookmarkEnd)
         {
-            if (pAllocHeader->getSignature() != AllocHeader::SIGNATURE)
+            if (!pAllocHeader->isValidSignature())
             {
                 pReporter->report(this, pAllocHeader);
             }

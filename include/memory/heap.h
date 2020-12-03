@@ -53,7 +53,7 @@ public:
     inline void deallocate(void* pBlock);
 
     template <typename Policy>
-    inline void deallocateAligned(void* pBlock);
+    inline void deallocateAligned(void* pBlock, wfl::size_t alignment);
 
     // リンクリストを構築
     void addAllocation(AllocHeader* pAllocation);
@@ -65,7 +65,7 @@ public:
     void attachTo(Heap* pParent);
 
     // リークのチェック関数
-    void memoryLeakCheck(
+    void reportMemoryLeaks(
         IMemoryLeakReporter* pReporter,
         wfl::size_t bookmarkStart,
         wfl::size_t bookmarkEnd) const;
@@ -76,7 +76,7 @@ public:
         wfl::int32_t depth) const;
 
     // メモリ破壊のチェック関数
-    void memoryAssertionCheck(
+    void reportMemoryAssertions(
         IMemoryAssertionReporter* pReporter,
         wfl::size_t bookmarkStart,
         wfl::size_t bookmarkEnd) const;
@@ -153,7 +153,7 @@ inline void* Heap::allocateAligned(
     constexpr size_t signatureSize = sizeof(AllocHeader::Signature);
 
     // ポリシーを利用してメモリを確保
-    void* pBlock = Policy::allocateAligned(bytes + signatureSize);
+    void* pBlock = Policy::allocateAligned(bytes + signatureSize, alignment);
 
     // トラッカーへ情報を登録
     MemoryTracker::get().recordAllocation(
@@ -180,7 +180,7 @@ inline void Heap::deallocate(void* pBlock)
 }
 
 template <typename Policy>
-inline void Heap::deallocateAligned(void* pBlock)
+inline void Heap::deallocateAligned(void* pBlock, wfl::size_t alignment)
 {
     std::lock_guard<std::recursive_mutex> lock(m_protection);
 
@@ -188,7 +188,7 @@ inline void Heap::deallocateAligned(void* pBlock)
     MemoryTracker::get().recordDeallocation(pBlock, this);
 
     // ポリシーを利用してメモリを破棄
-    Policy::deallocateAligned(pBlock);
+    Policy::deallocateAligned(pBlock, alignment);
 }
 
 

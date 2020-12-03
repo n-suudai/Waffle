@@ -149,10 +149,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\memory\alloc_header.h" />
     <ClInclude Include="..\..\..\include\memory\config.h" />
+    <ClInclude Include="..\..\..\include\memory\global_heap.h" />
     <ClInclude Include="..\..\..\include\memory\heap.h">
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\memory\heap_factory.h" />
     <ClInclude Include="..\..\..\include\memory\heap_walk.h">
       <SubType>
       </SubType>
@@ -180,10 +182,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\memory\alloc_header.cpp" />
+    <ClCompile Include="..\..\..\source\memory\global_heap.cpp" />
     <ClCompile Include="..\..\..\source\memory\heap.cpp">
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\memory\heap_factory.cpp" />
     <ClCompile Include="..\..\..\source\memory\memory.cpp" />
     <ClCompile Include="..\..\..\source\memory\memory_tracker.cpp">
       <SubType>

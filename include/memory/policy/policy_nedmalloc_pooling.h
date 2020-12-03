@@ -32,6 +32,7 @@ THE SOFTWARE.
 
 #include "common/types.h"
 #include "common/utility/non_instantiatable.h"
+#include "common/memory/config.h"
 
 
 namespace waffle {

@@ -69,11 +69,11 @@ typedef Flags<HeaderInfoFlagBits> HeaderInfoFlags;
 class Heap;
 
 // ヘッダ情報
-class AllocHeader
+class AllocHeader final
 {
 public:
-    static void* operator new(wfl::size_t bytes);
-    static void operator delete(void* pBlock);
+    //static void* operator new(wfl::size_t bytes);
+    //static void operator delete(void* pBlock);
 
 public:
     typedef wfl::uint32_t Signature;
@@ -83,6 +83,11 @@ public:
 
     // ヘッダ情報の最大メンバ数
     static constexpr wfl::size_t HEADER_INFO_BIT_COUNT = sizeof(HeaderInfoFlagBits) * 8;
+
+public:
+    AllocHeader();
+
+    ~AllocHeader();
 
 public:
     // どのヘッダ情報を保持するかを渡して初期化
@@ -144,7 +149,7 @@ public:
     void addLink(AllocHeader* pAllocHeader);
 
     // リンクリストから切り離す
-    AllocHeader* deleteLink();
+    void deleteLink(AllocHeader*& pAllocHeader);
 
     // 情報書き込み
     void record(
@@ -160,6 +165,7 @@ public:
     bool isValidSignature() const;
 
 private:
+    char* m_pBuffer;
     static wfl::ptrdiff_t s_HeaderSize; // ヘッダ情報の全体サイズ
     static wfl::array<wfl::ptrdiff_t, HEADER_INFO_BIT_COUNT> s_HeaderInfoOffsets; // ヘッダ情報メンバアドレスへのオフセット値
     static HeaderInfoFlags s_HeaderInfos; // 有効なヘッダ情報

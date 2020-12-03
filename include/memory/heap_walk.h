@@ -43,7 +43,9 @@ public:
 
     virtual void beginReport() = 0;
 
-    virtual void report(wfl::int32_t depth, const Heap* pHeap,
+    virtual void report(
+        wfl::int32_t depth,
+        const Heap* pHeap,
         const HeapTreeStats& local,
         const HeapTreeStats& total) = 0;
 

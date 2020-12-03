@@ -7,15 +7,27 @@
     <Filter Include="source">
       <UniqueIdentifier>{4cd22291-eb4f-4950-90e4-41636ce14dfa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\third_party">
+      <UniqueIdentifier>{194200e1-e42d-4d68-afbf-51d2610a527f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\third_party\nedmalloc">
+      <UniqueIdentifier>{faee9bb9-3ab3-4b9c-8dad-368ef36a2777}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\third_party">
+      <UniqueIdentifier>{d044688b-2202-4f72-b30b-59a33eb6bdd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\third_party\nedmalloc">
+      <UniqueIdentifier>{476b6b4d-f090-4916-a071-aa31f39e89f0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\..\include\third_party\nedmalloc\wfl_nedmalloc.h">
-      <Filter>include</Filter>
+      <Filter>include\third_party\nedmalloc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\source\third_party\nedmalloc\wfl_nedmalloc.cpp">
-      <Filter>source</Filter>
+      <Filter>source\third_party\nedmalloc</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

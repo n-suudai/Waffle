@@ -32,6 +32,7 @@ THE SOFTWARE.
 
 #include "common/types.h"
 #include "common/utility/non_instantiatable.h"
+#include "common/memory/config.h"
 
 
 namespace waffle {
@@ -42,8 +43,8 @@ class StandardAllocatePolicy final
 {
     WFL_NON_INSTANTIATABLE(StandardAllocatePolicy);
 public:
-    static void* allocate(wfl::size_t bytes);
-    static void* allocateAligned(wfl::size_t bytes, wfl::size_t alignment);
+    static WFL_DECL_MALLOC void* allocate(wfl::size_t bytes);
+    static WFL_DECL_MALLOC void* allocateAligned(wfl::size_t bytes, wfl::size_t alignment);
 
     static void deallocate(void* pBlock);
     static void deallocateAligned(void* pBlock);
