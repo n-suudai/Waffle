@@ -19,6 +19,7 @@ class Heap;
 // Heap 経由でメモリ確保
 class GlobalHeapWithTracking final
 {
+    WFL_NON_INSTANTIATABLE(GlobalHeapWithTracking);
 private:
     static Heap* s_pHeap;
     static Heap* getHeap();
@@ -64,6 +65,7 @@ public:
 // ポリシーから直接メモリ確保
 class GlobalHeapWithoutTracking final
 {
+    WFL_NON_INSTANTIATABLE(GlobalHeapWithoutTracking);
 public:
     static inline void* heapMalloc(
         wfl::size_t bytes)

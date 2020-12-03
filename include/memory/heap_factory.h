@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-
+#include "common/utility/no_new_delete.h"
 #include "memory/heap.h"
 #include <array>
 
@@ -9,14 +9,11 @@ namespace waffle {
 namespace memory {
 
 
-class HeapFactory
+class HeapFactory final
 {
+    WFL_NO_NEW_DELETE;
 public:
     static HeapFactory& get();
-
-    HeapFactory();
-
-    ~HeapFactory();
 
     void initialize();
 
@@ -57,6 +54,11 @@ public:
     void reportMemoryAssertions(
         IMemoryAssertionReporter* pReporter,
         wfl::size_t bookmarkStart = 0) const;
+
+private:
+    HeapFactory();
+
+    ~HeapFactory();
 
 private:
     static constexpr char s_pRootHeapName[] = "Root";

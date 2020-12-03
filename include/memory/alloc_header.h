@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 
+#include "memory/policy.h"
 #include "common/utility/flags.h"
 #include <array>
 
@@ -71,9 +72,20 @@ class Heap;
 // ヘッダ情報
 class AllocHeader final
 {
+private:
+    static void* operator new[](wfl::size_t bytes) = delete;
+    static void operator delete[](void* pBlock) = delete;
+
 public:
-    //static void* operator new(wfl::size_t bytes);
-    //static void operator delete(void* pBlock);
+    static inline void* operator new(wfl::size_t bytes)
+    {
+        return AllocatePolicy::allocate(bytes);
+    }
+
+    static void operator delete(void* pBlock)
+    {
+        AllocatePolicy::deallocate(pBlock);
+    }
 
 public:
     typedef wfl::uint32_t Signature;
