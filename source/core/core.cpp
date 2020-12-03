@@ -1,5 +1,4 @@
 ﻿#include "core.h"
-#include "memory/memory.h"
 #include "core/logging.h"
 
 
@@ -9,11 +8,9 @@ namespace core {
 
 bool initialize()
 {
-    bool result = memory::initialize();
-
     logging::put("[core] initialized.");
 
-    return result;
+    return true;
 }
 
 void finalize()

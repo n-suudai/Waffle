@@ -7,13 +7,8 @@ namespace waffle {
 namespace application {
 
 
-static Allocation s_allocation;
-
-
-bool initialize(Allocation allocation)
+bool initialize()
 {
-    s_allocation = allocation;
-
     logging::put("[application] initialized.");
 
     return true;

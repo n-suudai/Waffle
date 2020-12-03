@@ -8,11 +8,7 @@ namespace waffle {
 namespace memory {
 
 
-class Heap final
-{
-public:
 
-};
 
 
 } // namespace memory

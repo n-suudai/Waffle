@@ -14,7 +14,7 @@ class Heap;
 
 class AllocHeader;
 
-class MemoryTracker
+class MemoryTracker final
 {
 public:
     //typedef typename std::map<void*, Allocation*, std::less<void*>,

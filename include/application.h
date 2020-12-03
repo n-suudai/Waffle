@@ -2,14 +2,13 @@
 
 
 #include "common/types.h"
-#include "application/allocation.h"
 
 
 namespace waffle {
 namespace application {
 
 
-bool initialize(Allocation allocation);
+bool initialize();
 
 void finalize();
 
