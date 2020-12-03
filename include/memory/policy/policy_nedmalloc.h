@@ -42,11 +42,11 @@ class NedAllocatePolicy final
 {
     WFL_NON_INSTANTIATABLE(NedAllocatePolicy);
 public:
-    static void* allocate(wfl::size_t bytes);
-    static void* allocateAligned(wfl::size_t bytes, wfl::size_t alignment);
+    static WFL_DECL_MALLOC void* allocate(wfl::size_t bytes);
+    static WFL_DECL_MALLOC void* allocateAligned(wfl::size_t bytes, wfl::size_t alignment);
 
     static void deallocate(void* pBlock);
-    static void deallocateAligned(void* pBlock);
+    static void deallocateAligned(void* pBlock, wfl::size_t alignment);
 };
 
 

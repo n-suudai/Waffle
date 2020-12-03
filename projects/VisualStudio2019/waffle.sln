@@ -18,6 +18,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "application", "application\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "memory", "memory\memory.vcxproj", "{EE9B9C48-50C4-4BD6-95E1-13A7D84D909A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "third_party", "third_party", "{586034BD-6183-4802-9F24-9C99D2DE5215}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nedmalloc", "third_party\nedmalloc\nedmalloc\nedmalloc.vcxproj", "{B148B96B-94C3-49E8-80A9-75467950AF08}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -58,9 +62,20 @@ Global
 		{EE9B9C48-50C4-4BD6-95E1-13A7D84D909A}.Release|x64.Build.0 = Release|x64
 		{EE9B9C48-50C4-4BD6-95E1-13A7D84D909A}.Release|x86.ActiveCfg = Release|Win32
 		{EE9B9C48-50C4-4BD6-95E1-13A7D84D909A}.Release|x86.Build.0 = Release|Win32
+		{B148B96B-94C3-49E8-80A9-75467950AF08}.Debug|x64.ActiveCfg = Debug|x64
+		{B148B96B-94C3-49E8-80A9-75467950AF08}.Debug|x64.Build.0 = Debug|x64
+		{B148B96B-94C3-49E8-80A9-75467950AF08}.Debug|x86.ActiveCfg = Debug|Win32
+		{B148B96B-94C3-49E8-80A9-75467950AF08}.Debug|x86.Build.0 = Debug|Win32
+		{B148B96B-94C3-49E8-80A9-75467950AF08}.Release|x64.ActiveCfg = Release|x64
+		{B148B96B-94C3-49E8-80A9-75467950AF08}.Release|x64.Build.0 = Release|x64
+		{B148B96B-94C3-49E8-80A9-75467950AF08}.Release|x86.ActiveCfg = Release|Win32
+		{B148B96B-94C3-49E8-80A9-75467950AF08}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B148B96B-94C3-49E8-80A9-75467950AF08} = {586034BD-6183-4802-9F24-9C99D2DE5215}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8A7A1CD1-DD10-443F-9F0A-3A625970F88C}

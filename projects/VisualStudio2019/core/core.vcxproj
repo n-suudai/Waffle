@@ -139,6 +139,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\common\memory\config.h" />
     <ClInclude Include="..\..\..\include\common\platform.h" />
     <ClInclude Include="..\..\..\include\common\platform\win32.h">
       <SubType>
