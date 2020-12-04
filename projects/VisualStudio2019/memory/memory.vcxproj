@@ -179,6 +179,9 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\memory\stl\stl_allocator.h" />
+    <ClInclude Include="..\..\..\include\memory\stl\stl_container.h" />
+    <ClInclude Include="..\..\..\include\memory\stl\stl_memory.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\memory\alloc_header.cpp" />

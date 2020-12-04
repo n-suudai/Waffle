@@ -19,6 +19,9 @@
     <Filter Include="source\memory\policy">
       <UniqueIdentifier>{5cf03f44-55a8-48ce-be51-6068f57f5b6c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\memory\stl">
+      <UniqueIdentifier>{42a28b78-073e-4dbd-97b8-d0ac0f9259d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\memory.h">
@@ -56,6 +59,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\memory\heap_factory.h">
       <Filter>include\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\memory\stl\stl_allocator.h">
+      <Filter>include\memory\stl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\memory\stl\stl_container.h">
+      <Filter>include\memory\stl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\memory\stl\stl_memory.h">
+      <Filter>include\memory\stl</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
