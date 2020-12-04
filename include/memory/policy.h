@@ -6,7 +6,7 @@
 
 #if WFL_ALLOC_POLICY == WFL_ALLOC_POLICY_NED_POOLING
 
-#include "policy/policy_nedmalloc_pooling.h"
+#include "memory/policy/policy_nedmalloc_pooling.h"
 
 namespace waffle {
 namespace memory {
@@ -18,7 +18,7 @@ typedef NedPoolingAllocatePolicy AllocatePolicy;
 
 #elif WFL_ALLOC_POLICY == WFL_ALLOC_POLICY_NED
 
-#include "policy/policy_nedmalloc.h"
+#include "memory/policy/policy_nedmalloc.h"
 
 namespace waffle {
 namespace memory {
@@ -30,7 +30,7 @@ typedef NedAllocatePolicy AllocatePolicy;
 
 #elif WFL_ALLOC_POLICY == WFL_ALLOC_POLICY_STANDARD
 
-#include "policy/policy_standard.h"
+#include "memory/policy/policy_standard.h"
 
 namespace waffle {
 namespace memory {
