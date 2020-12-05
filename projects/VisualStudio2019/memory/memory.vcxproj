@@ -159,6 +159,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\memory\memory_manager.h" />
     <ClInclude Include="..\..\..\include\memory\memory_tracker.h">
       <SubType>
       </SubType>
@@ -179,9 +180,15 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\memory\stl.h" />
     <ClInclude Include="..\..\..\include\memory\stl\stl_allocator.h" />
+    <ClInclude Include="..\..\..\include\memory\stl\stl_allocator_without_tracking.h" />
+    <ClInclude Include="..\..\..\include\memory\stl\stl_allocator_with_tracking.h" />
+    <ClInclude Include="..\..\..\include\memory\stl\stl_blob.h" />
     <ClInclude Include="..\..\..\include\memory\stl\stl_container.h" />
+    <ClInclude Include="..\..\..\include\memory\stl\stl_heap_factory.h" />
     <ClInclude Include="..\..\..\include\memory\stl\stl_memory.h" />
+    <ClInclude Include="..\..\..\include\memory\stl\stl_string.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\memory\alloc_header.cpp" />
@@ -208,6 +215,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\memory\stl\stl_heap_factory.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -14,14 +14,13 @@ template<typename T>
 void writeValue(const T& value, void* pBlock)
 {
     T* p = reinterpret_cast<T*>(pBlock);
-
     (*p) = value;
 }
 
 template<typename T>
-T readValue(void* pBlock)
+const T& readValue(const void* pBlock)
 {
-    T* p = reinterpret_cast<T*>(pBlock);
+    const T* p = reinterpret_cast<const T*>(pBlock);
     return (*p);
 }
 
@@ -35,28 +34,14 @@ wfl::array<wfl::ptrdiff_t, AllocHeader::HEADER_INFO_BIT_COUNT> AllocHeader::s_He
 HeaderInfoFlags AllocHeader::s_HeaderInfos = HeaderInfoFlagBits::Required;
 
 
-//// TODO : アロケーションポリシーに沿ってメモリ確保
-//void* AllocHeader::operator new(wfl::size_t bytes)
-//{
-//    char* p = new char[bytes];
-//    return p;
-//}
-//
-//void AllocHeader::operator delete(void* pBlock)
-//{
-//    char* p = reinterpret_cast<char*>(pBlock);
-//    delete[] p;
-//}
-
 AllocHeader::AllocHeader()
-    : m_pBuffer(nullptr)
 {
-    m_pBuffer = new char[getHeaderSize()];
+
 }
 
 AllocHeader::~AllocHeader()
 {
-    delete[] m_pBuffer;
+
 }
 
 
@@ -193,7 +178,7 @@ const void* AllocHeader::getBlock() const
 {
     if (isEnabled(HeaderInfoFlagBits::MemoryBlock))
     {
-        void* ptr = m_pBuffer + getHeaderOffset(HeaderInfoIndex::MemoryBlock);
+        const void* ptr = this + getHeaderOffset(HeaderInfoIndex::MemoryBlock);
         return readValue<const void*>(ptr);
     }
     return nullptr;
@@ -203,7 +188,7 @@ void* AllocHeader::getBlock()
 {
     if (isEnabled(HeaderInfoFlagBits::MemoryBlock))
     {
-        void* ptr = m_pBuffer + getHeaderOffset(HeaderInfoIndex::MemoryBlock);
+        void* ptr = this + getHeaderOffset(HeaderInfoIndex::MemoryBlock);
         return readValue<void*>(ptr);
     }
     return nullptr;
@@ -214,7 +199,7 @@ wfl::size_t AllocHeader::getBytes() const
 {
     if (isEnabled(HeaderInfoFlagBits::MemoryBytes))
     {
-        void* ptr = m_pBuffer + getHeaderOffset(HeaderInfoIndex::MemoryBytes);
+        const void* ptr = this + getHeaderOffset(HeaderInfoIndex::MemoryBytes);
         return readValue<wfl::size_t>(ptr);
     }
     return 0;
@@ -225,7 +210,7 @@ const char* AllocHeader::getFileName() const
 {
     if (isEnabled(HeaderInfoFlagBits::FileName))
     {
-        void* ptr = m_pBuffer + getHeaderOffset(HeaderInfoIndex::FileName);
+        const void* ptr = this + getHeaderOffset(HeaderInfoIndex::FileName);
         return readValue<const char*>(ptr);
     }
     return "UNKNOWN FILE";
@@ -236,7 +221,7 @@ wfl::int32_t AllocHeader::getLine() const
 {
     if (isEnabled(HeaderInfoFlagBits::Line))
     {
-        void* ptr = m_pBuffer + getHeaderOffset(HeaderInfoIndex::Line);
+        const void* ptr = this + getHeaderOffset(HeaderInfoIndex::Line);
         return readValue<wfl::int32_t>(ptr);
     }
     return 0;
@@ -247,7 +232,7 @@ const char* AllocHeader::getFunctionName() const
 {
     if (isEnabled(HeaderInfoFlagBits::FunctionName))
     {
-        void* ptr = m_pBuffer + getHeaderOffset(HeaderInfoIndex::FunctionName);
+        const void* ptr = this + getHeaderOffset(HeaderInfoIndex::FunctionName);
         return readValue<const char*>(ptr);
     }
     return "UNKNOWN FUNCTION";
@@ -258,7 +243,7 @@ time_t AllocHeader::getDateTime() const
 {
     if (isEnabled(HeaderInfoFlagBits::DateTime))
     {
-        void* ptr = m_pBuffer + getHeaderOffset(HeaderInfoIndex::DateTime);
+        const void* ptr = this + getHeaderOffset(HeaderInfoIndex::DateTime);
         return readValue<time_t>(ptr);
     }
     return 0;
@@ -269,7 +254,7 @@ wfl::size_t AllocHeader::getBackTraceHash() const
 {
     if (isEnabled(HeaderInfoFlagBits::BackTraceHash))
     {
-        void* ptr = m_pBuffer + getHeaderOffset(HeaderInfoIndex::BackTraceHash);
+        const void* ptr = this + getHeaderOffset(HeaderInfoIndex::BackTraceHash);
         return readValue<wfl::size_t>(ptr);
     }
     return 0;
@@ -280,7 +265,7 @@ AllocHeader::Signature AllocHeader::getSignature() const
 {
     if (isEnabled(HeaderInfoFlagBits::Signature))
     {
-        void* ptr = m_pBuffer + getHeaderOffset(HeaderInfoIndex::Signature);
+        const void* ptr = this + getHeaderOffset(HeaderInfoIndex::Signature);
         return *readValue<Signature*>(ptr);
     }
     return 0;
@@ -291,7 +276,7 @@ wfl::size_t AllocHeader::getBookmark() const
 {
     if (isEnabled(HeaderInfoFlagBits::Bookmark))
     {
-        void* ptr = m_pBuffer + getHeaderOffset(HeaderInfoIndex::Bookmark);
+        const void* ptr = this + getHeaderOffset(HeaderInfoIndex::Bookmark);
         return readValue<wfl::size_t>(ptr);
     }
     return 0;
@@ -302,7 +287,7 @@ const Heap* AllocHeader::getHeap() const
 {
     if (isEnabled(HeaderInfoFlagBits::Heap))
     {
-        void* ptr = m_pBuffer + getHeaderOffset(HeaderInfoIndex::Heap);
+        const void* ptr = this + getHeaderOffset(HeaderInfoIndex::Heap);
         return readValue<const Heap*>(ptr);
     }
     return nullptr;
@@ -312,7 +297,7 @@ Heap* AllocHeader::getHeap()
 {
     if (isEnabled(HeaderInfoFlagBits::Heap))
     {
-        void* ptr = m_pBuffer + getHeaderOffset(HeaderInfoIndex::Heap);
+        void* ptr = this + getHeaderOffset(HeaderInfoIndex::Heap);
         return readValue<Heap*>(ptr);
     }
     return nullptr;
@@ -323,7 +308,7 @@ const AllocHeader* AllocHeader::getNext() const
 {
     if (isEnabled(HeaderInfoFlagBits::Next))
     {
-        void* ptr = m_pBuffer + getHeaderOffset(HeaderInfoIndex::Next);
+        const void* ptr = this + getHeaderOffset(HeaderInfoIndex::Next);
         return readValue<const AllocHeader*>(ptr);
     }
     return nullptr;
@@ -333,7 +318,7 @@ AllocHeader* AllocHeader::getNext()
 {
     if (isEnabled(HeaderInfoFlagBits::Next))
     {
-        void* ptr = m_pBuffer + getHeaderOffset(HeaderInfoIndex::Next);
+        void* ptr = this + getHeaderOffset(HeaderInfoIndex::Next);
         return readValue<AllocHeader*>(ptr);
     }
     return nullptr;
@@ -344,7 +329,7 @@ const AllocHeader* AllocHeader::getPrev() const
 {
     if (isEnabled(HeaderInfoFlagBits::Prev))
     {
-        void* ptr = m_pBuffer + getHeaderOffset(HeaderInfoIndex::Prev);
+        const void* ptr = this + getHeaderOffset(HeaderInfoIndex::Prev);
         return readValue<const AllocHeader*>(ptr);
     }
     return nullptr;
@@ -354,7 +339,7 @@ AllocHeader* AllocHeader::getPrev()
 {
     if (isEnabled(HeaderInfoFlagBits::Prev))
     {
-        void* ptr = m_pBuffer + getHeaderOffset(HeaderInfoIndex::Prev);
+        void* ptr = this + getHeaderOffset(HeaderInfoIndex::Prev);
         return readValue<AllocHeader*>(ptr);
     }
     return nullptr;
@@ -366,13 +351,13 @@ void AllocHeader::addLink(AllocHeader* pAllocHeader)
     if (!isEnabled(HeaderInfoFlagBits::Required)) { return; }
 
     {
-        void* ptr = m_pBuffer + getHeaderOffset(HeaderInfoIndex::Next);
+        void* ptr = this + getHeaderOffset(HeaderInfoIndex::Next);
         writeValue<AllocHeader*>(pAllocHeader, ptr);
     }
 
     if (pAllocHeader)
     {
-        void* ptr = pAllocHeader->m_pBuffer + getHeaderOffset(HeaderInfoIndex::Prev);
+        void* ptr = pAllocHeader + getHeaderOffset(HeaderInfoIndex::Prev);
         writeValue<AllocHeader*>(this, ptr);
     }
 }
@@ -390,7 +375,7 @@ void AllocHeader::deleteLink(AllocHeader*& pAllocHeader)
     else
     {
         {
-            void* ptr = getPrev()->m_pBuffer + getHeaderOffset(HeaderInfoIndex::Next);
+            void* ptr = getPrev() + getHeaderOffset(HeaderInfoIndex::Next);
             writeValue<AllocHeader*>(getNext(), ptr);
         }
     }
@@ -398,7 +383,7 @@ void AllocHeader::deleteLink(AllocHeader*& pAllocHeader)
     if (getNext() != nullptr)
     {
         {
-            void* ptr = getNext()->m_pBuffer + getHeaderOffset(HeaderInfoIndex::Prev);
+            void* ptr = getNext() + getHeaderOffset(HeaderInfoIndex::Prev);
             writeValue<AllocHeader*>(getPrev(), ptr);
         }
     }
@@ -418,49 +403,49 @@ void AllocHeader::record(
 {
     if (isEnabled(HeaderInfoFlagBits::MemoryBlock))
     {
-        void* ptr = m_pBuffer + getHeaderOffset(HeaderInfoIndex::MemoryBlock);
+        void* ptr = this + getHeaderOffset(HeaderInfoIndex::MemoryBlock);
         writeValue<void*>(address, ptr);
     }
 
     if (isEnabled(HeaderInfoFlagBits::MemoryBytes))
     {
-        void* ptr = m_pBuffer + getHeaderOffset(HeaderInfoIndex::MemoryBytes);
+        void* ptr = this + getHeaderOffset(HeaderInfoIndex::MemoryBytes);
         writeValue<wfl::size_t>(bytes, ptr);
     }
 
     if (isEnabled(HeaderInfoFlagBits::FileName))
     {
-        void* ptr = m_pBuffer + getHeaderOffset(HeaderInfoIndex::FileName);
+        void* ptr = this + getHeaderOffset(HeaderInfoIndex::FileName);
         writeValue<const char*>(file, ptr);
     }
 
     if (isEnabled(HeaderInfoFlagBits::Line))
     {
-        void* ptr = m_pBuffer + getHeaderOffset(HeaderInfoIndex::Line);
+        void* ptr = this + getHeaderOffset(HeaderInfoIndex::Line);
         writeValue<wfl::uint32_t>(static_cast<wfl::uint32_t>(line), ptr);
     }
 
     if (isEnabled(HeaderInfoFlagBits::FunctionName))
     {
-        void* ptr = m_pBuffer + getHeaderOffset(HeaderInfoIndex::FunctionName);
+        void* ptr = this + getHeaderOffset(HeaderInfoIndex::FunctionName);
         writeValue<const char*>(function, ptr);
     }
 
     if (isEnabled(HeaderInfoFlagBits::DateTime))
     {
-        void* ptr = m_pBuffer + getHeaderOffset(HeaderInfoIndex::DateTime);
+        void* ptr = this + getHeaderOffset(HeaderInfoIndex::DateTime);
         writeValue<time_t>(time(NULL), ptr); // TODO : クロスプラットフォーム
     }
 
     if (isEnabled(HeaderInfoFlagBits::BackTraceHash))
     {
-        void* ptr = m_pBuffer + getHeaderOffset(HeaderInfoIndex::BackTraceHash);
+        void* ptr = this + getHeaderOffset(HeaderInfoIndex::BackTraceHash);
         writeValue<wfl::size_t>(backTraceHash, ptr);
     }
 
     if (isEnabled(HeaderInfoFlagBits::Signature))
     {
-        void* ptr = m_pBuffer + getHeaderOffset(HeaderInfoIndex::Signature);
+        void* ptr = this + getHeaderOffset(HeaderInfoIndex::Signature);
         Signature* pSignature = reinterpret_cast<Signature*>(
             reinterpret_cast<std::ptrdiff_t>(address) + bytes);
         writeValue<Signature*>(pSignature, ptr);
@@ -469,25 +454,25 @@ void AllocHeader::record(
 
     if (isEnabled(HeaderInfoFlagBits::Bookmark))
     {
-        void* ptr = m_pBuffer + getHeaderOffset(HeaderInfoIndex::Bookmark);
+        void* ptr = this + getHeaderOffset(HeaderInfoIndex::Bookmark);
         writeValue<wfl::size_t>(bookmark, ptr);
     }
 
     if (isEnabled(HeaderInfoFlagBits::Heap))
     {
-        void* ptr = m_pBuffer + getHeaderOffset(HeaderInfoIndex::Heap);
+        void* ptr = this + getHeaderOffset(HeaderInfoIndex::Heap);
         writeValue<Heap*>(pHeap, ptr);
     }
 
     if (isEnabled(HeaderInfoFlagBits::Next))
     {
-        void* ptr = m_pBuffer + getHeaderOffset(HeaderInfoIndex::Next);
+        void* ptr = this + getHeaderOffset(HeaderInfoIndex::Next);
         writeValue<AllocHeader*>(nullptr, ptr);
     }
 
     if (isEnabled(HeaderInfoFlagBits::Prev))
     {
-        void* ptr = m_pBuffer + getHeaderOffset(HeaderInfoIndex::Prev);
+        void* ptr = this + getHeaderOffset(HeaderInfoIndex::Prev);
         writeValue<AllocHeader*>(nullptr, ptr);
     }
 }

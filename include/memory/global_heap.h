@@ -1,7 +1,6 @@
 ﻿#pragma once
 
-#include "memory/heap.h"
-#include "memory/policy.h"
+#include "memory/stl/stl_memory.h"
 
 
 namespace waffle {
@@ -52,11 +51,40 @@ public:
         getHeap()->deallocate<AllocatePolicy>(pBlock);
     }
 
-    static void heapFreeAligned(
+    static inline void heapFreeAligned(
         void* pBlock,
         wfl::size_t alignment)
     {
         getHeap()->deallocateAligned<AllocatePolicy>(pBlock, alignment);
+    }
+
+    template<typename T, typename... Arguments>
+    static inline UniquePtr<T> makeUnique(
+        const char* file,
+        wfl::int32_t line,
+        const char* function,
+        Arguments &&... arguments)
+    {
+        return makeUnique_WithTracking<T>(
+            file,
+            line,
+            function,
+            std::forward<Arguments>(arguments)...);
+    }
+
+    template <typename T, typename... Arguments>
+    static inline SharedPtr<T> makeShared(
+        const char* file,
+        wfl::int32_t line,
+        const char* function,
+        Arguments &&... arguments)
+    {
+        return makeShared_WithTracking<T>(
+            getHeap(),
+            file,
+            line,
+            function,
+            std::forward<Arguments>(arguments)...);
     }
 };
 
@@ -92,6 +120,18 @@ public:
     {
         return AllocatePolicy::deallocateAligned(pBlock, alignment);
     }
+
+    template<typename T, typename... Arguments>
+    static inline UniquePtr<T> makeUnique(Arguments &&... arguments)
+    {
+        return makeUnique_WithoutTracking<T>(std::forward<Arguments>(arguments)...);
+    }
+
+    template<typename T, typename... Arguments>
+    static inline SharedPtr<T> makeShared(Arguments &&... arguments)
+    {
+        return makeShared_WithoutTracking<T>(std::forward<Arguments>(arguments)...);
+    }
 };
 
 
@@ -111,6 +151,12 @@ waffle::memory::GlobalHeapWithTracking::heapFree((pBlock))
 #define WFL_GLOBAL_HEAP_FREE_ALIGNED_WITH_TRACKING(pBlock, alignment) \
 waffle::memory::GlobalHeapWithTracking::heapFreeAligned((pBlock), (alignment))
 
+#define WFL_GLOBAL_HEAP_MAKE_UNIQUE_WITH_TRACKING(type, ...) \
+waffle::memory::GlobalHeapWithTracking::makeUnique<type>(__FILE__, __LINE__, __FUNCTION__, __VA_ARGS__)
+
+#define WFL_GLOBAL_HEAP_MAKE_SHARED_WITH_TRACKING(type, ...) \
+waffle::memory::GlobalHeapWithTracking::makeShared<type>(__FILE__, __LINE__, __FUNCTION__, __VA_ARGS__)
+
 
 #if WFL_USE_HEAP_TRACKING
 
@@ -126,6 +172,12 @@ WFL_GLOBAL_HEAP_FREE_WITH_TRACKING
 #define WFL_GLOBAL_HEAP_FREE_ALIGNED \
 WFL_GLOBAL_HEAP_FREE_ALIGNED_WITH_TRACKING
 
+#define WFL_GLOBAL_HEAP_MAKE_UNIQUE \
+WFL_GLOBAL_HEAP_MAKE_UNIQUE_WITH_TRACKING
+
+#define WFL_GLOBAL_HEAP_MAKE_SHARED \
+WFL_GLOBAL_HEAP_MAKE_SHARED_WITH_TRACKING
+
 #else
 
 #define WFL_GLOBAL_HEAP_MALLOC(bytes) \
@@ -139,6 +191,12 @@ waffle::memory::GlobalHeapWithoutTracking::heapFree((pBlock))
 
 #define WFL_GLOBAL_HEAP_FREE_ALIGNED(pBlock, alignment) \
 waffle::memory::GlobalHeapWithoutTracking::heapFreeAligned((pBlock), (alignment))
+
+#define WFL_GLOBAL_HEAP_MAKE_UNIQUE(type, ...) \
+waffle::memory::GlobalHeapWithoutTracking::makeUnique<type>(__VA_ARGS__)
+
+#define WFL_GLOBAL_HEAP_MAKE_SHARED(type, ...) \
+waffle::memory::GlobalHeapWithoutTracking::makeShared<type>(__VA_ARGS__)
 
 #endif
 

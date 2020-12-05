@@ -1,9 +1,9 @@
 ﻿#pragma once
 
 
+#include "common/utility/no_new_delete.h"
 #include "memory/alloc_header.h"
 #include "memory/memory_tracker.h"
-#include "common/utility/no_new_delete.h"
 #include <functional>
 
 
@@ -119,7 +119,7 @@ inline void* Heap::allocate(
     wfl::int32_t line,
     const char* function)
 {
-    std::lock_guard<std::recursive_mutex> lock(m_protection);
+    wfl::lock_guard<wfl::recursive_mutex> lock(m_protection);
 
     // シグネチャサイズをプラス
     constexpr size_t signatureSize = sizeof(AllocHeader::Signature);
@@ -147,7 +147,7 @@ inline void* Heap::allocateAligned(
     wfl::int32_t line,
     const char* function)
 {
-    std::lock_guard<std::recursive_mutex> lock(m_protection);
+    wfl::lock_guard<wfl::recursive_mutex> lock(m_protection);
 
     // シグネチャサイズをプラス
     constexpr size_t signatureSize = sizeof(AllocHeader::Signature);
@@ -170,7 +170,7 @@ inline void* Heap::allocateAligned(
 template <typename Policy>
 inline void Heap::deallocate(void* pBlock)
 {
-    std::lock_guard<std::recursive_mutex> lock(m_protection);
+    wfl::lock_guard<wfl::recursive_mutex> lock(m_protection);
 
     // トラッカーから情報を削除
     MemoryTracker::get().recordDeallocation(pBlock, this);
@@ -182,7 +182,7 @@ inline void Heap::deallocate(void* pBlock)
 template <typename Policy>
 inline void Heap::deallocateAligned(void* pBlock, wfl::size_t alignment)
 {
-    std::lock_guard<std::recursive_mutex> lock(m_protection);
+    wfl::lock_guard<wfl::recursive_mutex> lock(m_protection);
 
     // トラッカーから情報を削除
     MemoryTracker::get().recordDeallocation(pBlock, this);

@@ -1,6 +1,6 @@
 ﻿
+
 #include "memory/global_heap.h"
-#include "memory/heap_factory.h"
 
 
 namespace waffle {

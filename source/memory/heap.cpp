@@ -28,7 +28,7 @@ Heap::~Heap()
 
 void Heap::initialize()
 {
-    std::lock_guard<std::recursive_mutex> lock(m_protection);
+    wfl::lock_guard<wfl::recursive_mutex> lock(m_protection);
 
     m_isActive = false;
     m_totalAllocatedBytes = 0;
@@ -43,7 +43,7 @@ void Heap::initialize()
 
 void Heap::activate(const char* name)
 {
-    std::lock_guard<std::recursive_mutex> lock(m_protection);
+    wfl::lock_guard<wfl::recursive_mutex> lock(m_protection);
 
     assert(name != nullptr);
     assert(strlen(name) < NAMELENGTH);
@@ -56,7 +56,7 @@ void Heap::activate(const char* name)
 
 void Heap::deactivate()
 {
-    std::lock_guard<std::recursive_mutex> lock(m_protection);
+    wfl::lock_guard<wfl::recursive_mutex> lock(m_protection);
 
     strcpy_s(m_name, "");
     m_isActive = false;
@@ -78,7 +78,7 @@ bool Heap::isActive() const
 // リンクリストを構築
 void Heap::addAllocation(AllocHeader* pAllocHeader)
 {
-    std::lock_guard<std::recursive_mutex> lock(m_protection);
+    wfl::lock_guard<wfl::recursive_mutex> lock(m_protection);
 
     pAllocHeader->addLink(m_pAllocHeader);
 
@@ -98,7 +98,7 @@ void Heap::addAllocation(AllocHeader* pAllocHeader)
 // リンクリストから切り離す
 void Heap::eraseAllocation(AllocHeader* pAllocHeader)
 {
-    std::lock_guard<std::recursive_mutex> lock(m_protection);
+    wfl::lock_guard<wfl::recursive_mutex> lock(m_protection);
 
     pAllocHeader->deleteLink(m_pAllocHeader);
 
@@ -110,7 +110,7 @@ void Heap::eraseAllocation(AllocHeader* pAllocHeader)
 // 親子関係の構築をする関数
 void Heap::attachTo(Heap* pParent)
 {
-    std::lock_guard<std::recursive_mutex> lock(m_protection);
+    wfl::lock_guard<wfl::recursive_mutex> lock(m_protection);
 
     assert(pParent != nullptr);
 

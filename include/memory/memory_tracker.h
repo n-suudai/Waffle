@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 
-#include "common/types.h"
+#include "memory/stl/stl_allocator_without_tracking.h"
 #include <map>
 #include <mutex>
 
@@ -17,10 +17,11 @@ class AllocHeader;
 class MemoryTracker final
 {
 public:
-    //typedef typename std::map<void*, Allocation*, std::less<void*>,
-    //    STL::SHeapAllocator_NonTracking<
-    //    std::pair<const void*, Allocation*>>> TrackMap;
-    typedef wfl::map<void*, AllocHeader*> TrackMap;
+    template<typename Key, typename T, typename Compare = wfl::less<Key>,
+        typename Alloc = STLAllocator_WithoutTracking<wfl::pair<const Key, T>>>
+    using MapWithoutTracking = wfl::map<Key, T, Compare, Alloc>;
+
+    using TrackMap = MapWithoutTracking<void*, AllocHeader*>;
 
     static MemoryTracker& get();
 
@@ -41,7 +42,7 @@ private:
     ~MemoryTracker();
 
 private:
-    std::recursive_mutex m_protection;
+    wfl::recursive_mutex m_protection;
     TrackMap m_allocations;
     wfl::size_t m_nextAllocationBookmark;
 };

@@ -10,5 +10,6 @@
 //#define WFL_ALLOC_POLICY WFL_ALLOC_POLICY_STANDARD
 
 
-#define WFL_USE_HEAP_TRACKING 1 // Heapトラッキング機能を使用
+// Heapトラッキング機能を使用
+#define WFL_USE_HEAP_TRACKING 1
 

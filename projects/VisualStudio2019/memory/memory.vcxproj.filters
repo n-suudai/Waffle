@@ -22,6 +22,9 @@
     <Filter Include="include\memory\stl">
       <UniqueIdentifier>{42a28b78-073e-4dbd-97b8-d0ac0f9259d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\memory\stl">
+      <UniqueIdentifier>{9bbc2d34-e69f-400b-959f-f6ccdd3f1701}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\memory.h">
@@ -69,6 +72,27 @@
     <ClInclude Include="..\..\..\include\memory\stl\stl_memory.h">
       <Filter>include\memory\stl</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\memory\memory_manager.h">
+      <Filter>include\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\memory\stl\stl_string.h">
+      <Filter>include\memory\stl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\memory\stl\stl_blob.h">
+      <Filter>include\memory\stl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\memory\stl.h">
+      <Filter>include\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\memory\stl\stl_heap_factory.h">
+      <Filter>include\memory\stl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\memory\stl\stl_allocator_without_tracking.h">
+      <Filter>include\memory\stl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\memory\stl\stl_allocator_with_tracking.h">
+      <Filter>include\memory\stl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\memory\alloc_header.cpp">
@@ -97,6 +121,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\memory\heap_factory.cpp">
       <Filter>source\memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\memory\stl\stl_heap_factory.cpp">
+      <Filter>source\memory\stl</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

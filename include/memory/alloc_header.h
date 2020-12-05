@@ -1,8 +1,8 @@
 ﻿#pragma once
 
 
-#include "memory/policy.h"
 #include "common/utility/flags.h"
+#include "memory/policy.h"
 #include <array>
 
 
@@ -79,7 +79,7 @@ private:
 public:
     static inline void* operator new(wfl::size_t bytes)
     {
-        return AllocatePolicy::allocate(bytes);
+        return AllocatePolicy::allocate(bytes + getHeaderSize());
     }
 
     static void operator delete(void* pBlock)
@@ -177,7 +177,6 @@ public:
     bool isValidSignature() const;
 
 private:
-    char* m_pBuffer;
     static wfl::ptrdiff_t s_HeaderSize; // ヘッダ情報の全体サイズ
     static wfl::array<wfl::ptrdiff_t, HEADER_INFO_BIT_COUNT> s_HeaderInfoOffsets; // ヘッダ情報メンバアドレスへのオフセット値
     static HeaderInfoFlags s_HeaderInfos; // 有効なヘッダ情報

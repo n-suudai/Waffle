@@ -9,6 +9,24 @@
 #include "common/platform/win32.h"
 
 
+class TestClass
+{
+    WFL_DECLARE_HEAP;
+public:
+    TestClass() {}
+    ~TestClass() {}
+
+private:
+
+};
+
+struct TestStruct
+{
+    int a;
+};
+
+
+
 #define DebugPrintf(format, ...)              \
     {                                         \
         char buff[256];                       \
@@ -20,6 +38,22 @@
 namespace waffle {
 namespace memory {
 
+
+void printAllocInfo(const Heap* pHeap, const AllocHeader* pAllocHeader)
+{
+    assert(pHeap != nullptr);
+    assert(pAllocHeader != nullptr);
+
+    DebugPrintf(
+        "%s(%d)\n"
+        "{ heap=\"%s\" address=0x%p size=%zubyte time=%s "
+        "backTraceHash=0x%016zX bookmark=%zX }\n"
+        "SIGNATURE=[ %08X ]\n",
+        pAllocHeader->getFileName(), pAllocHeader->getLine(), pHeap->getName(),
+        pAllocHeader->getBlock(), pAllocHeader->getBytes(),
+        /*pAllocation->time*/ "", pAllocHeader->getBackTraceHash(),
+        pAllocHeader->getBookmark(), pAllocHeader->getSignature());
+}
 
 class TreeStatsReporter : public IHeapTreeStatsReporter
 {
@@ -68,19 +102,7 @@ public:
 
     void report(const Heap* pHeap, const AllocHeader* pAllocHeader) override
     {
-        assert(pHeap != nullptr);
-        assert(pAllocHeader != nullptr);
-
-        //DebugPrintf(
-        //    "%s(%d)\n"
-        //    "{ heap=\"%s\" address=0x%p size=%zubyte time=%s "
-        //    "backTraceHash=0x%016llX bookmark=%llX }\n"
-        //    "[ %08X ]\n",
-        //    pAllocHeader->getFileName(), pAllocHeader->getLine(), pHeap->getName(),
-        //    pAllocHeader->getBlock(), pAllocHeader->getBytes(),
-        //    /*pAllocation->time*/ "", pAllocHeader->getBackTraceHash(),
-        //    pAllocHeader->getBookmark(), pAllocHeader->getSignature());
-
+        printAllocInfo(pHeap, pAllocHeader);
         m_leakCount++;
     }
 
@@ -113,19 +135,7 @@ public:
 
     void report(const Heap* pHeap, const AllocHeader* pAllocHeader) override
     {
-        assert(pHeap != nullptr);
-        assert(pAllocHeader != nullptr);
-
-        DebugPrintf(
-            "%s(%d)\n"
-            "{ heap=\"%s\" address=0x%p size=%zubyte time=%s "
-            "backTraceHash=0x%016llX bookmark=%llX }\n"
-            "[ %08X ]\n",
-            pAllocHeader->getFileName(), pAllocHeader->getLine(), pHeap->getName(),
-            pAllocHeader->getBlock(), pAllocHeader->getBytes(),
-            /*pAllocation->time*/ "", pAllocHeader->getBackTraceHash(),
-            pAllocHeader->getBookmark(), pAllocHeader->getSignature());
-
+        printAllocInfo(pHeap, pAllocHeader);
         m_assertionCount++;
     }
 
@@ -172,22 +182,16 @@ bool initialize()
     HeaderInfoFlags flags = HeaderInfoFlagBits::All;
     bool result =  AllocHeader::initialize(flags);
 
-    void* p0 = WFL_GLOBAL_HEAP_MALLOC(128);
-    void* p1 = WFL_GLOBAL_HEAP_MALLOC(128);
-    void* p2 = WFL_GLOBAL_HEAP_MALLOC(128);
-    void* p3 = WFL_GLOBAL_HEAP_MALLOC(128);
+    {
+        SharedPtr<TestStruct> p = WFL_GLOBAL_HEAP_MAKE_SHARED(TestStruct);
+        PrintDebug_Report_MemoryAll();
+    }
 
 
     PrintDebug_Report_MemoryAll();
 
 
-    WFL_GLOBAL_HEAP_FREE(p0);
-    WFL_GLOBAL_HEAP_FREE(p1);
-    WFL_GLOBAL_HEAP_FREE(p2);
-    WFL_GLOBAL_HEAP_FREE(p3);
-
-
-    PrintDebug_Report_MemoryAll();
+    //PrintDebug_Report_MemoryAll();
 
     return result;
 }

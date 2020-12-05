@@ -1,13 +1,14 @@
 ﻿#pragma once
 
 
-#include "common/utility/no_new_delete.h"
-#include "memory/heap.h"
-#include <memory>
+#include "memory/memory_manager.h"
+#include "memory/stl/stl_allocator_with_tracking.h"
+#include "memory/stl/stl_allocator_without_tracking.h"
 
 
 namespace waffle {
 namespace memory {
+namespace detail {
 
 
 // カスタムデリータ UniquePtr用
@@ -57,37 +58,71 @@ struct CustomDeleter<T[]>
 };
 
 
-// カスタムデリータ UniqueBlob用
+} // namespace detail
+
+
+// UniquePtr
+template <typename T, typename Deleter = detail::CustomDeleter<T>>
+using UniquePtr = std::unique_ptr<T, Deleter>;
+
+// SharedPtr
 template <typename T>
-struct CustomDeleter_Blob
+using SharedPtr = std::shared_ptr<T>;
+
+// WeakPtr
+template <typename T>
+using WeakPtr = std::weak_ptr<T>;
+
+
+template<typename T, typename... Arguments>
+inline UniquePtr<T> makeUnique_WithTracking(
+    const char* file,
+    wfl::int32_t line,
+    const char* function,
+    Arguments &&... arguments)
 {
-    inline CustomDeleter_Blob(Heap* pHeap) : m_pHeap(pHeap)
-    {}
+    static detail::CustomDeleter<T> deleter = detail::CustomDeleter<T>();
 
-    inline CustomDeleter_Blob() = default;
+    return UniquePtr<T>(
+        new(file, line, function) T(std::forward<Arguments>(arguments)...),
+        deleter);
+}
 
-    inline Heap* getHeap() const
-    {
-        return m_pHeap;
-    }
+template<typename T, typename... Arguments>
+inline UniquePtr<T> makeUnique_WithoutTracking(Arguments &&... arguments)
+{
+    static detail::CustomDeleter<T> deleter = detail::CustomDeleter<T>();
 
-    template <typename T2,
-        std::enable_if_t<std::is_convertible_v<T2*, T*>, int> = 0>
-        inline CustomDeleter_Blob(const CustomDeleter_Blob<T2>&)
-    { // construct from another default_delete
-    }
+    return UniquePtr<T>(
+        new T(std::forward<Arguments>(arguments)...),
+        deleter);
+}
 
-    inline void operator()(T* ptr) const
-    {
-        static_assert(0 < sizeof(T), "can't delete an incomplete type");
 
-        NE_MEM_FREE_HEAP(ptr);
-    }
+template <typename T, typename... Arguments>
+inline SharedPtr<T> makeShared_WithTracking(
+    Heap* pHeap,
+    const char* file,
+    wfl::int32_t line,
+    const char* function,
+    Arguments &&... arguments)
+{
+    STLAllocator_WithTracking<T> allocator(pHeap, file, line, function);
 
-    Heap* m_pHeap;
-};
+    return wfl::allocate_shared<T, STLAllocator_WithTracking<T>>(
+        allocator, std::forward<Arguments>(arguments)...);
+}
+
+template <typename T, typename... Arguments>
+inline SharedPtr<T> makeShared_WithoutTracking(Arguments &&... arguments)
+{
+    STLAllocator_WithoutTracking<T> allocator = STLAllocator_WithoutTracking<T>();
+    return wfl::allocate_shared<T, STLAllocator_WithoutTracking<T>>(
+        allocator, std::forward<Arguments>(arguments)...);
+}
 
 
 } // namespace memory
 } // namespace waffle
+
 
