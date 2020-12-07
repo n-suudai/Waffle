@@ -16,6 +16,7 @@ class AllocHeader;
 
 class MemoryTracker final
 {
+    WFL_NO_NEW_DELETE;
 public:
     template<typename Key, typename T, typename Compare = wfl::less<Key>,
         typename Alloc = STLAllocator_WithoutTracking<wfl::pair<const Key, T>>>

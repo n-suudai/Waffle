@@ -8,6 +8,7 @@ namespace logging {
 
 
 void put(const char* text);
+void format(const char* str, ...);
 
 
 } // namespace logging

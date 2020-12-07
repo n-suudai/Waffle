@@ -24,5 +24,13 @@
     <ClCompile Include="..\..\..\source\runtime\platform\win32\win32_global_new_delete.cpp">
       <Filter>source\runtime\platform\win32</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\runtime\runtime_heap.cpp">
+      <Filter>source\runtime</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\source\runtime\runtime_heap.h">
+      <Filter>source\runtime</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

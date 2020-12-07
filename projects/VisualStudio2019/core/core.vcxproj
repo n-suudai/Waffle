@@ -166,7 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\core\core.cpp" />
-    <ClCompile Include="..\..\..\source\core\logging\platform\win32\logging.cpp" />
+    <ClCompile Include="..\..\..\source\core\logging\platform\win32\win32_logging.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

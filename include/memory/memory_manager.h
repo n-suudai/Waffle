@@ -191,6 +191,12 @@ waffle::memory::Heap* class_name::getHeap() \
 #define WFL_MAKE_UNIQUE_BLOB_ALIGNED(bytes, alignment) \
     makeUniqueBlob((bytes), (alignment), __FILE__, __LINE__, __FUNCTION__)
 
+#define WFL_MAKE_UNIQUE(type, ...) \
+    makeUnique<type>(__FILE__, __LINE__, __FUNCTION__, __VA_ARGS__)
+
+#define WFL_MAKE_SHARED(type, ...) \
+    makeShared<type>(__FILE__, __LINE__, __FUNCTION__, __VA_ARGS__)
+
 
 #else
 
@@ -280,6 +286,12 @@ WFL_DEFINE_HEAP_BASE(class_name) \
 
 #define WFL_MAKE_UNIQUE_BLOB_ALIGNED(bytes, alignment) \
     makeUniqueBlob((bytes), (alignment))
+
+#define WFL_MAKE_UNIQUE(type, ...) \
+    makeUnique<type>(__VA_ARGS__)
+
+#define WFL_MAKE_SHARED(type, ...) \
+    makeShared<type>(__VA_ARGS__)
 
 
 #endif

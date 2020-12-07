@@ -33,9 +33,6 @@
     <ClInclude Include="..\..\..\include\memory\alloc_header.h">
       <Filter>include\memory</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\memory\config.h">
-      <Filter>include\memory</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\memory\heap.h">
       <Filter>include\memory</Filter>
     </ClInclude>
@@ -92,6 +89,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\memory\stl\stl_allocator_with_tracking.h">
       <Filter>include\memory\stl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\memory\config.h">
+      <Filter>include\memory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

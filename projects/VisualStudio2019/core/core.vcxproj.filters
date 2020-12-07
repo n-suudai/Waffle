@@ -48,9 +48,6 @@
     <ClInclude Include="..\..\..\include\common\platform\win32\win32_prerequisites.h">
       <Filter>include\common\platform\win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\common\platform\win32.h">
-      <Filter>include\common\platform</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\common.h">
       <Filter>include</Filter>
     </ClInclude>
@@ -78,12 +75,15 @@
     <ClInclude Include="..\..\..\include\common\memory\config.h">
       <Filter>include\common\memory</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\common\platform\win32.h">
+      <Filter>include\common\platform</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\core\core.cpp">
       <Filter>source\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\core\logging\platform\win32\logging.cpp">
+    <ClCompile Include="..\..\..\source\core\logging\platform\win32\win32_logging.cpp">
       <Filter>source\logging\platform\win32</Filter>
     </ClCompile>
   </ItemGroup>

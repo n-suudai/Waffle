@@ -1,5 +1,5 @@
 ﻿#pragma once
 
 
-#include "platform/win32.h"
+#include "common/platform/win32.h"
 
