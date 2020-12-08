@@ -2,6 +2,7 @@
 
 
 #include "common/types.h"
+#include "application/window.h"
 
 
 namespace waffle {

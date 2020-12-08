@@ -49,7 +49,7 @@ static inline waffle::memory::UniquePtr<T> makeUnique( \
     const char* function, \
     Arguments &&... arguments) \
 { \
-    return waffle::memory::makeUnique_WithTracking( \
+    return waffle::memory::makeUnique_WithTracking<T>( \
         file, \
         line, \
         function, \
@@ -80,6 +80,10 @@ public: \
         const char* filename, \
         waffle::wfl::int32_t line, \
         const char* function); \
+ \
+    static void operator delete(void* pBlock); \
+ \
+    static void operator delete[](void* pBlock); \
 
 
 #define WFL_DEFINE_HEAP_BASE(class_name) \
@@ -158,6 +162,16 @@ void class_name::operator delete[]( \
 { \
     getHeap()->deallocate<waffle::memory::AllocatePolicy>(pBlock); \
 } \
+ \
+void class_name::operator delete(void* pBlock) \
+{ \
+    getHeap()->deallocate<waffle::memory::AllocatePolicy>(pBlock); \
+} \
+ \
+void class_name::operator delete[](void* pBlock) \
+{ \
+    getHeap()->deallocate<waffle::memory::AllocatePolicy>(pBlock); \
+} \
 
 
 #define WFL_DEFINE_HEAP(class_name, heap_name) \
@@ -219,7 +233,7 @@ static inline waffle::memory::SharedPtr<T> makeShared(Arguments &&... arguments)
 template<typename T, typename... Arguments> \
 static inline waffle::memory::UniquePtr<T> makeUnique(Arguments &&... arguments) \
 { \
-    return waffle::memory::makeUnique_WithoutTracking( \
+    return waffle::memory::makeUnique_WithoutTracking<T>( \
         std::forward<Arguments>(arguments)...); \
 } \
  \

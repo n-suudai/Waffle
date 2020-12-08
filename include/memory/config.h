@@ -11,5 +11,5 @@
 
 
 // Heapトラッキング機能を使用
-#define WFL_USE_HEAP_TRACKING 0
+#define WFL_USE_HEAP_TRACKING 1
 

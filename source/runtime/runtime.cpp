@@ -27,22 +27,14 @@ class Runtime
 public:
     Runtime()
     {
-        memory::initialize();
-        core::initialize();
-        application::initialize();
+
 
         m_test = WFL_MAKE_SHARED(Test);
     }
 
     ~Runtime()
     {
-        application::finalize();
-        core::finalize();
 
-        m_test.reset();
-
-        RuntimeHeap::printDebug_Report_MemoryAll(); // メモリの状態を表示
-        memory::finalize();
     }
 
 private:
@@ -55,9 +47,20 @@ WFL_DEFINE_HEAP(Runtime, "Runtime");
 
 wfl::int32_t runtimeMain()
 {
-    Runtime runtime;
+    memory::initialize();
+    core::initialize();
+    application::initialize();
 
-    logging::format("%s ...", "Waffle");
+    logging::format("Hello! %s!", "Waffle");
+
+    {
+        memory::UniquePtr<application::IWindow> window = application::createWindowUnique();
+    }
+
+    application::finalize();
+    core::finalize();
+    RuntimeHeap::printDebug_Report_MemoryAll(); // メモリの状態を表示
+    memory::finalize();
 
     return 0;
 }

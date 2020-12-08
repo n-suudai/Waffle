@@ -13,14 +13,38 @@
     <Filter Include="include\application">
       <UniqueIdentifier>{218dddd6-7992-45f7-bf06-0260c09fd709}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\application\platform">
+      <UniqueIdentifier>{bb2b8df6-f9e9-4ac8-bb5f-4f2a84215cc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\application\platform\win32">
+      <UniqueIdentifier>{532eff00-35e9-4722-b57f-93ee0af31d12}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\application.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\application\window.h">
+      <Filter>include\application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\application\entity.h">
+      <Filter>include\application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\application\platform\win32\win32_window.h">
+      <Filter>source\application\platform\win32</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\application\application.cpp">
+      <Filter>source\application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\application\platform\win32\win32_window.cpp">
+      <Filter>source\application\platform\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\application\window.cpp">
+      <Filter>source\application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\application\entity.cpp">
       <Filter>source\application</Filter>
     </ClCompile>
   </ItemGroup>

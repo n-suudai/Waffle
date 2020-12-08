@@ -152,9 +152,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\application.h" />
+    <ClInclude Include="..\..\..\include\application\entity.h" />
+    <ClInclude Include="..\..\..\include\application\window.h" />
+    <ClInclude Include="..\..\..\source\application\platform\win32\win32_window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\application\application.cpp" />
+    <ClCompile Include="..\..\..\source\application\entity.cpp" />
+    <ClCompile Include="..\..\..\source\application\platform\win32\win32_window.cpp" />
+    <ClCompile Include="..\..\..\source\application\window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
