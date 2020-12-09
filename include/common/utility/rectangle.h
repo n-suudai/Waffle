@@ -28,6 +28,12 @@ public:
         , m_verticalRange(top, bottom)
     {}
 
+    template<typename Cast>
+    inline constexpr Rectangle(Cast left, Cast right, Cast top, Cast bottom)
+        : Rectangle(static_cast<T>(left), static_cast<T>(right),
+            static_cast<T>(top), static_cast<T>(bottom))
+    {}
+
     inline constexpr Rectangle(
         const RangeType& horizontalRange,
         const RangeType& verticalRange)
@@ -62,7 +68,29 @@ public:
         T top, bottom;
         getVertical(top, bottom);
         topCast = static_cast<Cast>(top);
-        bottomCast = static_cast<Cast>(bottomCast);
+        bottomCast = static_cast<Cast>(bottom);
+    }
+
+    inline constexpr T width() const
+    {
+        return m_horizontalRange.max() - m_horizontalRange.min();
+    }
+
+    template<typename Cast>
+    inline constexpr Cast width() const
+    {
+        return static_cast<Cast>(width());
+    }
+
+    inline constexpr T height() const
+    {
+        return m_verticalRange.max() - m_verticalRange.min();
+    }
+
+    template<typename Cast>
+    inline constexpr Cast height() const
+    {
+        return static_cast<Cast>(height());
     }
 
     inline constexpr bool isInside(const Coordinate2DType& coordinate) const

@@ -12,13 +12,15 @@ namespace application {
 class IWindow : public ApplicationEntity
 {
 public:
-    virtual bool IsAlive() const = 0;
+    virtual bool isAlive() const = 0;
+
+    virtual bool messagePump() = 0;
 };
 
 
-memory::UniquePtr<IWindow> createWindowUnique(const Rectangle<wfl::uint32_t>& clientRect);
+memory::UniquePtr<IWindow> createWindowUnique(const Rectangle<wfl::int32_t>& clientRect);
 
-memory::SharedPtr<IWindow> createWindowShared(const Rectangle<wfl::uint32_t>& clientRect);
+memory::SharedPtr<IWindow> createWindowShared(const Rectangle<wfl::int32_t>& clientRect);
 
 
 } // namespace application
