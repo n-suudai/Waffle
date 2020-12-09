@@ -2,6 +2,7 @@
 
 
 #include "application/entity.h"
+#include "common/utility/rectangle.h"
 
 
 namespace waffle {
@@ -15,9 +16,9 @@ public:
 };
 
 
-memory::UniquePtr<IWindow> createWindowUnique();
+memory::UniquePtr<IWindow> createWindowUnique(const Rectangle<wfl::uint32_t>& clientRect);
 
-memory::SharedPtr<IWindow> createWindowShared();
+memory::SharedPtr<IWindow> createWindowShared(const Rectangle<wfl::uint32_t>& clientRect);
 
 
 } // namespace application

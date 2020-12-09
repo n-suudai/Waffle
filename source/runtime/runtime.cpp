@@ -54,7 +54,9 @@ wfl::int32_t runtimeMain()
     logging::format("Hello! %s!", "Waffle");
 
     {
-        memory::UniquePtr<application::IWindow> window = application::createWindowUnique();
+        constexpr Rectangle<wfl::uint32_t> defaultClientRect(0, 640, 0, 480);
+
+        memory::UniquePtr<application::IWindow> window = application::createWindowUnique(defaultClientRect);
     }
 
     application::finalize();

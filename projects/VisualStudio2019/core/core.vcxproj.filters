@@ -78,6 +78,15 @@
     <ClInclude Include="..\..\..\include\common\platform\win32.h">
       <Filter>include\common\platform</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\common\utility\range.h">
+      <Filter>include\common\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\common\utility\coordinate.h">
+      <Filter>include\common\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\common\utility\rectangle.h">
+      <Filter>include\common\utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\core\core.cpp">
