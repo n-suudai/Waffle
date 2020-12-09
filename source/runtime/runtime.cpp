@@ -11,40 +11,6 @@ namespace waffle {
 namespace runtime {
 
 
-class Test
-{
-    WFL_DECLARE_HEAP;
-public:
-    Test() {}
-    ~Test() {}
-};
-WFL_DEFINE_HEAP(Test, "TEST");
-
-
-class Runtime
-{
-    WFL_DECLARE_HEAP;
-public:
-    Runtime()
-    {
-
-
-        m_test = WFL_MAKE_SHARED(Test);
-    }
-
-    ~Runtime()
-    {
-
-    }
-
-private:
-    memory::SharedPtr<Test> m_test;
-};
-WFL_DEFINE_HEAP(Runtime, "Runtime");
-
-
-
-
 wfl::int32_t runtimeMain()
 {
     memory::initialize();
