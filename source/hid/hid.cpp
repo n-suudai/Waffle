@@ -1,23 +1,25 @@
-#include "hid/hid.h"
-#include "core/logging/logging.h"
+﻿#include "hid.h"
+#include "core/logging.h"
 
 
-namespace Engine {
-namespace HID {
+namespace waffle {
+namespace hid {
 
 
-EBool Initialize()
+bool initialize()
 {
-    Core::OutputLog("[HID] Initialize");
+    logging::put("[hid] initialized.");
+
     return true;
 }
 
-EVoid Finalize()
+void finalize()
 {
-    Core::OutputLog("[HID] Finalize");
+    logging::put("[hid] finalized.");
 }
 
 
-} // namespace HID
-} // namespace Engine
+} // namespace hid
+} // namespace waffle
+
 

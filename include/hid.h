@@ -1,17 +1,15 @@
-#pragma once
+﻿#pragma once
 
 
-#include "common/types.h"
+namespace waffle {
+namespace hid {
 
 
-namespace Engine {
-namespace HID {
+bool initialize();
+
+void finalize();
 
 
-EBool Initialize();
+} // namespace hid
+} // namespace waffle
 
-EVoid Finalize();
-
-
-} // namespace HID
-} // namespace Engine

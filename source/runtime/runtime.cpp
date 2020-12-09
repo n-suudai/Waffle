@@ -4,6 +4,7 @@
 #include "memory.h"
 #include "core.h"
 #include "application.h"
+#include "hid.h"
 
 
 
@@ -16,6 +17,7 @@ wfl::int32_t runtimeMain()
     memory::initialize();
     core::initialize();
     application::initialize();
+    hid::initialize();
 
     logging::format("Hello! %s!", "Waffle");
 
@@ -33,6 +35,7 @@ wfl::int32_t runtimeMain()
         }
     }
 
+    hid::finalize();
     application::finalize();
     core::finalize();
     RuntimeHeap::printDebug_Report_MemoryAll(); // メモリの状態を表示

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{8a652f4a-9462-4f7e-8d35-6e165b634e0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{73b46302-bdc0-483d-9d49-f38a4aa0c6a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\hid">
+      <UniqueIdentifier>{881af86b-68b1-4b9d-96db-77c2175d14b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\hid">
+      <UniqueIdentifier>{82757a81-94fb-4e79-8b8d-89baced9f217}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\source\hid\hid.cpp">
+      <Filter>source\hid</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\hid.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
