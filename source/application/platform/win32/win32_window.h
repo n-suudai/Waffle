@@ -31,6 +31,17 @@ private:
     LRESULT CALLBACK windowProcedureBody(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 private:
+    bool registerWindowClass();
+
+    bool unregisterWindowClass();
+
+    bool adjustWindowRect(DWORD style);
+
+    bool createWindow(DWORD style);
+
+    bool destroyWindow();
+
+private:
     Rectangle<wfl::int32_t> m_clientRect;
     Rectangle<wfl::int32_t> m_windowRect;
     HINSTANCE m_hInstance;
