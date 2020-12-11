@@ -18,10 +18,19 @@
     <ClCompile Include="..\..\..\source\hid\hid.cpp">
       <Filter>source\hid</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\hid\entity.cpp">
+      <Filter>source\hid</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\hid.h">
       <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\hid\key_cpde.h">
+      <Filter>include\hid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\hid\entity.h">
+      <Filter>include\hid</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

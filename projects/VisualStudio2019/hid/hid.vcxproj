@@ -135,10 +135,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\source\hid\entity.cpp" />
     <ClCompile Include="..\..\..\source\hid\hid.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\hid.h" />
+    <ClInclude Include="..\..\..\include\hid\entity.h" />
+    <ClInclude Include="..\..\..\include\hid\key_cpde.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
