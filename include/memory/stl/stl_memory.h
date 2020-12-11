@@ -63,15 +63,15 @@ struct CustomDeleter<T[]>
 
 // UniquePtr
 template <typename T, typename Deleter = detail::CustomDeleter<T>>
-using UniquePtr = std::unique_ptr<T, Deleter>;
+using UniquePtr = wfl::unique_ptr<T, Deleter>;
 
 // SharedPtr
 template <typename T>
-using SharedPtr = std::shared_ptr<T>;
+using SharedPtr = wfl::shared_ptr<T>;
 
 // WeakPtr
 template <typename T>
-using WeakPtr = std::weak_ptr<T>;
+using WeakPtr = wfl::weak_ptr<T>;
 
 
 template<typename T, typename... Arguments>
@@ -123,6 +123,21 @@ inline SharedPtr<T> makeShared_WithoutTracking(Arguments &&... arguments)
 
 
 } // namespace memory
+
+
+// UniquePtr
+template <typename T, typename Deleter = memory::detail::CustomDeleter<T>>
+using UniquePtr = memory::UniquePtr<T, Deleter>;
+
+// SharedPtr
+template <typename T>
+using SharedPtr = memory::SharedPtr<T>;
+
+// WeakPtr
+template <typename T>
+using WeakPtr = memory::WeakPtr<T>;
+
+
 } // namespace waffle
 
 

@@ -88,5 +88,77 @@ using Stack = wfl::stack<T, Sequence>;
 
 
 } // namespace memory
+
+
+// Vector
+template <typename T, typename Alloc = memory::STLAllocator<T>>
+using Vector = memory::Vector<T, Alloc>;
+
+// List
+template <typename T, typename Alloc = memory::STLAllocator<T>>
+using List = memory::List<T, Alloc>;
+
+// ForwardList
+template <typename T, typename Alloc = memory::STLAllocator<T>>
+using ForwardList = memory::ForwardList<T, Alloc>;
+
+// Map
+template <typename Key, typename T, typename Compare = wfl::less<Key>,
+    typename Alloc = memory::STLAllocator<wfl::pair<const Key, T>>>
+    using Map = memory::Map<Key, T, Compare, Alloc>;
+
+// MultiMap
+template <typename Key, typename T, typename Compare = wfl::less<Key>,
+    typename Alloc = memory::STLAllocator<wfl::pair<const Key, T>>>
+    using MultiMap = memory::MultiMap<Key, T, Compare, Alloc>;
+
+// UnorderedMap
+template <typename Key, typename T, typename Hash = wfl::hash<Key>,
+    typename Pred = wfl::equal_to<Key>,
+    typename Alloc = memory::STLAllocator<wfl::pair<const Key, T>>>
+    using UnorderedMap = memory::UnorderedMap<Key, T, Hash, Pred, Alloc>;
+
+// UnorderedMultiMap
+template <typename Key, typename T, typename Hash = wfl::hash<Key>,
+    typename Pred = wfl::equal_to<Key>,
+    typename Alloc = memory::STLAllocator<wfl::pair<const Key, T>>>
+    using UnorderedMultiMap =
+    memory::UnorderedMultiMap<Key, T, Hash, Pred, Alloc>;
+
+// Set
+template <typename Key, typename Compare = wfl::less<Key>,
+    typename Alloc = memory::STLAllocator<Key>>
+    using Set = memory::Set<Key, Compare, Alloc>;
+
+// MultiSet
+template <typename Key, typename Compare = wfl::less<Key>,
+    typename Alloc = memory::STLAllocator<Key>>
+    using MultiSet = memory::MultiSet<Key, Compare, Alloc>;
+
+// UnorderedSet
+template <typename Value, typename Hash = wfl::hash<Value>,
+    typename Pred = wfl::less<Value>,
+    typename Alloc = memory::STLAllocator<Value>>
+    using UnorderedSet = memory::UnorderedSet<Value, Hash, Pred, Alloc>;
+
+// UnorderedMultiSet
+template <typename Value, typename Hash = wfl::hash<Value>,
+    typename Pred = wfl::less<Value>,
+    typename Alloc = memory::STLAllocator<Value>>
+    using UnorderedMultiSet = memory::UnorderedMultiSet<Value, Hash, Pred, Alloc>;
+
+// Deque
+template <typename T, typename Alloc = memory::STLAllocator<T>>
+using Deque = memory::Deque<T, Alloc>;
+
+// Queue
+template <typename T, typename Sequence = Deque<T>>
+using Queue = memory::Queue<T, Sequence>;
+
+// Stack
+template <typename T, typename Sequence = Deque<T>>
+using Stack = memory::Stack<T, Sequence>;
+
+
 } // namespace waffle
 

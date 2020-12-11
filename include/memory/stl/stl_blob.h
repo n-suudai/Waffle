@@ -178,5 +178,10 @@ typedef UniqueBlob_WithoutTracking UniqueBlob;
 
 
 } // namespace memory
+
+
+using memory::UniqueBlob;
+
+
 } // namespace waffle
 

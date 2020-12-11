@@ -39,10 +39,18 @@ template <typename Elem, typename Traits = std::char_traits<Elem>,
     typename Alloc = STLAllocator<Elem>>
     using BasicOStringStream = std::basic_ostringstream<Elem, Traits, Alloc>;
 
-// IStringStream
+// OStringStream
 typedef BasicOStringStream<char> OStringStream;
 
 
 } // namespace memory
+
+
+using memory::String;
+using memory::StringStream;
+using memory::IStringStream;
+using memory::OStringStream;
+
+
 } // namespace waffle
 
