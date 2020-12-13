@@ -102,7 +102,7 @@ public:
         return m_type == type;
     }
 
-    inline constexpr const char* toCString() const
+    inline constexpr StringView toStringView() const
     {
         constexpr wfl::size_t KEY_CODE_NUM = static_cast<wfl::size_t>(KeyCodeType::Key_Num);
 
@@ -180,12 +180,17 @@ public:
                 , "Right"
         };
 
-        return TO_STRING_TABLE[static_cast<wfl::size_t>(m_type)];
+        return StringView(TO_STRING_TABLE[static_cast<wfl::size_t>(m_type)]);
     }
 
     inline String toString() const
     {
-        return String(toCString());
+        return String(toStringView());
+    }
+
+    inline constexpr operator KeyCodeType() const
+    {
+        return m_type;
     }
 
 private:
