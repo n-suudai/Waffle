@@ -141,7 +141,9 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\include\hid.h" />
     <ClInclude Include="..\..\..\include\hid\entity.h" />
+    <ClInclude Include="..\..\..\include\hid\keyboard.h" />
     <ClInclude Include="..\..\..\include\hid\key_code.h" />
+    <ClInclude Include="..\..\..\include\hid\peripheral_device.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

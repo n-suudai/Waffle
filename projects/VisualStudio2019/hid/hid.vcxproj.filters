@@ -32,5 +32,11 @@
     <ClInclude Include="..\..\..\include\hid\key_code.h">
       <Filter>include\hid</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\hid\peripheral_device.h">
+      <Filter>include\hid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\hid\keyboard.h">
+      <Filter>include\hid</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
