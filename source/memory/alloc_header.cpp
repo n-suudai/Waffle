@@ -447,7 +447,7 @@ void AllocHeader::record(
     {
         void* ptr = this + getHeaderOffset(HeaderInfoIndex::Signature);
         Signature* pSignature = reinterpret_cast<Signature*>(
-            reinterpret_cast<std::ptrdiff_t>(address) + bytes);
+            reinterpret_cast<wfl::ptrdiff_t>(address) + bytes);
         writeValue<Signature*>(pSignature, ptr);
         (*pSignature) = SIGNATURE;
     }

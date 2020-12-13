@@ -89,7 +89,7 @@ wfl::size_t poolIDFromSize(wfl::size_t a_reqSize)
         }
         else
         {
-            poolID = std::min<wfl::size_t>(((a_reqSize - 1) >> 4) + 3, s_poolCount);
+            poolID = wfl::min<wfl::size_t>(((a_reqSize - 1) >> 4) + 3, s_poolCount);
         }
     }
 

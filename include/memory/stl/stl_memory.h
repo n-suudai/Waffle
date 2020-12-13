@@ -20,7 +20,7 @@ struct CustomDeleter
     inline CustomDeleter() = default;
 
     template <typename T2,
-        std::enable_if_t<std::is_convertible_v<T2*, T*>, int> = 0>
+        wfl::enable_if_t<wfl::is_convertible_v<T2*, T*>, int> = 0>
         inline CustomDeleter(const CustomDeleter<T2>&)
     { // construct from another default_delete
     }
@@ -41,14 +41,14 @@ struct CustomDeleter<T[]>
 
     inline CustomDeleter() = default;
 
-    template <typename T2, std::enable_if_t<
-        std::is_convertible_v<T2(*)[], T(*)[]>, int> = 0>
+    template <typename T2, wfl::enable_if_t<
+        wfl::is_convertible_v<T2(*)[], T(*)[]>, int> = 0>
         inline CustomDeleter(const CustomDeleter<T2[]>&)
     { // construct from another default_delete
     }
 
-    template <typename T2, std::enable_if_t<
-        std::is_convertible_v<T2(*)[], T(*)[]>, int> = 0>
+    template <typename T2, wfl::enable_if_t<
+        wfl::is_convertible_v<T2(*)[], T(*)[]>, int> = 0>
         inline void operator()(T2* ptr) const
     { // delete a pointer
         static_assert(0 < sizeof(T2), "can't delete an incomplete type");
@@ -84,7 +84,7 @@ inline UniquePtr<T> makeUnique_WithTracking(
     static detail::CustomDeleter<T> deleter = detail::CustomDeleter<T>();
 
     return UniquePtr<T>(
-        new(file, line, function) T(std::forward<Arguments>(arguments)...),
+        new(file, line, function) T(wfl::forward<Arguments>(arguments)...),
         deleter);
 }
 
@@ -94,7 +94,7 @@ inline UniquePtr<T> makeUnique_WithoutTracking(Arguments &&... arguments)
     static detail::CustomDeleter<T> deleter = detail::CustomDeleter<T>();
 
     return UniquePtr<T>(
-        new T(std::forward<Arguments>(arguments)...),
+        new T(wfl::forward<Arguments>(arguments)...),
         deleter);
 }
 
@@ -110,7 +110,7 @@ inline SharedPtr<T> makeShared_WithTracking(
     STLAllocator_WithTracking<T> allocator(pHeap, file, line, function);
 
     return wfl::allocate_shared<T, STLAllocator_WithTracking<T>>(
-        allocator, std::forward<Arguments>(arguments)...);
+        allocator, wfl::forward<Arguments>(arguments)...);
 }
 
 template <typename T, typename... Arguments>
@@ -118,7 +118,7 @@ inline SharedPtr<T> makeShared_WithoutTracking(Arguments &&... arguments)
 {
     STLAllocator_WithoutTracking<T> allocator = STLAllocator_WithoutTracking<T>();
     return wfl::allocate_shared<T, STLAllocator_WithoutTracking<T>>(
-        allocator, std::forward<Arguments>(arguments)...);
+        allocator, wfl::forward<Arguments>(arguments)...);
 }
 
 

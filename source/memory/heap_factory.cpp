@@ -24,7 +24,7 @@ HeapFactory::~HeapFactory()
 
 void HeapFactory::initialize()
 {
-    std::lock_guard<std::recursive_mutex> lock(m_protection);
+    wfl::lock_guard<wfl::recursive_mutex> lock(m_protection);
 
     for (auto& heap : m_heaps)
     {
@@ -37,7 +37,7 @@ void HeapFactory::initialize()
 
 Heap* HeapFactory::getRootHeap()
 {
-    std::lock_guard<std::recursive_mutex> lock(m_protection);
+    wfl::lock_guard<wfl::recursive_mutex> lock(m_protection);
 
     if (m_pRootHeap == nullptr)
     {
@@ -49,7 +49,7 @@ Heap* HeapFactory::getRootHeap()
 
 Heap* HeapFactory::getDefaultHeap()
 {
-    std::lock_guard<std::recursive_mutex> lock(m_protection);
+    wfl::lock_guard<wfl::recursive_mutex> lock(m_protection);
 
     if (m_pDefaultHeap == nullptr)
     {
@@ -63,7 +63,7 @@ Heap* HeapFactory::createHeap(
     const char* name,
     const char* parentName)
 {
-    std::lock_guard<std::recursive_mutex> lock(m_protection);
+    wfl::lock_guard<wfl::recursive_mutex> lock(m_protection);
 
     if (m_pRootHeap == nullptr)
     {
@@ -98,7 +98,7 @@ Heap* HeapFactory::createHeap(const char* name)
 
 Heap* HeapFactory::findHeap(const char* name)
 {
-    std::lock_guard<std::recursive_mutex> lock(m_protection);
+    wfl::lock_guard<wfl::recursive_mutex> lock(m_protection);
 
     for (auto& heap : m_heaps)
     {
@@ -113,7 +113,7 @@ Heap* HeapFactory::findHeap(const char* name)
 
 Heap* HeapFactory::createNewHeap(const char* name)
 {
-    std::lock_guard<std::recursive_mutex> lock(m_protection);
+    wfl::lock_guard<wfl::recursive_mutex> lock(m_protection);
 
     for (auto& heap : m_heaps)
     {

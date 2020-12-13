@@ -30,7 +30,7 @@ struct CustomDeleter_Blob_WithTracking
     }
 
     template <typename T2,
-        std::enable_if_t<std::is_convertible_v<T2*, T*>, int> = 0>
+        wfl::enable_if_t<wfl::is_convertible_v<T2*, T*>, int> = 0>
         inline CustomDeleter_Blob_WithTracking(const CustomDeleter_Blob_WithTracking<T2>&)
     { // construct from another default_delete
     }
@@ -65,7 +65,7 @@ struct CustomDeleter_Blob_WithoutTracking
     {}
 
     template <typename T2,
-        std::enable_if_t<std::is_convertible_v<T2*, T*>, int> = 0>
+        wfl::enable_if_t<wfl::is_convertible_v<T2*, T*>, int> = 0>
         inline CustomDeleter_Blob_WithoutTracking(const CustomDeleter_Blob_WithoutTracking<T2>&)
     { // construct from another default_delete
     }
@@ -93,10 +93,10 @@ struct CustomDeleter_Blob_WithoutTracking
 
 // UniqueBlob
 using UniqueBlob_WithTracking =
-std::unique_ptr<wfl::uint8_t, detail::CustomDeleter_Blob_WithTracking<wfl::uint8_t>>;
+wfl::unique_ptr<wfl::uint8_t, detail::CustomDeleter_Blob_WithTracking<wfl::uint8_t>>;
 
 using UniqueBlob_WithoutTracking =
-std::unique_ptr<wfl::uint8_t, detail::CustomDeleter_Blob_WithoutTracking<wfl::uint8_t>>;
+wfl::unique_ptr<wfl::uint8_t, detail::CustomDeleter_Blob_WithoutTracking<wfl::uint8_t>>;
 
 
 inline UniqueBlob_WithTracking makeUniqueBlob_WithTracking(

@@ -69,7 +69,7 @@ public:
             file,
             line,
             function,
-            std::forward<Arguments>(arguments)...);
+            wfl::forward<Arguments>(arguments)...);
     }
 
     template <typename T, typename... Arguments>
@@ -84,7 +84,7 @@ public:
             file,
             line,
             function,
-            std::forward<Arguments>(arguments)...);
+            wfl::forward<Arguments>(arguments)...);
     }
 };
 
@@ -124,13 +124,13 @@ public:
     template<typename T, typename... Arguments>
     static inline UniquePtr<T> makeUnique(Arguments &&... arguments)
     {
-        return makeUnique_WithoutTracking<T>(std::forward<Arguments>(arguments)...);
+        return makeUnique_WithoutTracking<T>(wfl::forward<Arguments>(arguments)...);
     }
 
     template<typename T, typename... Arguments>
     static inline SharedPtr<T> makeShared(Arguments &&... arguments)
     {
-        return makeShared_WithoutTracking<T>(std::forward<Arguments>(arguments)...);
+        return makeShared_WithoutTracking<T>(wfl::forward<Arguments>(arguments)...);
     }
 };
 

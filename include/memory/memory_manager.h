@@ -39,7 +39,7 @@ static inline waffle::memory::SharedPtr<T> makeShared( \
         file, \
         line, \
         function, \
-        std::forward<Arguments>(arguments)...); \
+        wfl::forward<Arguments>(arguments)...); \
 } \
  \
 template<typename T, typename... Arguments> \
@@ -53,7 +53,7 @@ static inline waffle::memory::UniquePtr<T> makeUnique( \
         file, \
         line, \
         function, \
-        std::forward<Arguments>(arguments)...); \
+        wfl::forward<Arguments>(arguments)...); \
 } \
  \
 public: \
@@ -227,14 +227,14 @@ template<typename T, typename... Arguments> \
 static inline waffle::memory::SharedPtr<T> makeShared(Arguments &&... arguments) \
 { \
     return waffle::memory::makeShared_WithoutTracking<T>( \
-        std::forward<Arguments>(arguments)...); \
+        wfl::forward<Arguments>(arguments)...); \
 } \
  \
 template<typename T, typename... Arguments> \
 static inline waffle::memory::UniquePtr<T> makeUnique(Arguments &&... arguments) \
 { \
     return waffle::memory::makeUnique_WithoutTracking<T>( \
-        std::forward<Arguments>(arguments)...); \
+        wfl::forward<Arguments>(arguments)...); \
 } \
  \
 public: \

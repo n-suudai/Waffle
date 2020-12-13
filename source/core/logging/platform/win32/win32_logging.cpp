@@ -21,7 +21,7 @@ void format(const char* formatString, ...)
 
     char buffer[1024];
     {
-        std::va_list vlist;
+        wfl::va_list vlist;
         va_start(vlist, formatString);
         vsnprintf_s(buffer, ARRAYSIZE(buffer), _TRUNCATE, formatString, vlist);
         va_end(vlist);
