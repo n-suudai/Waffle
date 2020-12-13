@@ -26,10 +26,10 @@
     <ClInclude Include="..\..\..\include\hid.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\hid\key_cpde.h">
+    <ClInclude Include="..\..\..\include\hid\entity.h">
       <Filter>include\hid</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\hid\entity.h">
+    <ClInclude Include="..\..\..\include\hid\key_code.h">
       <Filter>include\hid</Filter>
     </ClInclude>
   </ItemGroup>
