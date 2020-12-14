@@ -77,6 +77,16 @@ bool Win32Window::messagePump()
     return msg.message != WM_QUIT;
 }
 
+bool Win32Window::setTitle(const StringView& title)
+{
+    if (!isAlive()) { return false; }
+
+    LPARAM lParam = reinterpret_cast<LPARAM>(title.data());
+    LRESULT result = ::SendMessageA(m_hWindow, WM_SETTEXT, 0, lParam);
+
+    return SUCCEEDED(result);
+}
+
 
 LRESULT CALLBACK Win32Window::windowProcedureEntry(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {

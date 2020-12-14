@@ -3,6 +3,7 @@
 
 #include "application/entity.h"
 #include "common/utility/rectangle.h"
+#include "memory/stl.h"
 
 
 namespace waffle {
@@ -15,6 +16,8 @@ public:
     virtual bool isAlive() const = 0;
 
     virtual bool messagePump() = 0;
+
+    virtual bool setTitle(const StringView& title) = 0;
 };
 
 

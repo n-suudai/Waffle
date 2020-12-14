@@ -23,7 +23,9 @@ public:
 
     bool isAlive() const override;
 
-    bool messagePump();
+    bool messagePump() override;
+
+    bool setTitle(const StringView& title) override;
 
 private:
     static LRESULT CALLBACK windowProcedureEntry(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
