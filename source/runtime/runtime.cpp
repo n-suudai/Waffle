@@ -25,7 +25,8 @@ wfl::int32_t runtimeMain()
         constexpr Rectangle<wfl::int32_t> defaultClientRect(0, 640, 0, 480);
         constexpr Rectangle<wfl::int32_t> customClientRect(200, 640, 200, 480);
 
-        memory::UniquePtr<application::IWindow> window = application::createWindowUnique(defaultClientRect);
+        UniquePtr<application::IWindow> window = application::createWindowUnique(defaultClientRect);
+
         window->setTitle("Waffle");
         window->setClientRect(customClientRect);
 

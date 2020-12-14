@@ -38,6 +38,12 @@ static HICON loadIcon(const char* iconName, HINSTANCE hInstance, wfl::int32_t ic
     return result;
 }
 
+bool getClassInfo(WNDCLASSEXA& windowClassEX, HINSTANCE hInstance)
+{
+    bool result = ::GetClassInfoExA(hInstance, WINDOW_CLASS_NAME, &windowClassEX) != 0;
+    return result;
+}
+
 
 memory::UniquePtr<IWindow> Win32Window::createUnique(const Rectangle<wfl::int32_t>& clientRect)
 {
@@ -194,21 +200,25 @@ bool Win32Window::registerWindowClass()
     constexpr wfl::int32_t smallIconSize = 16;
 
     // 拡張ウィンドウクラスの設定
-    WNDCLASSEXA wc;
-    wc.cbSize = sizeof(WNDCLASSEX);
-    wc.style = CS_HREDRAW | CS_VREDRAW;
-    wc.lpfnWndProc = &Win32Window::windowProcedureEntry;
-    wc.cbClsExtra = 0;
-    wc.cbWndExtra = 0;
-    wc.hInstance = m_hInstance;
-    wc.hIcon = loadIcon("WAFFLE_ICON", m_hInstance, largeIconSize);
-    wc.hIconSm = loadIcon("WAFFLE_ICON", m_hInstance, smallIconSize);
-    wc.hCursor = LoadCursor(nullptr, IDC_ARROW);
-    wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
-    wc.lpszMenuName = nullptr;
-    wc.lpszClassName = WINDOW_CLASS_NAME;
+    WNDCLASSEXA windowClassEX = {};
 
-    if (!::RegisterClassExA(&wc))
+    if (!getClassInfo(windowClassEX, m_hInstance))
+    {
+        windowClassEX.cbSize = sizeof(WNDCLASSEX);
+        windowClassEX.style = CS_HREDRAW | CS_VREDRAW;
+        windowClassEX.lpfnWndProc = &Win32Window::windowProcedureEntry;
+        windowClassEX.cbClsExtra = 0;
+        windowClassEX.cbWndExtra = 0;
+        windowClassEX.hInstance = m_hInstance;
+        windowClassEX.hIcon = loadIcon("WAFFLE_ICON", m_hInstance, largeIconSize);
+        windowClassEX.hIconSm = loadIcon("WAFFLE_ICON", m_hInstance, smallIconSize);
+        windowClassEX.hCursor = LoadCursor(nullptr, IDC_ARROW);
+        windowClassEX.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
+        windowClassEX.lpszMenuName = nullptr;
+        windowClassEX.lpszClassName = WINDOW_CLASS_NAME;
+    }
+
+    if (!::RegisterClassExA(&windowClassEX))
     {
         return false;
     }
