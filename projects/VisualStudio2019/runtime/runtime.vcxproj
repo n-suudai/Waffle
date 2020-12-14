@@ -144,6 +144,12 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\source\runtime\runtime_heap.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\..\resource\resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\resource\waffle.ico" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

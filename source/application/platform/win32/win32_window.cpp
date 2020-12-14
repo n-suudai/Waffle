@@ -25,6 +25,19 @@ static Rectangle<wfl::int32_t> convertRect(const RECT& rect)
     return result;
 }
 
+static HICON loadIcon(const char* iconName, HINSTANCE hInstance, wfl::int32_t iconSize)
+{
+    HICON result = reinterpret_cast<HICON>(
+        ::LoadImageA(
+            hInstance,
+            "WAFFLE_ICON",
+            IMAGE_ICON,
+            static_cast<int>(iconSize),
+            static_cast<int>(iconSize),
+            LR_DEFAULTSIZE | LR_SHARED));
+    return result;
+}
+
 
 memory::UniquePtr<IWindow> Win32Window::createUnique(const Rectangle<wfl::int32_t>& clientRect)
 {
@@ -177,6 +190,9 @@ LRESULT CALLBACK Win32Window::windowProcedureBody(HWND hWnd, UINT uMsg, WPARAM w
 
 bool Win32Window::registerWindowClass()
 {
+    constexpr wfl::int32_t largeIconSize = 64;
+    constexpr wfl::int32_t smallIconSize = 16;
+
     // 拡張ウィンドウクラスの設定
     WNDCLASSEXA wc;
     wc.cbSize = sizeof(WNDCLASSEX);
@@ -185,12 +201,12 @@ bool Win32Window::registerWindowClass()
     wc.cbClsExtra = 0;
     wc.cbWndExtra = 0;
     wc.hInstance = m_hInstance;
-    wc.hIcon = LoadIcon(m_hInstance, IDI_APPLICATION);
+    wc.hIcon = loadIcon("WAFFLE_ICON", m_hInstance, largeIconSize);
+    wc.hIconSm = loadIcon("WAFFLE_ICON", m_hInstance, smallIconSize);
     wc.hCursor = LoadCursor(nullptr, IDC_ARROW);
     wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
     wc.lpszMenuName = nullptr;
     wc.lpszClassName = WINDOW_CLASS_NAME;
-    wc.hIconSm = LoadIcon(m_hInstance, IDI_APPLICATION);
 
     if (!::RegisterClassExA(&wc))
     {
