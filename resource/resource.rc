@@ -1,3 +1,2 @@
 
-WAFFLE_ICON               ICON                    "waffle.ico"
-
+WAFFLE_ICON ICON DISCARDABLE "waffle.ico"
