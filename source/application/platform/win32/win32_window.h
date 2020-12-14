@@ -27,6 +27,8 @@ public:
 
     bool setTitle(const StringView& title) override;
 
+    bool setClientRect(const Rectangle<wfl::int32_t>& clientRect) override;
+
 private:
     static LRESULT CALLBACK windowProcedureEntry(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
@@ -43,11 +45,18 @@ private:
 
     bool destroyWindow();
 
+    bool updateRectangles();
+
+    bool updateClientRect();
+
+    bool updateWindowRect();
+
 private:
     Rectangle<wfl::int32_t> m_clientRect;
     Rectangle<wfl::int32_t> m_windowRect;
     HINSTANCE m_hInstance;
     HWND m_hWindow;
+    DWORD m_style;
 };
 
 

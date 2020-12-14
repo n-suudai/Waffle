@@ -10,10 +10,19 @@ constexpr const char* WINDOW_CLASS_NAME = "WAFFLE_WINDOW";
 
 static RECT convertRect(const Rectangle<wfl::int32_t>& rectangle)
 {
-    RECT rect = {};
-    rectangle.getHorizontal(rect.left, rect.right);
-    rectangle.getVertical(rect.top, rect.bottom);
-    return rect;
+    RECT result = {};
+    rectangle.getHorizontal(result.left, result.right);
+    rectangle.getVertical(result.top, result.bottom);
+    return result;
+}
+
+static Rectangle<wfl::int32_t> convertRect(const RECT& rect)
+{
+    Rectangle<wfl::int32_t> result(
+        rect.left, rect.right,
+        rect.top, rect.bottom
+    );
+    return result;
 }
 
 
@@ -33,6 +42,7 @@ Win32Window::Win32Window(const Rectangle<wfl::int32_t>& clientRect)
     , m_windowRect(clientRect)
     , m_hInstance(NULL)
     , m_hWindow(NULL)
+    , m_style(0)
 {
     logging::put("Win32Window()");
 
@@ -42,12 +52,12 @@ Win32Window::Win32Window(const Rectangle<wfl::int32_t>& clientRect)
 
     if (!registerWindowClass()) { return; }
     
-    DWORD style = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MAXIMIZEBOX | WS_MINIMIZEBOX | WS_THICKFRAME;
+    m_style = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MAXIMIZEBOX | WS_MINIMIZEBOX | WS_THICKFRAME;
 
     // 矩形の設定
-    if (!adjustWindowRect(style)) { return; }
+    if (!adjustWindowRect(m_style)) { return; }
 
-    if (!createWindow(style)) { return; }
+    if (!createWindow(m_style)) { return; }
 }
 
 Win32Window::~Win32Window()
@@ -87,6 +97,36 @@ bool Win32Window::setTitle(const StringView& title)
     return SUCCEEDED(result);
 }
 
+bool Win32Window::setClientRect(const Rectangle<wfl::int32_t>& clientRect)
+{
+    if (!isAlive()) { return false; }
+
+    const Rectangle<wfl::int32_t> clientRectOld = m_clientRect;
+    const Rectangle<wfl::int32_t> windowRectOld = m_windowRect;
+
+    m_clientRect = clientRect;
+
+    if (!adjustWindowRect(m_style))
+    {
+        m_clientRect = clientRectOld;
+        m_windowRect = windowRectOld;
+        return false;
+    }
+
+    RECT rect = convertRect(m_clientRect);
+
+    ::SetWindowPos(
+        m_hWindow,
+        NULL,
+        rect.left, rect.top,
+        m_windowRect.width<int>(), m_windowRect.height<int>(),
+        SWP_NOMOVE | SWP_NOZORDER);
+
+    updateRectangles();
+
+    return true;
+}
+
 
 LRESULT CALLBACK Win32Window::windowProcedureEntry(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
@@ -120,6 +160,10 @@ LRESULT CALLBACK Win32Window::windowProcedureBody(HWND hWnd, UINT uMsg, WPARAM w
 
     case WM_DESTROY:
         m_hWindow = NULL;
+        break;
+
+    case WM_SIZE:
+        updateRectangles();
         break;
     }
 
@@ -236,6 +280,41 @@ bool Win32Window::destroyWindow()
 
         m_hWindow = NULL;
     }
+
+    return true;
+}
+
+bool Win32Window::updateRectangles()
+{
+    return updateClientRect() && updateWindowRect();
+}
+
+bool Win32Window::updateClientRect()
+{
+    if (!isAlive()) { return false; }
+
+    RECT clientRect = {};
+    if (!::GetClientRect(m_hWindow, &clientRect))
+    {
+        return false;
+    }
+
+    m_clientRect = convertRect(clientRect);
+
+    return true;
+}
+
+bool Win32Window::updateWindowRect()
+{
+    if (!isAlive()) { return false; }
+
+    RECT windowRect = {};
+    if (!::GetWindowRect(m_hWindow, &windowRect))
+    {
+        return false;
+    }
+
+    m_windowRect = convertRect(windowRect);
 
     return true;
 }

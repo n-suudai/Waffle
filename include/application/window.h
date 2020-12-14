@@ -18,6 +18,8 @@ public:
     virtual bool messagePump() = 0;
 
     virtual bool setTitle(const StringView& title) = 0;
+
+    virtual bool setClientRect(const Rectangle<wfl::int32_t>& clientRect) = 0;
 };
 
 
