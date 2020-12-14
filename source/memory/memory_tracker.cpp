@@ -33,7 +33,7 @@ AllocHeader* MemoryTracker::recordAllocation(
     const char* function,
     Heap* pHeap)
 {
-    std::lock_guard<std::recursive_mutex> lock(m_protection);
+    wfl::lock_guard<wfl::recursive_mutex> lock(m_protection);
 
     wfl::size_t backTraceHash = 0;
     //if (AllocHeader::isEnabled(HeaderInfoFlagBits::BackTraceHash))
@@ -66,7 +66,7 @@ AllocHeader* MemoryTracker::recordAllocation(
 
 void MemoryTracker::recordDeallocation(void* pBlock, Heap* pHeap)
 {
-    std::lock_guard<std::recursive_mutex> lock(m_protection);
+    wfl::lock_guard<wfl::recursive_mutex> lock(m_protection);
 
     auto it = m_allocations.find(pBlock);
 
