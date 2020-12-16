@@ -9,7 +9,7 @@ namespace waffle {
 namespace hid {
 
 
-enum class KeyCodeType : wfl::uint16_t
+enum class KeyCodeType : wfl::uint8_t
 {
     Key_Unknown
 
@@ -188,7 +188,7 @@ public:
         return String(toStringView());
     }
 
-    inline constexpr operator KeyCodeType() const
+    inline constexpr explicit operator KeyCodeType() const
     {
         return m_type;
     }

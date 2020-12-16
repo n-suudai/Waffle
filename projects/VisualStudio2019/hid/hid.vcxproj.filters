@@ -38,5 +38,29 @@
     <ClInclude Include="..\..\..\include\hid\keyboard.h">
       <Filter>include\hid</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\hid\peripheral_device_manager.h">
+      <Filter>include\hid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\hid\mouse.h">
+      <Filter>include\hid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\hid\mouse_axis.h">
+      <Filter>include\hid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\hid\mouse_button.h">
+      <Filter>include\hid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\hid\game_pad.h">
+      <Filter>include\hid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\hid\game_pad_button.h">
+      <Filter>include\hid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\hid\analog_input.h">
+      <Filter>include\hid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\hid\pov.h">
+      <Filter>include\hid</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -9,10 +9,10 @@ namespace waffle {
 namespace hid {
 
 
-class IKeyBoard : public IPeripheralDevice
+class IKeyboard : public IPeripheralDevice
 {
 public:
-    virtual ~IKeyBoard() = default;
+    virtual ~IKeyboard() = default;
 
     virtual bool isPressed(KeyCode key) const = 0;
 
