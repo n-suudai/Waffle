@@ -16,11 +16,11 @@ public:
 
     virtual void updateAll(wfl::chrono::microseconds deltaTime) = 0;
 
-    virtual wfl::size_t getKeyboardCount() const = 0;
+    virtual wfl::size_t keyboardCount() const = 0;
 
-    virtual wfl::size_t getMouseCount() const = 0;
+    virtual wfl::size_t mouseCount() const = 0;
     
-    virtual wfl::size_t getGamePadCount() const = 0;
+    virtual wfl::size_t gamePadCount() const = 0;
 };
 
 
