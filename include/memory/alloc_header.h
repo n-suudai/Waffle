@@ -184,6 +184,15 @@ private:
 
 
 
-} // namespace Memory
-} // namespace Engine
+} // namespace memory
+
+
+template<>
+struct FlagTraits<memory::HeaderInfoFlagBits>
+{
+    enum { allFlags = wfl::uint64_t(memory::HeaderInfoFlagBits::All) };
+};
+
+
+} // namespace waffle
 
