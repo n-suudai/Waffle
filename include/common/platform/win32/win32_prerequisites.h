@@ -22,3 +22,13 @@
 #include <tchar.h>
 #include <crtdbg.h>
 
+#include <wrl.h>
+
+
+namespace waffle {
+
+template<typename T>
+using ComPtr = Microsoft::WRL::ComPtr<T>;
+
+} // namespace waffle
+

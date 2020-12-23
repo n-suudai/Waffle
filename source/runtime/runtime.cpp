@@ -30,6 +30,15 @@ wfl::int32_t runtimeMain()
         window->setTitle("Waffle");
         window->setClientRect(customClientRect);
 
+        {
+            hid::InitializeParameters initializeParameters = {};
+            initializeParameters.windowHandle = window->windowHandle();
+            initializeParameters.applicationHandle = window->applicationHandle();
+
+            UniquePtr<hid::IPeripheralDeviceManager> manager =
+                hid::createPeripheralDeviceManagerUnique(initializeParameters);
+        }
+
         while (window->isAlive())
         {
             if (!window->messagePump())

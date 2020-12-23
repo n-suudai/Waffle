@@ -13,6 +13,9 @@
     <Filter Include="source\hid">
       <UniqueIdentifier>{82757a81-94fb-4e79-8b8d-89baced9f217}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\hid\direct_input">
+      <UniqueIdentifier>{a55ad3a1-dbe4-4f42-af1a-8b667a0525e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\hid\hid.cpp">
@@ -20,6 +23,15 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\hid\entity.cpp">
       <Filter>source\hid</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\hid\direct_input\dinput_peripheral_device_manager.cpp">
+      <Filter>source\hid\direct_input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\hid\peripheral_device_manager.cpp">
+      <Filter>source\hid</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\hid\direct_input\direct_input.cpp">
+      <Filter>source\hid\direct_input</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +73,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\hid\pov.h">
       <Filter>include\hid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\hid\direct_input\dinput_peripheral_device_manager.h">
+      <Filter>source\hid\direct_input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\hid\direct_input\direct_input.h">
+      <Filter>source\hid\direct_input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

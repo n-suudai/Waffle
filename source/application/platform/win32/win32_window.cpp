@@ -146,6 +146,16 @@ bool Win32Window::setClientRect(const Rectangle<wfl::int32_t>& clientRect)
     return true;
 }
 
+void* Win32Window::windowHandle() const
+{
+    return reinterpret_cast<void*>(m_hWindow);
+}
+
+void* Win32Window::applicationHandle() const
+{
+    return reinterpret_cast<void*>(m_hInstance);
+}
+
 
 LRESULT CALLBACK Win32Window::windowProcedureEntry(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {

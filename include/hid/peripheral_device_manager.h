@@ -2,6 +2,7 @@
 
 
 #include "hid/entity.h"
+#include "memory/stl.h"
 #include <chrono>
 
 
@@ -22,6 +23,22 @@ public:
     
     virtual wfl::size_t gamePadCount() const = 0;
 };
+
+
+struct InitializeParameters
+{
+    WFL_NO_NEW_DELETE;
+
+    void* windowHandle;
+    void* applicationHandle;
+};
+
+
+UniquePtr<IPeripheralDeviceManager> createPeripheralDeviceManagerUnique(
+    const InitializeParameters& initializeParameters);
+
+SharedPtr<IPeripheralDeviceManager> createPeripheralDeviceManagerShared(
+    const InitializeParameters& initializeParameters);
 
 
 } // namespace hid

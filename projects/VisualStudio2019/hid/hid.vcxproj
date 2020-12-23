@@ -135,8 +135,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\source\hid\direct_input\dinput_peripheral_device_manager.cpp" />
+    <ClCompile Include="..\..\..\source\hid\direct_input\direct_input.cpp" />
     <ClCompile Include="..\..\..\source\hid\entity.cpp" />
     <ClCompile Include="..\..\..\source\hid\hid.cpp" />
+    <ClCompile Include="..\..\..\source\hid\peripheral_device_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\hid.h" />
@@ -152,6 +155,8 @@
     <ClInclude Include="..\..\..\include\hid\peripheral_device.h" />
     <ClInclude Include="..\..\..\include\hid\peripheral_device_manager.h" />
     <ClInclude Include="..\..\..\include\hid\pov.h" />
+    <ClInclude Include="..\..\..\source\hid\direct_input\dinput_peripheral_device_manager.h" />
+    <ClInclude Include="..\..\..\source\hid\direct_input\direct_input.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

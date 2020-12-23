@@ -29,6 +29,10 @@ public:
 
     bool setClientRect(const Rectangle<wfl::int32_t>& clientRect) override;
 
+    void* windowHandle() const override;
+
+    void* applicationHandle() const override;
+
 private:
     static LRESULT CALLBACK windowProcedureEntry(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
