@@ -1,5 +1,6 @@
 ﻿
 #include "dinput_mouse.h"
+#include "dinput_utility.h"
 
 
 namespace waffle {
@@ -61,50 +62,11 @@ void DInputMouse::update(const Duration& deltaTime)
 {
 	if (!m_device) { return; }
 
-	auto is_window_available = [](HWND hWindow) -> bool
-	{
-		HWND foreground = ::GetForegroundWindow();
-		if (foreground != hWindow) { return false; }
+	if (!DInputUtility::isWindowAvailable(m_hWindow)) { return; }
 
-		bool isWindowVisible = ::IsWindowVisible(hWindow) != 0;
-		if (!isWindowVisible) { return false; }
+	if (!DInputUtility::DeviceAcquire(m_device)) { return; }
 
-		return true;
-	};
-
-
-	if (!is_window_available(m_hWindow)) { return; }
-
-	auto acquire = [](const ComPtr<IDirectInputDevice8A>& device) -> bool
-	{
-		assert(!!device);
-
-		HRESULT hr = device->Acquire();
-
-		if (hr == DIERR_INVALIDPARAM) { return false; }
-		if (hr == DIERR_NOTINITIALIZED) { return false; }
-		if (hr == DIERR_OTHERAPPHASPRIO) { return false; }
-
-		return true;
-	};
-
-	if (!acquire(m_device)) { return; }
-
-
-	auto poll = [](const ComPtr<IDirectInputDevice8A>& device) -> bool
-	{
-		assert(!!device);
-
-		HRESULT hr = device->Poll();
-
-		if (hr == DIERR_INPUTLOST) { return false; }
-		if (hr == DIERR_NOTACQUIRED) { return false; }
-		if (hr == DIERR_NOTINITIALIZED) { return false; }
-
-		return true;
-	};
-
-	if (!poll(m_device)) { return; }
+	if (!DInputUtility::DevicePoll(m_device)) { return; }
 
 
 	auto get_mouse_state = [](
@@ -122,7 +84,7 @@ void DInputMouse::update(const Duration& deltaTime)
 	};
 
 	DIMOUSESTATE2 mousestate2 = { 0 };
-	if (!get_mouse_state(m_device, mousestate2)) { return; }
+	if (!DInputUtility::DeviceGetState(m_device, sizeof(mousestate2), &mousestate2)) { return; }
 
 	for (wfl::size_t i = 0; i < MouseButton::MAX_NUM; ++i)
 	{

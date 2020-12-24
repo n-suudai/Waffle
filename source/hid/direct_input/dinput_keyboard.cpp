@@ -1,5 +1,6 @@
 ﻿
 #include "dinput_keyboard.h"
+#include "dinput_utility.h"
 
 
 namespace waffle {
@@ -180,74 +181,14 @@ void DInputKeyboard::update(const Duration& deltaTime)
 {
 	if (!m_device) { return; }
 
-	auto is_window_available = [](HWND hWindow) -> bool
-	{
-		HWND foreground = ::GetForegroundWindow();
-		if (foreground != hWindow) { return false; }
-
-		bool isWindowVisible = ::IsWindowVisible(hWindow) != 0;
-		if (!isWindowVisible) { return false; }
-
-		return true;
-	};
-
-	if (!is_window_available(m_hWindow)) { return; }
+	if (!DInputUtility::isWindowAvailable(m_hWindow)) { return; }
 	
+	if (!DInputUtility::DeviceAcquire(m_device)) { return; }
 
-	auto acquire = [](const ComPtr<IDirectInputDevice8A>& device) -> bool
-	{
-		assert(!!device);
-
-		HRESULT hr = device->Acquire();
-
-		if (hr == DIERR_INVALIDPARAM) { return false; }
-		if (hr == DIERR_NOTINITIALIZED) { return false; }
-		if (hr == DIERR_OTHERAPPHASPRIO) { return false; }
-
-		return true;
-	};
-
-	if (!acquire(m_device)) { return; }
-
-
-	auto poll = [](const ComPtr<IDirectInputDevice8A>& device) -> bool
-	{
-		assert(!!device);
-
-		HRESULT hr = device->Poll();
-
-		if (hr == DIERR_INPUTLOST) { return false; }
-		if (hr == DIERR_NOTACQUIRED) { return false; }
-		if (hr == DIERR_NOTINITIALIZED) { return false; }
-
-		return true;
-	};
-
-	if (!poll(m_device)) { return; }	
-
-
-	auto get_keyboard_state = [](
-		const ComPtr<IDirectInputDevice8A>& device,
-		wfl::uint8_t* keyBuffer,
-		wfl::size_t bufferSize) -> bool
-	{
-		assert(!!device);
-
-		HRESULT hr = device->GetDeviceState(
-			static_cast<DWORD>(bufferSize),
-			keyBuffer);
-
-		if (hr == DIERR_INPUTLOST) { return false; }
-		if (hr == DIERR_INVALIDPARAM) { return false; }
-		if (hr == DIERR_NOTACQUIRED) { return false; }
-		if (hr == DIERR_NOTINITIALIZED) { return false; }
-
-		return true;
-	};
+	if (!DInputUtility::DevicePoll(m_device)) { return; }	
 
 	wfl::uint8_t keyBuffer[256];
-	if (!get_keyboard_state(m_device, keyBuffer, sizeof(keyBuffer))) { return; }
-
+	if (!DInputUtility::DeviceGetState(m_device, sizeof(keyBuffer), keyBuffer)) { return; }
 
 	for (wfl::size_t i = 0; i < KeyCode::MAX_NUM; ++i)
 	{

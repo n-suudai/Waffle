@@ -161,6 +161,7 @@
     <ClInclude Include="..\..\..\source\hid\direct_input\dinput_keyboard.h" />
     <ClInclude Include="..\..\..\source\hid\direct_input\dinput_mouse.h" />
     <ClInclude Include="..\..\..\source\hid\direct_input\dinput_peripheral_device_manager.h" />
+    <ClInclude Include="..\..\..\source\hid\direct_input\dinput_utility.h" />
     <ClInclude Include="..\..\..\source\hid\direct_input\direct_input.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

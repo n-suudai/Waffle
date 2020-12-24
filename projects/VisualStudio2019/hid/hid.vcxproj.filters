@@ -95,5 +95,8 @@
     <ClInclude Include="..\..\..\source\hid\direct_input\dinput_mouse.h">
       <Filter>source\hid\direct_input</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\source\hid\direct_input\dinput_utility.h">
+      <Filter>source\hid\direct_input</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
