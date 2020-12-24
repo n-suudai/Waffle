@@ -12,64 +12,76 @@ namespace waffle {
 namespace runtime {
 
 
-wfl::int32_t runtimeMain()
+bool runtimeInitialize()
 {
-    memory::initialize();
-    core::initialize();
-    application::initialize();
-    hid::initialize();
+    if (!memory::initialize()) { return false; }
+    if (!core::initialize()) { return false; }
+    if (!application::initialize()) { return false; }
+    if (!hid::initialize()) { return false; }
+    return true;
+}
 
-    logging::format("Hello! %s!", "Waffle");
-
-    {
-        constexpr Rectangle<wfl::int32_t> defaultClientRect(0, 640, 0, 480);
-        constexpr Rectangle<wfl::int32_t> customClientRect(200, 640, 200, 480);
-
-        UniquePtr<application::IWindow> window;
-        bool result = application::createWindowUnique(defaultClientRect, window);
-        if (!result) { return 0; }
-
-        window->setTitle("Waffle");
-        window->setClientRect(customClientRect);
-
-        hid::InitializeParameters initializeParameters = {};
-        initializeParameters.windowHandle = window->windowHandle();
-        initializeParameters.applicationHandle = window->applicationHandle();
-
-        UniquePtr<hid::IPeripheralDeviceManager> manager;
-        result = hid::createPeripheralDeviceManagerUnique(
-            initializeParameters,
-            manager);
-
-        if (!result) { return 0; }
-
-        SharedPtr<hid::IKeyboard> keyboard;
-        result = manager->createKeyboardShared(0, keyboard);
-
-        if (!result) { return 0; }
-
-        // loop
-        while (window->isAlive())
-        {
-            keyboard->update(hid::Duration(1));
-
-            if (keyboard->isFirstPressed((hid::KeyCode)hid::KeyCodeType::Key_Escape))
-            {
-                break;
-            }
-
-            if (!window->messagePump())
-            {
-                break;
-            }
-        }
-    }
-
+void runtimeFinalize()
+{
     hid::finalize();
     application::finalize();
     core::finalize();
     RuntimeHeap::printDebug_Report_MemoryAll(); // メモリの状態を表示
     memory::finalize();
+}
+
+void runtimeBody()
+{
+    logging::format("Hello! %s!", "Waffle");
+
+    constexpr Rectangle<wfl::int32_t> defaultClientRect(0, 640, 0, 480);
+    constexpr Rectangle<wfl::int32_t> customClientRect(200, 640, 200, 480);
+
+    UniquePtr<application::IWindow> window;
+    if (!application::createWindowUnique(defaultClientRect, window)) { return; }
+    if (!window->setTitle("Waffle")) { return; }
+    if (!window->setClientRect(customClientRect)) { return; }
+
+
+    hid::InitializeParameters initializeParameters = {};
+    initializeParameters.windowHandle = window->windowHandle();
+    initializeParameters.applicationHandle = window->applicationHandle();
+
+    UniquePtr<hid::IPeripheralDeviceManager> hidManager;
+    if (!hid::createPeripheralDeviceManagerUnique(initializeParameters, hidManager)) { return; }
+
+    SharedPtr<hid::IKeyboard> keyboard;
+    if (!hidManager->createKeyboardShared(0, keyboard)) { return; }
+
+    // loop
+    while (window->isAlive())
+    {
+        keyboard->update(hid::Duration(1));
+
+        if (keyboard->isFirstPressed((hid::KeyCode)hid::KeyCodeType::Key_Escape))
+        {
+            break;
+        }
+
+        if (!window->messagePump())
+        {
+            break;
+        }
+    }
+}
+
+
+wfl::int32_t runtimeMain()
+{
+    if (!runtimeInitialize())
+    {
+        runtimeFinalize();
+        return 0;
+    }
+
+    runtimeBody();
+
+    runtimeFinalize();
 
     return 0;
 }
