@@ -53,12 +53,21 @@ void runtimeBody()
     SharedPtr<hid::IKeyboard> keyboard;
     if (!hidManager->createKeyboardShared(0, keyboard)) { return; }
 
+    SharedPtr<hid::IMouse> mouse;
+    if (!hidManager->createMouseShared(0, mouse)) { return; }
+
     // loop
     while (window->isAlive())
     {
         keyboard->update(hid::Duration(1));
+        mouse->update(hid::Duration(1));
 
         if (keyboard->isFirstPressed((hid::KeyCode)hid::KeyCodeType::Key_Escape))
+        {
+            break;
+        }
+
+        if (mouse->isFirstPressed((hid::MouseButton)hid::MouseButtonType::Button_0))
         {
             break;
         }

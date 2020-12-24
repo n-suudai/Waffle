@@ -22,6 +22,8 @@ class MouseAxis final
 {
 	WFL_NO_NEW_DELETE;
 public:
+	static constexpr wfl::size_t MAX_NUM = static_cast<wfl::size_t>(MouseAxisType::Axis_Num);
+
 	inline constexpr MouseAxis()
 		: m_type(MouseAxisType::Axis_X)
 	{}
@@ -33,6 +35,16 @@ public:
 	inline constexpr bool is(MouseAxisType type) const
 	{
 		return m_type == type;
+	}
+
+	inline constexpr bool isValid() const
+	{
+		return MouseAxisType::Axis_X <= m_type && m_type < MouseAxisType::Axis_Num;
+	}
+
+	inline constexpr wfl::size_t toIndex() const
+	{
+		return static_cast<wfl::size_t>(m_type);
 	}
 
 	inline constexpr StringView toStringView() const

@@ -170,7 +170,7 @@ DInputKeyboard::DInputKeyboard()
 		table.fill(InputState(InputStateType::Released));
 	}
 
-	m_pressedDurations.fill(Duration(0));
+	m_pressedDurations.fill(DURATION_ZERO);
 }
 
 DInputKeyboard::~DInputKeyboard()
@@ -268,7 +268,7 @@ void DInputKeyboard::update(const Duration& deltaTime)
 
 bool DInputKeyboard::isAnyPressed() const
 {
-	bool result = std::any_of(
+	bool result = wfl::any_of(
 		m_stateTables[0].begin(),
 		m_stateTables[0].end(),
 		[](const InputState& state) -> bool

@@ -36,6 +36,9 @@
     <ClCompile Include="..\..\..\source\hid\direct_input\dinput_keyboard.cpp">
       <Filter>source\hid\direct_input</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\hid\direct_input\dinput_mouse.cpp">
+      <Filter>source\hid\direct_input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\hid.h">
@@ -88,6 +91,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\hid\input_state.h">
       <Filter>include\hid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\hid\direct_input\dinput_mouse.h">
+      <Filter>source\hid\direct_input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

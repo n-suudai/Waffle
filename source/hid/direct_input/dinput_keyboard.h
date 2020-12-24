@@ -1,9 +1,8 @@
 ﻿#pragma once
 
-
 #include "hid/keyboard.h"
-#include "direct_input.h"
 #include "hid/input_state.h"
+#include "direct_input.h"
 
 
 namespace waffle {

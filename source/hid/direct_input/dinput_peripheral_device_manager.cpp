@@ -1,6 +1,7 @@
 ﻿
 #include "dinput_peripheral_device_manager.h"
 #include "dinput_keyboard.h"
+#include "dinput_mouse.h"
 
 
 namespace waffle {
@@ -92,9 +93,12 @@ bool DInputPeripheralDeviceManager::createMouseUnique(
 {
     if (index >= m_mouseDevices.size()) { return false; }
     
-    outMouse;
+    bool result = DInputMouse::createUnique(
+        m_mouseDevices[index],
+        m_hWindow,
+        outMouse);
 
-    return false;
+    return result;
 }
 
 bool DInputPeripheralDeviceManager::createMouseShared(
@@ -102,9 +106,12 @@ bool DInputPeripheralDeviceManager::createMouseShared(
 {
     if (index >= m_mouseDevices.size()) { return false; }
 
-    outMouse;
+    bool result = DInputMouse::createShared(
+        m_mouseDevices[index],
+        m_hWindow,
+        outMouse);
 
-    return false;
+    return result;
 }
 
 wfl::size_t DInputPeripheralDeviceManager::gamePadCount() const

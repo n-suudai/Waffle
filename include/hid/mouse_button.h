@@ -27,6 +27,8 @@ class MouseButton final
 {
 	WFL_NO_NEW_DELETE;
 public:
+	static constexpr wfl::size_t MAX_NUM = static_cast<wfl::size_t>(MouseButtonType::Button_Num);
+
 	inline constexpr MouseButton()
 		: m_type(MouseButtonType::Button_0)
 	{}
@@ -38,6 +40,16 @@ public:
 	inline constexpr bool is(MouseButtonType type) const
 	{
 		return m_type == type;
+	}
+
+	inline constexpr bool isValid() const
+	{
+		return MouseButtonType::Button_0 <= m_type && m_type < MouseButtonType::Button_Num;
+	}
+
+	inline constexpr wfl::size_t toIndex() const
+	{
+		return static_cast<wfl::size_t>(m_type);
 	}
 
 	inline constexpr StringView toStringView() const
