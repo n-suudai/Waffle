@@ -7,16 +7,22 @@ namespace waffle {
 namespace hid {
 
 
-UniquePtr<IPeripheralDeviceManager> createPeripheralDeviceManagerUnique(
-    const InitializeParameters& initializeParameters)
+bool createPeripheralDeviceManagerUnique(
+    const InitializeParameters& initializeParameters,
+    UniquePtr<IPeripheralDeviceManager>& outPeripheralDeviceManager)
 {
-    return DInputPeripheralDeviceManager::createUnique(initializeParameters);
+    return DInputPeripheralDeviceManager::createUnique(
+        initializeParameters,
+        outPeripheralDeviceManager);
 }
 
-SharedPtr<IPeripheralDeviceManager> createPeripheralDeviceManagerShared(
-    const InitializeParameters& initializeParameters)
+bool createPeripheralDeviceManagerShared(
+    const InitializeParameters& initializeParameters,
+    SharedPtr<IPeripheralDeviceManager>& outPeripheralDeviceManager)
 {
-    return DInputPeripheralDeviceManager::createShared(initializeParameters);
+    return DInputPeripheralDeviceManager::createShared(
+        initializeParameters,
+        outPeripheralDeviceManager);
 }
 
 

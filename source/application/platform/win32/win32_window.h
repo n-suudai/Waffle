@@ -12,12 +12,16 @@ namespace application {
 class Win32Window final : public IWindow
 {
 public:
-    static memory::UniquePtr<IWindow> createUnique(const Rectangle<wfl::int32_t>& clientRect);
+    static bool createUnique(
+        const Rectangle<wfl::int32_t>& clientRect,
+        UniquePtr<IWindow>& outWindow);
 
-    static memory::SharedPtr<IWindow> createShared(const Rectangle<wfl::int32_t>& clientRect);
+    static bool createShared(
+        const Rectangle<wfl::int32_t>& clientRect,
+        SharedPtr<IWindow>& outWindow);
 
 public:
-    Win32Window(const Rectangle<wfl::int32_t>& clientRect);
+    Win32Window();
 
     ~Win32Window();
 
@@ -39,6 +43,8 @@ private:
     LRESULT CALLBACK windowProcedureBody(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 private:
+    bool initialize(const Rectangle<wfl::int32_t>& clientRect);
+
     bool registerWindowClass();
 
     bool unregisterWindowClass();

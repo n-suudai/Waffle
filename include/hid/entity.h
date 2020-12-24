@@ -17,6 +17,9 @@ protected:
 };
 
 
+typedef wfl::chrono::microseconds Duration;
+constexpr Duration DURATION_ZERO = Duration(0);
+
 
 } // namespace hid
 } // namespace waffle

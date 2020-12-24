@@ -9,14 +9,22 @@ namespace waffle {
 namespace application {
 
 
-memory::UniquePtr<IWindow> createWindowUnique(const Rectangle<wfl::int32_t>& clientRect)
+bool createWindowUnique(
+    const Rectangle<wfl::int32_t>& clientRect,
+    UniquePtr<IWindow>& outWindow)
 {
-    return Win32Window::createUnique(clientRect);
+    return Win32Window::createUnique(
+        clientRect,
+        outWindow);
 }
 
-memory::SharedPtr<IWindow> createWindowShared(const Rectangle<wfl::int32_t>& clientRect)
+bool createWindowShared(
+    const Rectangle<wfl::int32_t>& clientRect,
+    SharedPtr<IWindow>& outWindow)
 {
-    return Win32Window::createShared(clientRect);
+    return Win32Window::createShared(
+        clientRect,
+        outWindow);
 }
 
 

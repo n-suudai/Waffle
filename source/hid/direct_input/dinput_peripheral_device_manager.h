@@ -2,7 +2,6 @@
 
 
 #include "hid/peripheral_device_manager.h"
-#include "common/platform/win32.h"
 #include "direct_input.h"
 
 
@@ -10,30 +9,47 @@ namespace waffle {
 namespace hid {
 
 
-class IKeyboard;
-class IMouse;
-class IGamePad;
 class DInputPeripheralDeviceManager final : public IPeripheralDeviceManager
 {
 public:
-    static UniquePtr<IPeripheralDeviceManager> createUnique(
-        const InitializeParameters& initializeParameters);
+    static bool createUnique(
+        const InitializeParameters& initializeParameters,
+        UniquePtr<IPeripheralDeviceManager>& outPeripheralDeviceManager);
 
-    static SharedPtr<IPeripheralDeviceManager> createShared(
-        const InitializeParameters& initializeParameters);
+    static bool createShared(
+        const InitializeParameters& initializeParameters,
+        SharedPtr<IPeripheralDeviceManager>& outPeripheralDeviceManager);
 
 public:
-    DInputPeripheralDeviceManager(const InitializeParameters& initializeParameters);
+    DInputPeripheralDeviceManager();
 
     ~DInputPeripheralDeviceManager();
 
-    void updateAll(wfl::chrono::microseconds deltaTime) override;
-
     wfl::size_t keyboardCount() const override;
+
+    bool createKeyboardUnique(
+        wfl::size_t index, UniquePtr<IKeyboard>& outKeyboard) const override;
+
+    bool createKeyboardShared(
+        wfl::size_t index, SharedPtr<IKeyboard>& outKeyboard) const override;
+
 
     wfl::size_t mouseCount() const override;
 
+    bool createMouseUnique(
+        wfl::size_t index, UniquePtr<IMouse>& outMouse) const override;
+
+    bool createMouseShared(
+        wfl::size_t index, SharedPtr<IMouse>& outMouse) const override;
+
+
     wfl::size_t gamePadCount() const override;
+
+    bool createGamePadUnique(
+        wfl::size_t index, UniquePtr<IGamePad>& outGamePad) const override;
+
+    bool createGamePadShared(
+        wfl::size_t index, SharedPtr<IGamePad>& outGamePad) const override;
 
 private:
     static BOOL CALLBACK EnumAndCreateKeyboard(LPCDIDEVICEINSTANCEA lpddi, LPVOID pvRef);
@@ -43,6 +59,17 @@ private:
     static BOOL CALLBACK EnumAndCreateGamePad(LPCDIDEVICEINSTANCEA lpddi, LPVOID pvRef);
 
     static BOOL CALLBACK EnumAndSettingAxesCallback(LPCDIDEVICEOBJECTINSTANCEA lpddoi, LPVOID pvRef);
+
+private:
+    bool initialize(const InitializeParameters& initializeParameters);
+
+    bool initializeDirectInput();
+
+    bool initializeKeyboardDevices();
+
+    bool initializeMouseDevices();
+
+    bool initializeGamePadDevices();
 
 private:
     HWND m_hWindow;;

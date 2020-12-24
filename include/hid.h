@@ -1,8 +1,10 @@
 ﻿#pragma once
 
 
-#include "hid/key_code.h"
 #include "hid/peripheral_device_manager.h"
+#include "hid/keyboard.h"
+#include "hid/mouse.h"
+#include "hid/game_pad.h"
 
 
 namespace waffle {

@@ -15,6 +15,10 @@ class IMouse : public IPeripheralDevice
 public:
     virtual ~IMouse() = default;
 
+    virtual void update(const Duration& deltaTime) = 0;
+
+    virtual bool isAnyPressed() const = 0;
+
     virtual bool isPressed(MouseButton button) const = 0;
 
     virtual bool isReleased(MouseButton button) const = 0;
@@ -23,9 +27,9 @@ public:
 
     virtual bool isFirstReleased(MouseButton button) const = 0;
 
-    virtual wfl::chrono::microseconds getDurationPressed(MouseButton button) const = 0;
+    virtual Duration durationPressed(MouseButton button) const = 0;
 
-    virtual std::int32_t GetAxisValue(MouseAxis axis) const = 0;
+    virtual wfl::int32_t axisValue(MouseAxis axis) const = 0;
 };
 
 

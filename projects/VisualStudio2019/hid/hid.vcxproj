@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\source\hid\direct_input\dinput_keyboard.cpp" />
     <ClCompile Include="..\..\..\source\hid\direct_input\dinput_peripheral_device_manager.cpp" />
     <ClCompile Include="..\..\..\source\hid\direct_input\direct_input.cpp" />
     <ClCompile Include="..\..\..\source\hid\entity.cpp" />
@@ -147,6 +148,7 @@
     <ClInclude Include="..\..\..\include\hid\entity.h" />
     <ClInclude Include="..\..\..\include\hid\game_pad.h" />
     <ClInclude Include="..\..\..\include\hid\game_pad_button.h" />
+    <ClInclude Include="..\..\..\include\hid\input_state.h" />
     <ClInclude Include="..\..\..\include\hid\keyboard.h" />
     <ClInclude Include="..\..\..\include\hid\key_code.h" />
     <ClInclude Include="..\..\..\include\hid\mouse.h" />
@@ -155,6 +157,7 @@
     <ClInclude Include="..\..\..\include\hid\peripheral_device.h" />
     <ClInclude Include="..\..\..\include\hid\peripheral_device_manager.h" />
     <ClInclude Include="..\..\..\include\hid\pov.h" />
+    <ClInclude Include="..\..\..\source\hid\direct_input\dinput_keyboard.h" />
     <ClInclude Include="..\..\..\source\hid\direct_input\dinput_peripheral_device_manager.h" />
     <ClInclude Include="..\..\..\source\hid\direct_input\direct_input.h" />
   </ItemGroup>

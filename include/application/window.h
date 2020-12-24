@@ -27,9 +27,13 @@ public:
 };
 
 
-UniquePtr<IWindow> createWindowUnique(const Rectangle<wfl::int32_t>& clientRect);
+bool createWindowUnique(
+    const Rectangle<wfl::int32_t>& clientRect,
+    UniquePtr<IWindow>& outWindow);
 
-SharedPtr<IWindow> createWindowShared(const Rectangle<wfl::int32_t>& clientRect);
+bool createWindowShared(
+    const Rectangle<wfl::int32_t>& clientRect,
+    SharedPtr<IWindow>& outWindow);
 
 
 } // namespace application

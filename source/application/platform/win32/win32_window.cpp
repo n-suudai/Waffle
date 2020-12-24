@@ -1,6 +1,5 @@
 ﻿
 #include "win32_window.h"
-#include "core/logging.h"
 
 
 namespace waffle {
@@ -44,45 +43,46 @@ bool getClassInfo(WNDCLASSEXA& windowClassEX, HINSTANCE hInstance)
     return result;
 }
 
-
-memory::UniquePtr<IWindow> Win32Window::createUnique(const Rectangle<wfl::int32_t>& clientRect)
+bool Win32Window::createUnique(
+    const Rectangle<wfl::int32_t>& clientRect,
+    UniquePtr<IWindow>& outWindow)
 {
-    return WFL_MAKE_UNIQUE(Win32Window, clientRect);
+    UniquePtr<Win32Window> ptr = WFL_MAKE_UNIQUE(Win32Window);
+
+    if (ptr->initialize(clientRect))
+    {
+        outWindow = wfl::move(ptr);
+        return true;
+    }
+    
+    return false;
 }
 
-memory::SharedPtr<IWindow> Win32Window::createShared(const Rectangle<wfl::int32_t>& clientRect)
+bool Win32Window::createShared(
+    const Rectangle<wfl::int32_t>& clientRect,
+    SharedPtr<IWindow>& outWindow)
 {
-    return WFL_MAKE_SHARED(Win32Window, clientRect);
+    SharedPtr<Win32Window> ptr = WFL_MAKE_SHARED(Win32Window);
+
+    if (ptr->initialize(clientRect))
+    {
+        outWindow = wfl::move(ptr);
+        return true;
+    }
+
+    return false;
 }
 
-
-Win32Window::Win32Window(const Rectangle<wfl::int32_t>& clientRect)
-    : m_clientRect(clientRect)
-    , m_windowRect(clientRect)
+Win32Window::Win32Window()
+    : m_clientRect()
+    , m_windowRect()
     , m_hInstance(NULL)
     , m_hWindow(NULL)
     , m_style(0)
-{
-    logging::put("Win32Window()");
-
-    m_hInstance = ::GetModuleHandleA(nullptr);
-
-    if (!m_hInstance) { return; }
-
-    if (!registerWindowClass()) { return; }
-    
-    m_style = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MAXIMIZEBOX | WS_MINIMIZEBOX | WS_THICKFRAME;
-
-    // 矩形の設定
-    if (!adjustWindowRect(m_style)) { return; }
-
-    if (!createWindow(m_style)) { return; }
-}
+{}
 
 Win32Window::~Win32Window()
 {
-    logging::put("~Win32Window()");
-
     if (destroyWindow())
     {
         unregisterWindowClass();
@@ -202,6 +202,27 @@ LRESULT CALLBACK Win32Window::windowProcedureBody(HWND hWnd, UINT uMsg, WPARAM w
         wParam,
         lParam
     );
+}
+
+bool Win32Window::initialize(const Rectangle<wfl::int32_t>& clientRect)
+{
+    m_style = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MAXIMIZEBOX | WS_MINIMIZEBOX | WS_THICKFRAME;
+
+    m_clientRect = clientRect;
+    m_windowRect = clientRect;
+
+    m_hInstance = ::GetModuleHandleA(nullptr);
+
+    if (!m_hInstance) { return false; }
+
+    if (!registerWindowClass()) { return false; }
+
+    // 矩形の設定
+    if (!adjustWindowRect(m_style)) { return false; }
+
+    if (!createWindow(m_style)) { return false; }
+
+    return true;
 }
 
 bool Win32Window::registerWindowClass()

@@ -16,6 +16,10 @@ class IGamePad : public IPeripheralDevice
 public:
     virtual ~IGamePad() = default;
 
+    virtual void update(const Duration& deltaTime) = 0;
+
+    virtual bool isAnyPressed() const = 0;
+
     virtual bool isPressed(GamePadButton button) const = 0;
     virtual bool isPressed(POV pov) const = 0;
 
@@ -28,10 +32,10 @@ public:
     virtual bool isFirstReleased(GamePadButton button) const = 0;
     virtual bool isFirstReleased(POV pov) const = 0;
 
-    virtual wfl::chrono::microseconds getDurationPressed(GamePadButton button) const = 0;
-    virtual wfl::chrono::microseconds getDurationPressed(POV pov) const = 0;
+    virtual Duration durationPressed(GamePadButton button) const = 0;
+    virtual Duration durationPressed(POV pov) const = 0;
 
-    virtual wfl::int32_t AnalogInputValue(AnalogInput analog) const = 0;
+    virtual wfl::int32_t analogInputValue(AnalogInput analog) const = 0;
 };
 
 

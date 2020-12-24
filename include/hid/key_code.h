@@ -69,17 +69,65 @@ enum class KeyCodeType : wfl::uint8_t
     , Key_Space
     , Key_BackSpace
     , Key_Delete
+    , Key_Tab
 
     , Key_LeftControl
     , Key_LeftShift
+    , Key_LeftAlt
 
     , Key_RightControl
     , Key_RightShift
+    , Key_RightAlt
 
     , Key_Up
     , Key_Down
     , Key_Left
     , Key_Right
+
+    , Key_Numpad1
+    , Key_Numpad2
+    , Key_Numpad3
+    , Key_Numpad4
+    , Key_Numpad5
+    , Key_Numpad6
+    , Key_Numpad7
+    , Key_Numpad8
+    , Key_Numpad9
+    , Key_Numpad0
+    , Key_NumpadEnter
+
+    , Key_Minus
+    , Key_Equals
+    , Key_Multiply
+    , Key_Subtract
+    , Key_Add
+    , Key_Divide
+    , Key_Decimal
+    , Key_Semicolon
+    , Key_Apostrophe
+    , Key_Comma
+    , Key_Period
+    , Key_Grave
+    , Key_Slash
+    , Key_BackSlash
+
+    , Key_LeftBracket
+    , Key_RightBracket
+
+    , Key_PageUp
+    , Key_PageDown
+    , Key_End
+    , Key_SysRq
+    , Key_Pause
+    , Key_Home
+    , Key_Capital
+    , Key_NumLock
+    , Key_Scroll
+    , Key_Insert
+    , Key_Apps
+
+    , Key_LeftWin
+    , Key_RightWin
 
     , Key_Num
 };
@@ -89,6 +137,8 @@ class KeyCode final
 {
     WFL_NO_NEW_DELETE;
 public:
+    static constexpr wfl::size_t MAX_NUM = static_cast<wfl::size_t>(KeyCodeType::Key_Num);
+
     inline constexpr KeyCode()
         : m_type(KeyCodeType::Key_Unknown)
     {}
@@ -102,6 +152,16 @@ public:
         return m_type == type;
     }
 
+    inline constexpr bool isValid() const
+    {
+        return KeyCodeType::Key_Unknown <= m_type && m_type < KeyCodeType::Key_Num;
+    }
+
+    inline constexpr wfl::size_t toIndex() const
+    {
+        return static_cast<wfl::size_t>(m_type);
+    }
+
     inline constexpr StringView toStringView() const
     {
         constexpr wfl::size_t KEY_CODE_NUM = static_cast<wfl::size_t>(KeyCodeType::Key_Num);
@@ -109,75 +169,123 @@ public:
         typedef wfl::array<const char*, KEY_CODE_NUM> ToStringTable;
 
         constexpr ToStringTable TO_STRING_TABLE = {
-                "Unknown"
+            "Unknown"
 
-                , "A"
-                , "B"
-                , "C"
-                , "D"
-                , "E"
-                , "F"
-                , "G"
-                , "H"
-                , "I"
-                , "J"
-                , "K"
-                , "L"
-                , "M"
-                , "N"
-                , "O"
-                , "P"
-                , "Q"
-                , "R"
-                , "S"
-                , "T"
-                , "U"
-                , "V"
-                , "W"
-                , "X"
-                , "Y"
-                , "Z"
+            , "A"
+            , "B"
+            , "C"
+            , "D"
+            , "E"
+            , "F"
+            , "G"
+            , "H"
+            , "I"
+            , "J"
+            , "K"
+            , "L"
+            , "M"
+            , "N"
+            , "O"
+            , "P"
+            , "Q"
+            , "R"
+            , "S"
+            , "T"
+            , "U"
+            , "V"
+            , "W"
+            , "X"
+            , "Y"
+            , "Z"
 
-                , "1"
-                , "2"
-                , "3"
-                , "4"
-                , "5"
-                , "6"
-                , "7"
-                , "8"
-                , "9"
-                , "0"
+            , "1"
+            , "2"
+            , "3"
+            , "4"
+            , "5"
+            , "6"
+            , "7"
+            , "8"
+            , "9"
+            , "0"
 
-                , "F1"
-                , "F2"
-                , "F3"
-                , "F4"
-                , "F5"
-                , "F6"
-                , "F7"
-                , "F8"
-                , "F9"
-                , "F10"
-                , "F11"
-                , "F12"
+            , "F1"
+            , "F2"
+            , "F3"
+            , "F4"
+            , "F5"
+            , "F6"
+            , "F7"
+            , "F8"
+            , "F9"
+            , "F10"
+            , "F11"
+            , "F12"
 
-                , "Escape"
-                , "Return"
-                , "Space"
-                , "BackSpace"
-                , "Delete"
+            , "Escape"
+            , "Return"
+            , "Space"
+            , "BackSpace"
+            , "Delete"
+            , "Tab"
 
-                , "LeftControl"
-                , "LeftShift"
+            , "LeftControl"
+            , "LeftShift"
+            , "LeftAlt"
 
-                , "RightControl"
-                , "RightShift"
+            , "RightControl"
+            , "RightShift"
+            , "RightAlt"
 
-                , "Up"
-                , "Down"
-                , "Left"
-                , "Right"
+            , "Up"
+            , "Down"
+            , "Left"
+            , "Right"
+
+            , "NumPad1"
+            , "NumPad2"
+            , "NumPad3"
+            , "NumPad4"
+            , "NumPad5"
+            , "NumPad6"
+            , "NumPad7"
+            , "NumPad8"
+            , "NumPad9"
+            , "NumPad0"
+            , "NumPadEnter"
+
+            , "Minus"
+            , "Equals"
+            , "Multiply"
+            , "Subtract"
+            , "Add"
+            , "Divide"
+            , "Decimal"
+            , "Semicolon"
+            , "Apostrophe"
+            , "Comma"
+            , "Period"
+            , "Grave"
+            , "Slash"
+            , "BackSlash"
+
+            , "LeftBracket"
+            , "RightBracket"
+
+            , "PageUp"
+            , "PageDown"
+            , "End"
+            , "SysRq"
+            , "Pause"
+            , "Home"
+            , "Capital"
+            , "NumLock"
+            , "Scroll"
+            , "Insert"
+            , "Apps"
+
+            , "LeftWin"
+            , "RightWin"
         };
 
         return StringView(TO_STRING_TABLE[static_cast<wfl::size_t>(m_type)]);
@@ -196,7 +304,6 @@ public:
 private:
     KeyCodeType m_type;
 };
-
 
 
 } // namespace hid

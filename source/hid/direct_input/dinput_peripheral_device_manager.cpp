@@ -1,95 +1,85 @@
 ﻿
 #include "dinput_peripheral_device_manager.h"
+#include "dinput_keyboard.h"
 
 
 namespace waffle {
 namespace hid {
 
 
-UniquePtr<IPeripheralDeviceManager> DInputPeripheralDeviceManager::createUnique(
-    const InitializeParameters& initializeParameters)
+bool DInputPeripheralDeviceManager::createUnique(
+    const InitializeParameters& initializeParameters,
+    UniquePtr<IPeripheralDeviceManager>& outPeripheralDeviceManager)
 {
-    return WFL_MAKE_UNIQUE(DInputPeripheralDeviceManager, initializeParameters);
+    UniquePtr<DInputPeripheralDeviceManager> ptr =
+        WFL_MAKE_UNIQUE(DInputPeripheralDeviceManager);
+
+    if (ptr->initialize(initializeParameters))
+    {
+        outPeripheralDeviceManager = wfl::move(ptr);
+        return true;
+    }
+
+    return false;
 }
 
-SharedPtr<IPeripheralDeviceManager> DInputPeripheralDeviceManager::createShared(
-    const InitializeParameters& initializeParameters)
+bool DInputPeripheralDeviceManager::createShared(
+    const InitializeParameters& initializeParameters,
+    SharedPtr<IPeripheralDeviceManager>& outPeripheralDeviceManager)
 {
-    return WFL_MAKE_SHARED(DInputPeripheralDeviceManager, initializeParameters);
+    SharedPtr<DInputPeripheralDeviceManager> ptr =
+        WFL_MAKE_SHARED(DInputPeripheralDeviceManager);
+
+    if (ptr->initialize(initializeParameters))
+    {
+        outPeripheralDeviceManager = wfl::move(ptr);
+        return true;
+    }
+
+    return false;
 }
 
-
-DInputPeripheralDeviceManager::DInputPeripheralDeviceManager(
-    const InitializeParameters& initializeParameters)
-    : m_hWindow(reinterpret_cast<HWND>(initializeParameters.windowHandle))
-    , m_hInstance(reinterpret_cast<HINSTANCE>(initializeParameters.applicationHandle))
+DInputPeripheralDeviceManager::DInputPeripheralDeviceManager()
+    : m_hWindow(NULL)
+    , m_hInstance(NULL)
     , m_directInput()
     , m_keyboardDevices()
     , m_mouseDevices()
     , m_gamePadDevices()
-{
-    if (!m_hWindow || !m_hInstance) { return; }
-
-    HRESULT hr = ::DirectInput8Create(
-        m_hInstance,
-        DIRECTINPUT_VERSION,
-        IID_IDirectInput8A,
-        &m_directInput,
-        NULL);
-    if (FAILED(hr))
-    {
-        assert(false);
-        return;
-    }
-
-    // Keyboard
-    hr = m_directInput->EnumDevices(
-        DI8DEVCLASS_KEYBOARD,
-        &DInputPeripheralDeviceManager::EnumAndCreateKeyboard,
-        this,
-        DIEDFL_ATTACHEDONLY);
-    if (FAILED(hr))
-    {
-        assert(false);
-        return;
-    }
-
-    // Mouse
-    hr = m_directInput->EnumDevices(
-        DI8DEVCLASS_POINTER,
-        &DInputPeripheralDeviceManager::EnumAndCreateMouse,
-        this,
-        DIEDFL_ATTACHEDONLY);
-    if (FAILED(hr))
-    {
-        assert(false);
-        return;
-    }
-
-    // GamePad
-    hr = m_directInput->EnumDevices(
-        DI8DEVCLASS_GAMECTRL,
-        &DInputPeripheralDeviceManager::EnumAndCreateGamePad,
-        this,
-        DIEDFL_ATTACHEDONLY);
-    if (FAILED(hr))
-    {
-        assert(false);
-        return;
-    }
-}
+{}
 
 DInputPeripheralDeviceManager::~DInputPeripheralDeviceManager()
 {}
 
-void DInputPeripheralDeviceManager::updateAll(wfl::chrono::microseconds deltaTime)
-{
-    deltaTime;
-}
-
 wfl::size_t DInputPeripheralDeviceManager::keyboardCount() const
 {
     return m_keyboardDevices.size();
+}
+
+bool DInputPeripheralDeviceManager::createKeyboardUnique(
+    wfl::size_t index, UniquePtr<IKeyboard>& outKeyboard) const
+{
+    if (index >= m_keyboardDevices.size()) { return false; }
+
+    bool result = DInputKeyboard::createUnique(
+        m_keyboardDevices[index],
+        m_hWindow,
+        outKeyboard);
+
+    return result;
+}
+
+bool DInputPeripheralDeviceManager::createKeyboardShared(
+    wfl::size_t index, SharedPtr<IKeyboard>& outKeyboard) const
+{
+    if (index >= m_keyboardDevices.size()) { return false; }
+
+    bool result = DInputKeyboard::createShared(
+        m_keyboardDevices[index],
+        m_hWindow,
+        outKeyboard);
+
+    return result;
 }
 
 wfl::size_t DInputPeripheralDeviceManager::mouseCount() const
@@ -97,9 +87,49 @@ wfl::size_t DInputPeripheralDeviceManager::mouseCount() const
     return m_mouseDevices.size();
 }
 
+bool DInputPeripheralDeviceManager::createMouseUnique(
+    wfl::size_t index, UniquePtr<IMouse>& outMouse) const
+{
+    if (index >= m_mouseDevices.size()) { return false; }
+    
+    outMouse;
+
+    return false;
+}
+
+bool DInputPeripheralDeviceManager::createMouseShared(
+    wfl::size_t index, SharedPtr<IMouse>& outMouse) const
+{
+    if (index >= m_mouseDevices.size()) { return false; }
+
+    outMouse;
+
+    return false;
+}
+
 wfl::size_t DInputPeripheralDeviceManager::gamePadCount() const
 {
     return m_gamePadDevices.size();
+}
+
+bool DInputPeripheralDeviceManager::createGamePadUnique(
+    wfl::size_t index, UniquePtr<IGamePad>& outGamePad) const
+{
+    if (index >= m_gamePadDevices.size()) { return false; }
+
+    outGamePad;
+
+    return false;
+}
+
+bool DInputPeripheralDeviceManager::createGamePadShared(
+    wfl::size_t index, SharedPtr<IGamePad>& outGamePad) const
+{
+    if (index >= m_gamePadDevices.size()) { return false; }
+
+    outGamePad;
+
+    return false;
 }
 
 
@@ -229,6 +259,79 @@ BOOL CALLBACK DInputPeripheralDeviceManager::EnumAndSettingAxesCallback(
     return (FAILED(hr)) ? DIENUM_STOP : DIENUM_CONTINUE;
 }
 
+bool DInputPeripheralDeviceManager::initialize(const InitializeParameters& initializeParameters)
+{
+    DInputKeyboard::buildKeyMapTable();
+
+    m_hWindow = reinterpret_cast<HWND>(initializeParameters.windowHandle);
+    m_hInstance = reinterpret_cast<HINSTANCE>(initializeParameters.applicationHandle);
+
+    if (!m_hWindow || !m_hInstance) { return false; }
+
+    if (!initializeDirectInput()) { return false; }
+
+    bool result = initializeKeyboardDevices();
+
+    result |= initializeMouseDevices();
+
+    result |= initializeGamePadDevices();
+
+    return result;
+}
+
+bool DInputPeripheralDeviceManager::initializeDirectInput()
+{
+    // device
+    HRESULT hr = ::DirectInput8Create(
+        m_hInstance,
+        DIRECTINPUT_VERSION,
+        IID_IDirectInput8A,
+        &m_directInput,
+        NULL);
+
+    bool result = SUCCEEDED(hr);
+
+    return result;
+}
+
+bool DInputPeripheralDeviceManager::initializeKeyboardDevices()
+{
+    HRESULT hr = m_directInput->EnumDevices(
+        DI8DEVCLASS_KEYBOARD,
+        &DInputPeripheralDeviceManager::EnumAndCreateKeyboard,
+        this,
+        DIEDFL_ATTACHEDONLY);
+
+    bool result = SUCCEEDED(hr);
+
+    return result;
+}
+
+bool DInputPeripheralDeviceManager::initializeMouseDevices()
+{
+    HRESULT hr = m_directInput->EnumDevices(
+        DI8DEVCLASS_POINTER,
+        &DInputPeripheralDeviceManager::EnumAndCreateMouse,
+        this,
+        DIEDFL_ATTACHEDONLY);
+
+    bool result = SUCCEEDED(hr);
+
+    return result;
+}
+
+bool DInputPeripheralDeviceManager::initializeGamePadDevices()
+{
+    HRESULT hr = m_directInput->EnumDevices(
+        DI8DEVCLASS_GAMECTRL,
+        &DInputPeripheralDeviceManager::EnumAndCreateGamePad,
+        this,
+        DIEDFL_ATTACHEDONLY);
+
+    bool result = SUCCEEDED(hr);
+
+    return result;
+}
 
 } // namespace hid
 } // namespace waffle

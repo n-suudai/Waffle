@@ -25,22 +25,39 @@ wfl::int32_t runtimeMain()
         constexpr Rectangle<wfl::int32_t> defaultClientRect(0, 640, 0, 480);
         constexpr Rectangle<wfl::int32_t> customClientRect(200, 640, 200, 480);
 
-        UniquePtr<application::IWindow> window = application::createWindowUnique(defaultClientRect);
+        UniquePtr<application::IWindow> window;
+        bool result = application::createWindowUnique(defaultClientRect, window);
+        if (!result) { return 0; }
 
         window->setTitle("Waffle");
         window->setClientRect(customClientRect);
 
-        {
-            hid::InitializeParameters initializeParameters = {};
-            initializeParameters.windowHandle = window->windowHandle();
-            initializeParameters.applicationHandle = window->applicationHandle();
+        hid::InitializeParameters initializeParameters = {};
+        initializeParameters.windowHandle = window->windowHandle();
+        initializeParameters.applicationHandle = window->applicationHandle();
 
-            UniquePtr<hid::IPeripheralDeviceManager> manager =
-                hid::createPeripheralDeviceManagerUnique(initializeParameters);
-        }
+        UniquePtr<hid::IPeripheralDeviceManager> manager;
+        result = hid::createPeripheralDeviceManagerUnique(
+            initializeParameters,
+            manager);
 
+        if (!result) { return 0; }
+
+        SharedPtr<hid::IKeyboard> keyboard;
+        result = manager->createKeyboardShared(0, keyboard);
+
+        if (!result) { return 0; }
+
+        // loop
         while (window->isAlive())
         {
+            keyboard->update(hid::Duration(1));
+
+            if (keyboard->isFirstPressed((hid::KeyCode)hid::KeyCodeType::Key_Escape))
+            {
+                break;
+            }
+
             if (!window->messagePump())
             {
                 break;

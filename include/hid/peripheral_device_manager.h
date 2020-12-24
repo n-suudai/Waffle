@@ -10,18 +10,42 @@ namespace waffle {
 namespace hid {
 
 
+class IKeyboard;
+class IMouse;
+class IGamePad;
+
+
 class IPeripheralDeviceManager : public HIDEntity
 {
 public:
     virtual ~IPeripheralDeviceManager() = default;
 
-    virtual void updateAll(wfl::chrono::microseconds deltaTime) = 0;
 
     virtual wfl::size_t keyboardCount() const = 0;
 
+    virtual bool createKeyboardUnique(
+        wfl::size_t index, UniquePtr<IKeyboard>& outKeyboard) const = 0;
+
+    virtual bool createKeyboardShared(
+        wfl::size_t index, SharedPtr<IKeyboard>& outKeyboard) const = 0;
+
+
     virtual wfl::size_t mouseCount() const = 0;
+
+    virtual bool createMouseUnique(
+        wfl::size_t index, UniquePtr<IMouse>& outMouse) const = 0;
+
+    virtual bool createMouseShared(
+        wfl::size_t index, SharedPtr<IMouse>& outMouse) const = 0;
     
+
     virtual wfl::size_t gamePadCount() const = 0;
+
+    virtual bool createGamePadUnique(
+        wfl::size_t index, UniquePtr<IGamePad>& outGamePad) const = 0;
+
+    virtual bool createGamePadShared(
+        wfl::size_t index, SharedPtr<IGamePad>& outGamePad) const = 0;
 };
 
 
@@ -34,11 +58,13 @@ struct InitializeParameters
 };
 
 
-UniquePtr<IPeripheralDeviceManager> createPeripheralDeviceManagerUnique(
-    const InitializeParameters& initializeParameters);
+bool createPeripheralDeviceManagerUnique(
+    const InitializeParameters& initializeParameters,
+    UniquePtr<IPeripheralDeviceManager>& outPeripheralDeviceManager);
 
-SharedPtr<IPeripheralDeviceManager> createPeripheralDeviceManagerShared(
-    const InitializeParameters& initializeParameters);
+bool createPeripheralDeviceManagerShared(
+    const InitializeParameters& initializeParameters,
+    SharedPtr<IPeripheralDeviceManager>& outPeripheralDeviceManager);
 
 
 } // namespace hid
