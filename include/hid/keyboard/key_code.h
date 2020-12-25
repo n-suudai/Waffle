@@ -143,7 +143,7 @@ public:
         : m_type(KeyCodeType::Key_Unknown)
     {}
 
-    inline constexpr explicit KeyCode(KeyCodeType type)
+    inline constexpr KeyCode(KeyCodeType type)
         : m_type(type)
     {}
 

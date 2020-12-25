@@ -62,12 +62,12 @@ void runtimeBody()
         keyboard->update(hid::Duration(1));
         mouse->update(hid::Duration(1));
 
-        if (keyboard->isFirstPressed((hid::KeyCode)hid::KeyCodeType::Key_Escape))
+        if (keyboard->isFirstPressed(hid::KeyCodeType::Key_Escape))
         {
             break;
         }
 
-        if (mouse->isFirstPressed((hid::MouseButton)hid::MouseButtonType::Button_0))
+        if (mouse->isFirstPressed(hid::MouseButtonType::Button_0))
         {
             break;
         }

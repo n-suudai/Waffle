@@ -28,7 +28,7 @@ public:
 		: m_type(MouseAxisType::Axis_X)
 	{}
 
-	inline constexpr explicit MouseAxis(MouseAxisType type)
+	inline constexpr MouseAxis(MouseAxisType type)
 		: m_type(type)
 	{}
 

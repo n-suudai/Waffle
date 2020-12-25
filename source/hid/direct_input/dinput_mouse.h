@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "hid/mouse.h"
+#include "hid/mouse/mouse.h"
 #include "hid/input_state.h"
 #include "direct_input.h"
 

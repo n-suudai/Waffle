@@ -2,7 +2,7 @@
 
 
 #include "hid/peripheral_device.h"
-#include "hid/key_code.h"
+#include "hid/keyboard/key_code.h"
 
 
 namespace waffle {

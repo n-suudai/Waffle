@@ -138,6 +138,7 @@
     <ClCompile Include="..\..\..\source\hid\direct_input\dinput_keyboard.cpp" />
     <ClCompile Include="..\..\..\source\hid\direct_input\dinput_mouse.cpp" />
     <ClCompile Include="..\..\..\source\hid\direct_input\dinput_peripheral_device_manager.cpp" />
+    <ClCompile Include="..\..\..\source\hid\direct_input\dinput_utility.cpp" />
     <ClCompile Include="..\..\..\source\hid\direct_input\direct_input.cpp" />
     <ClCompile Include="..\..\..\source\hid\entity.cpp" />
     <ClCompile Include="..\..\..\source\hid\hid.cpp" />
@@ -145,19 +146,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\hid.h" />
-    <ClInclude Include="..\..\..\include\hid\analog_input.h" />
     <ClInclude Include="..\..\..\include\hid\entity.h" />
-    <ClInclude Include="..\..\..\include\hid\game_pad.h" />
-    <ClInclude Include="..\..\..\include\hid\game_pad_button.h" />
+    <ClInclude Include="..\..\..\include\hid\game_pad\analog_input.h" />
+    <ClInclude Include="..\..\..\include\hid\game_pad\game_pad.h" />
+    <ClInclude Include="..\..\..\include\hid\game_pad\game_pad_button.h" />
+    <ClInclude Include="..\..\..\include\hid\game_pad\pov.h" />
     <ClInclude Include="..\..\..\include\hid\input_state.h" />
-    <ClInclude Include="..\..\..\include\hid\keyboard.h" />
-    <ClInclude Include="..\..\..\include\hid\key_code.h" />
-    <ClInclude Include="..\..\..\include\hid\mouse.h" />
-    <ClInclude Include="..\..\..\include\hid\mouse_axis.h" />
-    <ClInclude Include="..\..\..\include\hid\mouse_button.h" />
+    <ClInclude Include="..\..\..\include\hid\keyboard\keyboard.h" />
+    <ClInclude Include="..\..\..\include\hid\keyboard\key_code.h" />
+    <ClInclude Include="..\..\..\include\hid\mouse\mouse.h" />
+    <ClInclude Include="..\..\..\include\hid\mouse\mouse_axis.h" />
+    <ClInclude Include="..\..\..\include\hid\mouse\mouse_button.h" />
     <ClInclude Include="..\..\..\include\hid\peripheral_device.h" />
     <ClInclude Include="..\..\..\include\hid\peripheral_device_manager.h" />
-    <ClInclude Include="..\..\..\include\hid\pov.h" />
     <ClInclude Include="..\..\..\source\hid\direct_input\dinput_keyboard.h" />
     <ClInclude Include="..\..\..\source\hid\direct_input\dinput_mouse.h" />
     <ClInclude Include="..\..\..\source\hid\direct_input\dinput_peripheral_device_manager.h" />

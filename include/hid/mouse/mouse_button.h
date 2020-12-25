@@ -33,7 +33,7 @@ public:
 		: m_type(MouseButtonType::Button_0)
 	{}
 
-	inline constexpr explicit MouseButton(MouseButtonType type)
+	inline constexpr MouseButton(MouseButtonType type)
 		: m_type(type)
 	{}
 

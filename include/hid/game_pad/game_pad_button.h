@@ -38,7 +38,7 @@ public:
 		: m_type(GamePadButtonType::Button_0)
 	{}
 
-	inline constexpr explicit GamePadButton(GamePadButtonType type)
+	inline constexpr GamePadButton(GamePadButtonType type)
 		: m_type(type)
 	{}
 

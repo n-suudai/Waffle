@@ -2,8 +2,8 @@
 
 
 #include "hid/peripheral_device.h"
-#include "hid/mouse_button.h"
-#include "hid/mouse_axis.h"
+#include "hid/mouse/mouse_button.h"
+#include "hid/mouse/mouse_axis.h"
 
 
 namespace waffle {

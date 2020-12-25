@@ -48,7 +48,7 @@ DInputMouse::DInputMouse()
 {
 	for (InputStateTable& table : m_stateTables)
 	{
-		table.fill(InputState(InputStateType::Released));
+		table.fill(InputStateType::Released);
 	}
 
 	m_pressedDurations.fill(DURATION_ZERO);

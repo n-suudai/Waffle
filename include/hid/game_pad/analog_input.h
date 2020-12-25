@@ -29,7 +29,7 @@ public:
 		: m_type(AnalogInputType::LeftThumbStickX)
 	{}
 
-	inline constexpr explicit AnalogInput(AnalogInputType type)
+	inline constexpr AnalogInput(AnalogInputType type)
 		: m_type(type)
 	{}
 

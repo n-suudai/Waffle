@@ -2,9 +2,9 @@
 
 
 #include "hid/peripheral_device.h"
-#include "hid/game_pad_button.h"
-#include "hid/analog_input.h"
-#include "hid/pov.h"
+#include "hid/game_pad/game_pad_button.h"
+#include "hid/game_pad/analog_input.h"
+#include "hid/game_pad/pov.h"
 
 
 namespace waffle {

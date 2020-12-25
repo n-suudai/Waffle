@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "hid/keyboard.h"
+#include "hid/keyboard/keyboard.h"
 #include "hid/input_state.h"
 #include "direct_input.h"
 

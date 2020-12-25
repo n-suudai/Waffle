@@ -16,6 +16,15 @@
     <Filter Include="source\hid\direct_input">
       <UniqueIdentifier>{a55ad3a1-dbe4-4f42-af1a-8b667a0525e6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\hid\keyboard">
+      <UniqueIdentifier>{36154a0b-2f81-4f9e-bf2f-c0f3ba1950b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\hid\mouse">
+      <UniqueIdentifier>{f03411f8-852c-4e85-b2bf-ba750ba1853b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\hid\game_pad">
+      <UniqueIdentifier>{96d03883-b8a3-4c90-b0e7-4a34bd0b3214}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\hid\hid.cpp">
@@ -39,6 +48,9 @@
     <ClCompile Include="..\..\..\source\hid\direct_input\dinput_mouse.cpp">
       <Filter>source\hid\direct_input</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\hid\direct_input\dinput_utility.cpp">
+      <Filter>source\hid\direct_input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\hid.h">
@@ -47,37 +59,10 @@
     <ClInclude Include="..\..\..\include\hid\entity.h">
       <Filter>include\hid</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\hid\key_code.h">
-      <Filter>include\hid</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\hid\peripheral_device.h">
       <Filter>include\hid</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\hid\keyboard.h">
-      <Filter>include\hid</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\hid\peripheral_device_manager.h">
-      <Filter>include\hid</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\hid\mouse.h">
-      <Filter>include\hid</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\hid\mouse_axis.h">
-      <Filter>include\hid</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\hid\mouse_button.h">
-      <Filter>include\hid</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\hid\game_pad.h">
-      <Filter>include\hid</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\hid\game_pad_button.h">
-      <Filter>include\hid</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\hid\analog_input.h">
-      <Filter>include\hid</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\hid\pov.h">
       <Filter>include\hid</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\source\hid\direct_input\dinput_peripheral_device_manager.h">
@@ -97,6 +82,33 @@
     </ClInclude>
     <ClInclude Include="..\..\..\source\hid\direct_input\dinput_utility.h">
       <Filter>source\hid\direct_input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\hid\keyboard\keyboard.h">
+      <Filter>include\hid\keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\hid\keyboard\key_code.h">
+      <Filter>include\hid\keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\hid\mouse\mouse.h">
+      <Filter>include\hid\mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\hid\mouse\mouse_axis.h">
+      <Filter>include\hid\mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\hid\mouse\mouse_button.h">
+      <Filter>include\hid\mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\hid\game_pad\analog_input.h">
+      <Filter>include\hid\game_pad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\hid\game_pad\game_pad.h">
+      <Filter>include\hid\game_pad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\hid\game_pad\game_pad_button.h">
+      <Filter>include\hid\game_pad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\hid\game_pad\pov.h">
+      <Filter>include\hid\game_pad</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

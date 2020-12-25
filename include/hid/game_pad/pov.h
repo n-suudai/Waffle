@@ -32,7 +32,7 @@ public:
 		: m_type(POVType::POV_0)
 	{}
 
-	inline constexpr explicit POV(POVType type)
+	inline constexpr POV(POVType type)
 		: m_type(type)
 	{}
 

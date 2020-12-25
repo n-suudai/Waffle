@@ -24,7 +24,7 @@ public:
 		: m_type(InputStateType::Released)
 	{}
 
-	inline constexpr explicit InputState(InputStateType type)
+	inline constexpr InputState(InputStateType type)
 		: m_type(type)
 	{}
 
