@@ -34,6 +34,8 @@ class GamePadButton final
 {
 	WFL_NO_NEW_DELETE;
 public:
+	static constexpr wfl::size_t MAX_NUM = static_cast<wfl::size_t>(GamePadButtonType::Button_Num);
+
 	inline constexpr GamePadButton()
 		: m_type(GamePadButtonType::Button_0)
 	{}
@@ -45,6 +47,16 @@ public:
 	inline constexpr bool is(GamePadButtonType type) const
 	{
 		return m_type == type;
+	}
+
+	inline constexpr bool isValid() const
+	{
+		return GamePadButtonType::Button_0 <= m_type && m_type < GamePadButtonType::Button_Num;
+	}
+
+	inline constexpr wfl::size_t toIndex() const
+	{
+		return static_cast<wfl::size_t>(m_type);
 	}
 
 	inline constexpr StringView toStringView() const

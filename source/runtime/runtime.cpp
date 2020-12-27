@@ -56,11 +56,16 @@ void runtimeBody()
     SharedPtr<hid::IMouse> mouse;
     if (!hidManager->createMouseShared(0, mouse)) { return; }
 
+    SharedPtr<hid::IGamePad> gamePad;
+    if (!hidManager->createGamePadShared(0, gamePad)) { return; }
+    gamePad->update(hid::Duration(1));
+
     // loop
     while (window->isAlive())
     {
         keyboard->update(hid::Duration(1));
         mouse->update(hid::Duration(1));
+        gamePad->update(hid::Duration(1));
 
         if (keyboard->isFirstPressed(hid::KeyCodeType::Key_Escape))
         {
@@ -68,6 +73,16 @@ void runtimeBody()
         }
 
         if (mouse->isFirstPressed(hid::MouseButtonType::Button_0))
+        {
+            break;
+        }
+
+        if (gamePad->isFirstPressed(hid::POVType::POV_0))
+        {
+            break;
+        }
+
+        if (gamePad->analogInputValue(hid::AnalogInputType::RightThumbStickY) > 500)
         {
             break;
         }

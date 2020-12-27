@@ -53,8 +53,11 @@ private:
 
     ComPtr<IDirectInputDevice8A> m_device;
     HWND m_hWindow;
+
     wfl::array<InputStateTable, 2> m_stateTables;
+
     wfl::array<Duration, MouseButton::MAX_NUM> m_pressedDurations;
+
     wfl::array<wfl::int32_t, MouseAxis::MAX_NUM> m_axisValues;
 };
 

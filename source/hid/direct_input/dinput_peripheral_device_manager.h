@@ -71,6 +71,8 @@ private:
 
     bool initializeGamePadDevices();
 
+    bool initializePreferredJoyConfig();
+
 private:
     HWND m_hWindow;;
     HINSTANCE m_hInstance;
@@ -78,6 +80,8 @@ private:
     Vector<ComPtr<IDirectInputDevice8A>> m_keyboardDevices;
     Vector<ComPtr<IDirectInputDevice8A>> m_mouseDevices;
     Vector<ComPtr<IDirectInputDevice8A>> m_gamePadDevices;
+    DIJOYCONFIG m_preferredJoyConfig;
+    bool m_preferredJoyConfigValid;
 };
 
 

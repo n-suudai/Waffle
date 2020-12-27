@@ -28,6 +28,8 @@ class POV final
 {
 	WFL_NO_NEW_DELETE;
 public:
+	static constexpr wfl::size_t MAX_NUM = static_cast<wfl::size_t>(POVType::POV_Num);
+
 	inline constexpr POV()
 		: m_type(POVType::POV_0)
 	{}
@@ -39,6 +41,16 @@ public:
 	inline constexpr bool is(POVType type) const
 	{
 		return m_type == type;
+	}
+
+	inline constexpr bool isValid() const
+	{
+		return POVType::POV_0 <= m_type && m_type < POVType::POV_Num;
+	}
+
+	inline constexpr wfl::size_t toIndex() const
+	{
+		return static_cast<wfl::size_t>(m_type);
 	}
 
 	inline constexpr StringView toStringView() const

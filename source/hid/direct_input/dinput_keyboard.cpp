@@ -162,7 +162,7 @@ bool DInputKeyboard::createShared(
 
 DInputKeyboard::DInputKeyboard()
 	: m_device()
-	, m_hWindow(nullptr)
+	, m_hWindow(NULL)
 	, m_stateTables()
 	, m_pressedDurations()
 {

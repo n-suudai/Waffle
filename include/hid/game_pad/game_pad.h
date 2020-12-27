@@ -19,6 +19,8 @@ public:
     virtual void update(const Duration& deltaTime) = 0;
 
     virtual bool isAnyPressed() const = 0;
+    virtual bool isAnyButtonPressed() const = 0;
+    virtual bool isAnyPOVPressed() const = 0;
 
     virtual bool isPressed(GamePadButton button) const = 0;
     virtual bool isPressed(POV pov) const = 0;

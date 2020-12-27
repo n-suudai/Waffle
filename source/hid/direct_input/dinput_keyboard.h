@@ -53,7 +53,9 @@ private:
 
     ComPtr<IDirectInputDevice8A> m_device;
     HWND m_hWindow;
+
     wfl::array<InputStateTable, 2> m_stateTables;
+
     wfl::array<Duration, KeyCode::MAX_NUM> m_pressedDurations;
 
     static wfl::array<wfl::uint8_t, KeyCode::MAX_NUM> s_keyMapTable;

@@ -2,6 +2,7 @@
 #include "dinput_peripheral_device_manager.h"
 #include "dinput_keyboard.h"
 #include "dinput_mouse.h"
+#include "dinput_game_pad.h"
 
 
 namespace waffle {
@@ -47,6 +48,8 @@ DInputPeripheralDeviceManager::DInputPeripheralDeviceManager()
     , m_keyboardDevices()
     , m_mouseDevices()
     , m_gamePadDevices()
+    , m_preferredJoyConfig()
+    , m_preferredJoyConfigValid(false)
 {}
 
 DInputPeripheralDeviceManager::~DInputPeripheralDeviceManager()
@@ -124,9 +127,12 @@ bool DInputPeripheralDeviceManager::createGamePadUnique(
 {
     if (index >= m_gamePadDevices.size()) { return false; }
 
-    outGamePad;
+    bool result = DInputGamePad::createUnique(
+        m_gamePadDevices[index],
+        m_hWindow,
+        outGamePad);
 
-    return false;
+    return result;
 }
 
 bool DInputPeripheralDeviceManager::createGamePadShared(
@@ -134,9 +140,12 @@ bool DInputPeripheralDeviceManager::createGamePadShared(
 {
     if (index >= m_gamePadDevices.size()) { return false; }
 
-    outGamePad;
+    bool result = DInputGamePad::createShared(
+        m_gamePadDevices[index],
+        m_hWindow,
+        outGamePad);
 
-    return false;
+    return result;
 }
 
 
@@ -213,8 +222,16 @@ BOOL CALLBACK DInputPeripheralDeviceManager::EnumAndCreateGamePad(
     DInputPeripheralDeviceManager* self = reinterpret_cast<DInputPeripheralDeviceManager*>(pvRef);
     ComPtr<IDirectInput8A> directInput = self->m_directInput;
     HWND hWindow = self->m_hWindow;
+    bool preferredJoyConfigValid = self->m_preferredJoyConfigValid;
+    DIJOYCONFIG preferredJoyConfig = self->m_preferredJoyConfig;
 
     ComPtr<IDirectInputDevice8A> device;
+
+    if (preferredJoyConfigValid &&
+        !::IsEqualGUID(lpddi->guidInstance, preferredJoyConfig.guidInstance))
+    {
+        return DIENUM_CONTINUE;
+    }
 
     HRESULT hr = directInput->CreateDevice(lpddi->guidInstance, &device, nullptr);
     if (FAILED(hr)) { return DIENUM_CONTINUE; }
@@ -223,17 +240,6 @@ BOOL CALLBACK DInputPeripheralDeviceManager::EnumAndCreateGamePad(
     if (FAILED(hr)) { return DIENUM_CONTINUE; }
 
     hr = device->SetCooperativeLevel(hWindow, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
-    if (FAILED(hr)) { return DIENUM_CONTINUE; }
-
-    //	自動センタリング無効
-    DIPROPDWORD	dipdw = { 0 };
-    dipdw.diph.dwSize = sizeof(dipdw);
-    dipdw.diph.dwHeaderSize = sizeof(DIPROPHEADER);
-    dipdw.diph.dwObj = 0;
-    dipdw.diph.dwHow = DIPH_DEVICE;
-    dipdw.dwData = DIPROPAUTOCENTER_OFF;
-
-    hr = device->SetProperty(DIPROP_BUFFERSIZE, &dipdw.diph);
     if (FAILED(hr)) { return DIENUM_CONTINUE; }
 
     hr = device->EnumObjects(
@@ -250,20 +256,28 @@ BOOL CALLBACK DInputPeripheralDeviceManager::EnumAndCreateGamePad(
 BOOL CALLBACK DInputPeripheralDeviceManager::EnumAndSettingAxesCallback(
     LPCDIDEVICEOBJECTINSTANCEA lpddoi, LPVOID pvRef)
 {
-    // 軸範囲を設定（-1000～1000）
-    DIPROPRANGE diprg = { 0 };
+    //if (lpddoi->dwType & DIDFT_AXIS)
+    {
+        // 軸範囲を設定（-1000～1000）
+        DIPROPRANGE diprg = { 0 };
 
-    diprg.diph.dwSize = sizeof(diprg);
-    diprg.diph.dwHeaderSize = sizeof(diprg.diph);
-    diprg.diph.dwObj = lpddoi->dwType;
-    diprg.diph.dwHow = DIPH_BYID;
-    diprg.lMin = -1000;
-    diprg.lMax = +1000;
+        diprg.diph.dwSize = sizeof(diprg);
+        diprg.diph.dwHeaderSize = sizeof(diprg.diph);
+        diprg.diph.dwObj = lpddoi->dwType;
+        diprg.diph.dwHow = DIPH_BYID;
+        diprg.lMin = -1000;
+        diprg.lMax = +1000;
 
-    IDirectInputDevice8A* device = reinterpret_cast<IDirectInputDevice8A*>(pvRef);
-    HRESULT hr = device->SetProperty(DIPROP_RANGE, &diprg.diph);
+        IDirectInputDevice8A* device = reinterpret_cast<IDirectInputDevice8A*>(pvRef);
+        HRESULT hr = device->SetProperty(DIPROP_RANGE, &diprg.diph);
 
-    return (FAILED(hr)) ? DIENUM_STOP : DIENUM_CONTINUE;
+        if (FAILED(hr))
+        {
+            return DIENUM_STOP;
+        }
+    }
+
+    return DIENUM_CONTINUE;
 }
 
 bool DInputPeripheralDeviceManager::initialize(const InitializeParameters& initializeParameters)
@@ -329,6 +343,8 @@ bool DInputPeripheralDeviceManager::initializeMouseDevices()
 
 bool DInputPeripheralDeviceManager::initializeGamePadDevices()
 {
+    if (!initializePreferredJoyConfig()) { return false; }
+
     HRESULT hr = m_directInput->EnumDevices(
         DI8DEVCLASS_GAMECTRL,
         &DInputPeripheralDeviceManager::EnumAndCreateGamePad,
@@ -339,6 +355,26 @@ bool DInputPeripheralDeviceManager::initializeGamePadDevices()
 
     return result;
 }
+
+bool DInputPeripheralDeviceManager::initializePreferredJoyConfig()
+{
+    ComPtr<IDirectInputJoyConfig8> joyConfig;
+
+    HRESULT hr = m_directInput->QueryInterface(IID_IDirectInputJoyConfig8, &joyConfig);
+    if (FAILED(hr)) { return false; }
+
+    m_preferredJoyConfig.dwSize = sizeof(m_preferredJoyConfig);
+
+    hr = joyConfig->GetConfig(0, &m_preferredJoyConfig, DIJC_GUIDINSTANCE);
+    if (SUCCEEDED(hr))
+    {
+        // This function is expected to fail if no joystick is attached
+        m_preferredJoyConfigValid = true;
+    }
+
+    return true;
+}
+
 
 } // namespace hid
 } // namespace waffle
