@@ -49,7 +49,7 @@ public:
     {
         for (int i = 0; i < depth; ++i)
         {
-            logging::format("..");
+            logging::formatNoNewLine("..");
         }
 
         int spacing = 20 - depth * 2;

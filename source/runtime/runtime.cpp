@@ -56,16 +56,28 @@ void runtimeBody()
     SharedPtr<hid::IMouse> mouse;
     if (!hidManager->createMouseShared(0, mouse)) { return; }
 
-    SharedPtr<hid::IGamePad> gamePad;
-    if (!hidManager->createGamePadShared(0, gamePad)) { return; }
-    gamePad->update(hid::Duration(1));
+    //SharedPtr<hid::IGamePad> gamePad;
+    //if (!hidManager->createGamePadShared(0, gamePad)) { return; }
+
+
+    wfl::chrono::time_point last_loop_started = wfl::chrono::high_resolution_clock::now();
+    hid::Duration loop_elapsed_duration;
+
+    StringStream ss;
+    ss << " " << 12;
+    String str = ss.str();
+    window->setTitle(str);
 
     // loop
     while (window->isAlive())
     {
-        keyboard->update(hid::Duration(1));
-        mouse->update(hid::Duration(1));
-        gamePad->update(hid::Duration(1));
+        wfl::chrono::time_point now = wfl::chrono::high_resolution_clock::now();
+        loop_elapsed_duration = wfl::chrono::duration_cast<hid::Duration>(last_loop_started - now);
+        last_loop_started = now;
+
+        keyboard->update(loop_elapsed_duration);
+        mouse->update(loop_elapsed_duration);
+        //gamePad->update(loop_elapsed_duration);
 
         if (keyboard->isFirstPressed(hid::KeyCodeType::Key_Escape))
         {
@@ -77,15 +89,15 @@ void runtimeBody()
             break;
         }
 
-        if (gamePad->isFirstPressed(hid::POVType::POV_0))
-        {
-            break;
-        }
+        //if (gamePad->isFirstPressed(hid::POVType::POV_0))
+        //{
+        //    break;
+        //}
 
-        if (gamePad->analogInputValue(hid::AnalogInputType::RightThumbStickY) > 500)
-        {
-            break;
-        }
+        //if (gamePad->analogInputValue(hid::AnalogInputType::RightThumbStickY) > 500)
+        //{
+        //    break;
+        //}
 
         if (!window->messagePump())
         {
