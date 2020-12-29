@@ -63,11 +63,6 @@ void runtimeBody()
     wfl::chrono::time_point last_loop_started = wfl::chrono::high_resolution_clock::now();
     hid::Duration loop_elapsed_duration;
 
-    StringStream ss;
-    ss << " " << 12;
-    String str = ss.str();
-    window->setTitle(str);
-
     // loop
     while (window->isAlive())
     {
