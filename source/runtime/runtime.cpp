@@ -1,12 +1,14 @@
 ﻿
-#include "runtime_heap.h"
-#include "core/logging.h"
 #include "memory.h"
 #include "core.h"
 #include "application.h"
 #include "hid.h"
-#include "common/utility/loop_timer.h"
 
+#include "core/logging.h"
+
+#include "runtime_heap.h"
+#include "common/utility/loop_timer.h"
+#include "game_input.h"
 
 
 namespace waffle {
@@ -43,53 +45,22 @@ void runtimeBody()
     if (!window->setTitle("Waffle")) { return; }
     if (!window->setClientRect(customClientRect)) { return; }
 
-
-    hid::InitializeParameters initializeParameters = {};
-    initializeParameters.windowHandle = window->windowHandle();
-    initializeParameters.applicationHandle = window->applicationHandle();
-
-    UniquePtr<hid::IPeripheralDeviceManager> hidManager;
-    if (!hid::createPeripheralDeviceManagerUnique(initializeParameters, hidManager)) { return; }
-
-    SharedPtr<hid::IKeyboard> keyboard;
-    if (!hidManager->createKeyboardShared(0, keyboard)) { return; }
-
-    SharedPtr<hid::IMouse> mouse;
-    if (!hidManager->createMouseShared(0, mouse)) { return; }
-
-    //SharedPtr<hid::IGamePad> gamePad;
-    //if (!hidManager->createGamePadShared(0, gamePad)) { return; }
-
     LoopTimer loopTimer;
+    GameInput gameInput;
+
+    if (!gameInput.initialize(window)) { return; }
 
     // loop
     while (window->isAlive())
     {
         hid::Duration elapsed = loopTimer.update<hid::Duration>();
 
-        keyboard->update(elapsed);
-        mouse->update(elapsed);
-        //gamePad->update(loop_elapsed_duration);
+        gameInput.update(elapsed);
 
-        if (keyboard->isFirstPressed(hid::KeyCodeType::Key_Escape))
+        if (gameInput.isAnyPressed())
         {
             break;
         }
-
-        if (mouse->isFirstPressed(hid::MouseButtonType::Button_0))
-        {
-            break;
-        }
-
-        //if (gamePad->isFirstPressed(hid::POVType::POV_0))
-        //{
-        //    break;
-        //}
-
-        //if (gamePad->analogInputValue(hid::AnalogInputType::RightThumbStickY) > 500)
-        //{
-        //    break;
-        //}
 
         if (!window->messagePump())
         {
