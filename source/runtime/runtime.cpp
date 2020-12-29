@@ -5,6 +5,7 @@
 #include "core.h"
 #include "application.h"
 #include "hid.h"
+#include "common/utility/loop_timer.h"
 
 
 
@@ -59,19 +60,15 @@ void runtimeBody()
     //SharedPtr<hid::IGamePad> gamePad;
     //if (!hidManager->createGamePadShared(0, gamePad)) { return; }
 
-
-    wfl::chrono::time_point last_loop_started = wfl::chrono::high_resolution_clock::now();
-    hid::Duration loop_elapsed_duration;
+    LoopTimer loopTimer;
 
     // loop
     while (window->isAlive())
     {
-        wfl::chrono::time_point now = wfl::chrono::high_resolution_clock::now();
-        loop_elapsed_duration = wfl::chrono::duration_cast<hid::Duration>(last_loop_started - now);
-        last_loop_started = now;
+        hid::Duration elapsed = loopTimer.update<hid::Duration>();
 
-        keyboard->update(loop_elapsed_duration);
-        mouse->update(loop_elapsed_duration);
+        keyboard->update(elapsed);
+        mouse->update(elapsed);
         //gamePad->update(loop_elapsed_duration);
 
         if (keyboard->isFirstPressed(hid::KeyCodeType::Key_Escape))
