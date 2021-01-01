@@ -5,6 +5,8 @@
 #include "common/utility/rectangle.h"
 #include "memory/stl.h"
 
+#include <functional>
+
 
 namespace waffle {
 namespace application {

@@ -1,17 +1,15 @@
-#pragma once
+﻿#pragma once
 
 
-#include "common/types.h"
+namespace waffle {
+namespace render {
 
 
-namespace Engine {
-namespace Render {
+bool initialize();
+
+void finalize();
 
 
-EBool Initialize();
+} // namespace render
+} // namespace waffle
 
-EVoid Finalize();
-
-
-} // namespace Render
-} // namespace Engine

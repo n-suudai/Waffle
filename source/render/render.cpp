@@ -1,23 +1,27 @@
-#include "render/render.h"
-#include "core/logging/logging.h"
+﻿
+#include "render.h"
+#include "core/logging.h"
 
 
-namespace Engine {
-namespace Render {
+namespace waffle {
+namespace render {
 
 
-EBool Initialize()
+bool initialize()
 {
-    Core::OutputLog("[Render] Initialize");
+    logging::put("[render] initialized.");
+
     return true;
 }
 
-EVoid Finalize()
+void finalize()
 {
-    Core::OutputLog("[Render] Finalize");
+    logging::put("[render] finalized.");
 }
 
 
-} // namespace Render
-} // namespace Engine
+} // namespace render
+} // namespace waffle
+
+
 

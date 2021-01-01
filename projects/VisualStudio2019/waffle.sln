@@ -5,6 +5,7 @@ VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "runtime", "runtime\runtime.vcxproj", "{411E51B6-5A93-4740-BAF8-88D3C5C47D88}"
 	ProjectSection(ProjectDependencies) = postProject
+		{59A01D4C-F394-4234-84DF-38F22890C883} = {59A01D4C-F394-4234-84DF-38F22890C883}
 		{14D58A56-A5AC-4702-B4B9-D16010E6174C} = {14D58A56-A5AC-4702-B4B9-D16010E6174C}
 	EndProjectSection
 EndProject
@@ -26,6 +27,12 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nedmalloc", "third_party\nedmalloc\nedmalloc\nedmalloc.vcxproj", "{B148B96B-94C3-49E8-80A9-75467950AF08}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hid", "hid\hid.vcxproj", "{14D58A56-A5AC-4702-B4B9-D16010E6174C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{164F0DBB-8FF2-4A08-B6F5-3B511A5E9B48} = {164F0DBB-8FF2-4A08-B6F5-3B511A5E9B48}
+		{CEDABDDE-DBEF-4F8B-8C32-CEAA70794E21} = {CEDABDDE-DBEF-4F8B-8C32-CEAA70794E21}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "render", "render\render.vcxproj", "{59A01D4C-F394-4234-84DF-38F22890C883}"
 	ProjectSection(ProjectDependencies) = postProject
 		{164F0DBB-8FF2-4A08-B6F5-3B511A5E9B48} = {164F0DBB-8FF2-4A08-B6F5-3B511A5E9B48}
 		{CEDABDDE-DBEF-4F8B-8C32-CEAA70794E21} = {CEDABDDE-DBEF-4F8B-8C32-CEAA70794E21}
@@ -87,6 +94,14 @@ Global
 		{14D58A56-A5AC-4702-B4B9-D16010E6174C}.Release|x64.Build.0 = Release|x64
 		{14D58A56-A5AC-4702-B4B9-D16010E6174C}.Release|x86.ActiveCfg = Release|Win32
 		{14D58A56-A5AC-4702-B4B9-D16010E6174C}.Release|x86.Build.0 = Release|Win32
+		{59A01D4C-F394-4234-84DF-38F22890C883}.Debug|x64.ActiveCfg = Debug|x64
+		{59A01D4C-F394-4234-84DF-38F22890C883}.Debug|x64.Build.0 = Debug|x64
+		{59A01D4C-F394-4234-84DF-38F22890C883}.Debug|x86.ActiveCfg = Debug|Win32
+		{59A01D4C-F394-4234-84DF-38F22890C883}.Debug|x86.Build.0 = Debug|Win32
+		{59A01D4C-F394-4234-84DF-38F22890C883}.Release|x64.ActiveCfg = Release|x64
+		{59A01D4C-F394-4234-84DF-38F22890C883}.Release|x64.Build.0 = Release|x64
+		{59A01D4C-F394-4234-84DF-38F22890C883}.Release|x86.ActiveCfg = Release|Win32
+		{59A01D4C-F394-4234-84DF-38F22890C883}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

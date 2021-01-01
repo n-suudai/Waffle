@@ -37,6 +37,9 @@
     <Filter Include="include\common\memory">
       <UniqueIdentifier>{06d87024-211b-43aa-a0bd-5024255dea02}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\common\signal">
+      <UniqueIdentifier>{c597bd00-8e34-4adc-9073-a780578b00ac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\common\types.h">

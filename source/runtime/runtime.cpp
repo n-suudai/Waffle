@@ -3,6 +3,7 @@
 #include "core.h"
 #include "application.h"
 #include "hid.h"
+#include "render.h"
 
 #include "core/logging.h"
 
@@ -21,11 +22,13 @@ bool runtimeInitialize()
     if (!core::initialize()) { return false; }
     if (!application::initialize()) { return false; }
     if (!hid::initialize()) { return false; }
+    if (!render::initialize()) { return false; }
     return true;
 }
 
 void runtimeFinalize()
 {
+    render::finalize();
     hid::finalize();
     application::finalize();
     core::finalize();
