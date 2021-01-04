@@ -22,6 +22,8 @@ public:
 
     bool initialize(const UniquePtr<application::IWindow>& window);
 
+    bool finalize();
+
     void update(const hid::Duration& deltaTime);
 
     bool isAnyPressed() const;

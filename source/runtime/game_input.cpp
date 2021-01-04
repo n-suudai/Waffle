@@ -38,6 +38,16 @@ bool GameInput::initialize(const UniquePtr<application::IWindow>& window)
     return result;
 }
 
+bool GameInput::finalize()
+{
+    m_gamePad.reset();
+    m_mouse.reset();
+    m_keyboard.reset();
+    m_peripheralDeviceManager.reset();
+
+    return true;
+}
+
 void GameInput::update(const hid::Duration& deltaTime)
 {
     if (!m_peripheralDeviceManager) { return; }
