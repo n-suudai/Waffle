@@ -186,7 +186,9 @@ public:
         m_modules = WFL_GLOBAL_HEAP_MAKE_UNIQUE(RuntimeModules);
 
         if (!m_modules->initialize()) { return false; }
+        
         if (!m_modules->entryAll()) { return false; }
+
         return true;
     }
 
@@ -197,6 +199,8 @@ public:
         m_modules.reset();
 
         runtime::RuntimeHeap::printDebug_Report_MemoryAll(); // メモリの状態を表示
+
+        memory::finalize();
 
         return true;
     }
