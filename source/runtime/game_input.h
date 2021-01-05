@@ -6,11 +6,6 @@
 
 
 namespace waffle {
-namespace application {
-
-class IWindow;
-
-} // namespace application
 
 
 class GameInput : public RuntimeEntity

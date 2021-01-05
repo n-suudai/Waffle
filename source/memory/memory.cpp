@@ -19,7 +19,7 @@ bool initialize()
 
 void finalize()
 {
-
+    AllocHeader::finalize();
 }
 
 

@@ -174,14 +174,12 @@ private:
 };
 
 
-class Runtime
+class Runtime : public RuntimeEntity
 {
 public:
     bool initialize()
     {
-        if (!memory::initialize()) { return false; }
-
-        m_modules = WFL_GLOBAL_HEAP_MAKE_UNIQUE(RuntimeModules);
+        m_modules = WFL_MAKE_UNIQUE(RuntimeModules);
 
         if (!m_modules->initialize()) { return false; }
         
@@ -195,10 +193,6 @@ public:
         if (!m_modules->finalize()) { return false; }
 
         m_modules.reset();
-
-        runtime::RuntimeHeap::printDebug_Report_MemoryAll(); // メモリの状態を表示
-
-        memory::finalize();
 
         return true;
     }
@@ -508,15 +502,39 @@ namespace waffle {
 namespace runtime {
 
 
-wfl::int32_t runtimeMain()
+class MemoryInitializer final
+{
+public:
+    MemoryInitializer()
+    {
+        memory::initialize();
+    }
+
+    ~MemoryInitializer()
+    {
+        runtime::RuntimeHeap::printDebug_Report_MemoryAll(); // メモリの状態を表示
+        memory::finalize();
+    }
+};
+
+
+bool runtimeBody()
 {
     Runtime runtime;
 
-    if (!runtime.initialize()) { return 0; }
+    if (!runtime.initialize()) { return false; }
 
     runtime.run();
 
-    runtime.finalize();
+    return runtime.finalize();
+}
+
+
+wfl::int32_t runtimeMain()
+{
+    MemoryInitializer memoryInitializer;
+
+    runtimeBody();
 
     return 0;
 }

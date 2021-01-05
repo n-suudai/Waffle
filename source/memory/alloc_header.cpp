@@ -44,7 +44,6 @@ AllocHeader::~AllocHeader()
 
 }
 
-
 // どのヘッダ情報を保持するかを渡して初期化
 bool AllocHeader::initialize(HeaderInfoFlags headerInfos)
 {
@@ -147,33 +146,33 @@ bool AllocHeader::initialize(HeaderInfoFlags headerInfos)
     return true;
 }
 
-// 終了
-void AllocHeader::terminate()
+void AllocHeader::finalize()
 {
     s_HeaderSize = 0;
     s_HeaderInfoOffsets.fill(0);
     s_HeaderInfos = HeaderInfoFlagBits::Required;
 }
 
-// 有効化されているか
+bool AllocHeader::isInitialized()
+{
+    return s_HeaderSize > 0;
+}
+
 bool AllocHeader::isEnabled(HeaderInfoFlags headerInfos)
 {
     return (bool)(s_HeaderInfos & headerInfos);
 }
 
-// オフセット取得
 wfl::ptrdiff_t AllocHeader::getHeaderOffset(HeaderInfoIndex headerInfoIndex)
 {
     return s_HeaderInfoOffsets[static_cast<int>(headerInfoIndex)];
 }
 
-// ヘッダ情報の全体サイズを取得
 wfl::size_t AllocHeader::getHeaderSize()
 {
     return s_HeaderSize;
 }
 
-// アドレス
 const void* AllocHeader::getBlock() const
 {
     if (isEnabled(HeaderInfoFlagBits::MemoryBlock))
@@ -194,7 +193,6 @@ void* AllocHeader::getBlock()
     return nullptr;
 }
 
-// 確保サイズ
 wfl::size_t AllocHeader::getBytes() const
 {
     if (isEnabled(HeaderInfoFlagBits::MemoryBytes))
@@ -205,7 +203,6 @@ wfl::size_t AllocHeader::getBytes() const
     return 0;
 }
 
-// ファイル名
 const char* AllocHeader::getFileName() const
 {
     if (isEnabled(HeaderInfoFlagBits::FileName))
@@ -216,7 +213,6 @@ const char* AllocHeader::getFileName() const
     return "UNKNOWN FILE";
 }
 
-// 行数
 wfl::int32_t AllocHeader::getLine() const
 {
     if (isEnabled(HeaderInfoFlagBits::Line))
@@ -227,7 +223,6 @@ wfl::int32_t AllocHeader::getLine() const
     return 0;
 }
 
-// 関数名
 const char* AllocHeader::getFunctionName() const
 {
     if (isEnabled(HeaderInfoFlagBits::FunctionName))
@@ -238,7 +233,6 @@ const char* AllocHeader::getFunctionName() const
     return "UNKNOWN FUNCTION";
 }
 
-// 確保日時
 time_t AllocHeader::getDateTime() const
 {
     if (isEnabled(HeaderInfoFlagBits::DateTime))
@@ -249,7 +243,6 @@ time_t AllocHeader::getDateTime() const
     return 0;
 }
 
-// バックトレースのハッシュ値
 wfl::size_t AllocHeader::getBackTraceHash() const
 {
     if (isEnabled(HeaderInfoFlagBits::BackTraceHash))
@@ -260,7 +253,6 @@ wfl::size_t AllocHeader::getBackTraceHash() const
     return 0;
 }
 
-// メモリ破壊検出用シグネチャ
 AllocHeader::Signature AllocHeader::getSignature() const
 {
     if (isEnabled(HeaderInfoFlagBits::Signature))
@@ -271,7 +263,6 @@ AllocHeader::Signature AllocHeader::getSignature() const
     return 0;
 }
 
-// ブックマーク
 wfl::size_t AllocHeader::getBookmark() const
 {
     if (isEnabled(HeaderInfoFlagBits::Bookmark))
@@ -282,7 +273,6 @@ wfl::size_t AllocHeader::getBookmark() const
     return 0;
 }
 
-// 親ヒープ領域
 const Heap* AllocHeader::getHeap() const
 {
     if (isEnabled(HeaderInfoFlagBits::Heap))
@@ -303,7 +293,6 @@ Heap* AllocHeader::getHeap()
     return nullptr;
 }
 
-// 次のヘッダへのポインタ (ヒープをウォークするのに必要)
 const AllocHeader* AllocHeader::getNext() const
 {
     if (isEnabled(HeaderInfoFlagBits::Next))
@@ -324,7 +313,6 @@ AllocHeader* AllocHeader::getNext()
     return nullptr;
 }
 
-// 前のヘッダへのポインタ (ヒープをウォークするのに必要)
 const AllocHeader* AllocHeader::getPrev() const
 {
     if (isEnabled(HeaderInfoFlagBits::Prev))
@@ -345,7 +333,6 @@ AllocHeader* AllocHeader::getPrev()
     return nullptr;
 }
 
-// リンクリストに追加
 void AllocHeader::addLink(AllocHeader* pAllocHeader)
 {
     if (!isEnabled(HeaderInfoFlagBits::Required)) { return; }
@@ -362,7 +349,6 @@ void AllocHeader::addLink(AllocHeader* pAllocHeader)
     }
 }
 
-// リンクリストから切り離す
 void AllocHeader::deleteLink(AllocHeader*& pAllocHeader)
 {
     if (!isEnabled(HeaderInfoFlagBits::Required)) { return; }
@@ -389,7 +375,6 @@ void AllocHeader::deleteLink(AllocHeader*& pAllocHeader)
     }
 }
 
-// 情報書き込み
 void AllocHeader::record(
     void* address,
     wfl::size_t bytes,

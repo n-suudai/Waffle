@@ -42,6 +42,8 @@ AllocHeader* MemoryTracker::recordAllocation(
     //    backTraceHash = StackTrace::CaptureStackTraceHash();
     //}
 
+    assert(AllocHeader::isInitialized());
+
     AllocHeader* pAllocHeader = new AllocHeader();
     pAllocHeader->record(
         pBlock,
