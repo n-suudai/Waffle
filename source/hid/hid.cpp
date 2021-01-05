@@ -1,5 +1,4 @@
 ﻿#include "hid.h"
-#include "core/logging.h"
 
 
 namespace waffle {

@@ -1,6 +1,17 @@
 ﻿#pragma once
 
 
+// Require Modules
+#include "application.h"
+
+
+// Either Modules
+
+
+// Optional Modules
+
+
+// Public Interfaces
 #include "hid/peripheral_device_manager.h"
 #include "hid/keyboard/keyboard.h"
 #include "hid/mouse/mouse.h"

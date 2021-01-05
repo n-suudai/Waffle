@@ -1,5 +1,4 @@
-﻿
-#include "win32_window.h"
+﻿#include "win32_window.h"
 
 
 namespace waffle {

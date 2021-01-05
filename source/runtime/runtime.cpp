@@ -5,8 +5,6 @@
 #include "hid.h"
 #include "render.h"
 
-#include "core/logging.h"
-
 #include "runtime_heap.h"
 #include "common/utility/loop_timer.h"
 #include "game_input.h"
@@ -51,7 +49,7 @@ public:
 
     void operator +=(const EntryMethod& entryMethod);
 
-    bool operator()();
+    bool operator()(bool reverse = false);
 
 private:
     Vector<EntryMethod> m_entryMethodArray;
@@ -72,11 +70,11 @@ public:
 
     bool entry(ModuleEntry entry, const EntryMethod& entryMethod);
 
-    bool execute(ModuleEntry entry);
+    bool execute(ModuleEntry entry, bool reverse = false);
 
 private:
     wfl::array<EntryPoint, static_cast<wfl::size_t>(ModuleEntry::Num)> m_entryPointArray;
-    Map<String, SharedPtr<Entry>> m_moduleMap;
+    UnorderedMap<String, SharedPtr<Entry>> m_moduleMap;
 };
 
 
@@ -218,9 +216,9 @@ public:
 
         }
 
-        m_modules->execute(ModuleEntry::Terminate);
+        m_modules->execute(ModuleEntry::Terminate, true);
 
-        m_modules->execute(ModuleEntry::Finalize);
+        m_modules->execute(ModuleEntry::Finalize, true);
     }
 
 private:
@@ -234,13 +232,32 @@ void EntryPoint::operator +=(const EntryMethod& entryMethod)
     m_entryMethodArray.push_back(entryMethod);
 }
 
-bool EntryPoint::operator()()
+bool EntryPoint::operator()(bool reverse)
 {
-    for (const EntryMethod& method : m_entryMethodArray)
+    if (!reverse)
     {
-        if (!method())
+        Vector<EntryMethod>::iterator it = m_entryMethodArray.begin();
+        Vector<EntryMethod>::const_iterator end = m_entryMethodArray.cend();
+        while (it != end)
         {
-            return false;
+            if (!(*it)())
+            {
+                return false;
+            }
+            ++it;
+        }
+    }
+    else
+    {
+        Vector<EntryMethod>::reverse_iterator it = m_entryMethodArray.rbegin();
+        Vector<EntryMethod>::const_reverse_iterator end = m_entryMethodArray.crend();
+        while (it != end)
+        {
+            if (!(*it)())
+            {
+                return false;
+            }
+            ++it;
         }
     }
 
@@ -278,7 +295,7 @@ bool RuntimeModules::entryAll()
 
 bool RuntimeModules::getModule(const String& moduleName, WeakPtr<Entry>& outModule)
 {
-    Map<String, SharedPtr<Entry>>::iterator it = m_moduleMap.find(moduleName);
+    UnorderedMap<String, SharedPtr<Entry>>::iterator it = m_moduleMap.find(moduleName);
 
     if (it != m_moduleMap.end())
     {
@@ -295,9 +312,9 @@ bool RuntimeModules::entry(ModuleEntry entry, const EntryMethod& entryMethod)
     return true;
 }
 
-bool RuntimeModules::execute(ModuleEntry entry)
+bool RuntimeModules::execute(ModuleEntry entry, bool reverse)
 {
-    return m_entryPointArray[static_cast<wfl::size_t>(entry)]();
+    return m_entryPointArray[static_cast<wfl::size_t>(entry)](reverse);
 }
 
 

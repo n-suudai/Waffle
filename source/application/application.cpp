@@ -1,5 +1,4 @@
 ﻿#include "application.h"
-#include "core/logging.h"
 
 
 

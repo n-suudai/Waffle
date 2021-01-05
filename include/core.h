@@ -1,7 +1,17 @@
 ﻿#pragma once
 
 
-#include "common/types.h"
+// Require Modules
+
+
+// Either Modules
+
+
+// Optional Modules
+
+
+// Public Interfaces
+#include "core/logging.h"
 
 
 namespace waffle {

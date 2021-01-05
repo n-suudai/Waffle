@@ -1,8 +1,5 @@
-﻿
-#include "application/window.h"
-
+﻿#include "application/window.h"
 #include "platform/win32/win32_window.h"
-
 
 
 namespace waffle {

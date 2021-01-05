@@ -1,6 +1,5 @@
 ﻿
 #include "render.h"
-#include "core/logging.h"
 
 
 namespace waffle {

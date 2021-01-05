@@ -1,6 +1,6 @@
 ﻿
+#include "common.h"
 #include "core/logging.h"
-#include "common/platform.h"
 #include <cstdio>
 #include <cstdarg>
 
