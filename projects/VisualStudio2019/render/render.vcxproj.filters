@@ -7,15 +7,21 @@
     <Filter Include="source">
       <UniqueIdentifier>{22910d66-9420-4775-aec0-792176f4034d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\render">
+      <UniqueIdentifier>{7ad42133-9a02-483b-b771-e17dfa1d51de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\render">
+      <UniqueIdentifier>{a784c34c-f65c-433e-a8d2-9c5d416cb8c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\source\render\render.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\include\render.h">
-      <Filter>include</Filter>
+    <ClInclude Include="..\..\..\include\modules\render\render.h">
+      <Filter>include\render</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\source\modules\render\render.cpp">
+      <Filter>source\render</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

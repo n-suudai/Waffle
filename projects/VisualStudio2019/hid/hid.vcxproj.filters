@@ -27,94 +27,94 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\source\hid\hid.cpp">
-      <Filter>source\hid</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\hid\entity.cpp">
-      <Filter>source\hid</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\hid\direct_input\dinput_peripheral_device_manager.cpp">
+    <ClInclude Include="..\..\..\source\modules\hid\direct_input\dinput_game_pad.h">
       <Filter>source\hid\direct_input</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\hid\peripheral_device_manager.cpp">
-      <Filter>source\hid</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\hid\direct_input\direct_input.cpp">
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\modules\hid\direct_input\dinput_keyboard.h">
       <Filter>source\hid\direct_input</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\hid\direct_input\dinput_keyboard.cpp">
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\modules\hid\direct_input\dinput_mouse.h">
       <Filter>source\hid\direct_input</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\hid\direct_input\dinput_mouse.cpp">
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\modules\hid\direct_input\dinput_peripheral_device_manager.h">
       <Filter>source\hid\direct_input</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\hid\direct_input\dinput_utility.cpp">
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\modules\hid\direct_input\dinput_utility.h">
       <Filter>source\hid\direct_input</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\hid\direct_input\dinput_game_pad.cpp">
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\modules\hid\direct_input\direct_input.h">
       <Filter>source\hid\direct_input</Filter>
-    </ClCompile>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\modules\hid\entity.h">
+      <Filter>include\hid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\modules\hid\hid.h">
+      <Filter>include\hid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\modules\hid\input_state.h">
+      <Filter>include\hid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\modules\hid\peripheral_device.h">
+      <Filter>include\hid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\modules\hid\peripheral_device_manager.h">
+      <Filter>include\hid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\modules\hid\mouse\mouse.h">
+      <Filter>include\hid\mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\modules\hid\mouse\mouse_axis.h">
+      <Filter>include\hid\mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\modules\hid\mouse\mouse_button.h">
+      <Filter>include\hid\mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\modules\hid\keyboard\key_code.h">
+      <Filter>include\hid\keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\modules\hid\keyboard\keyboard.h">
+      <Filter>include\hid\keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\modules\hid\game_pad\analog_input.h">
+      <Filter>include\hid\game_pad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\modules\hid\game_pad\game_pad.h">
+      <Filter>include\hid\game_pad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\modules\hid\game_pad\game_pad_button.h">
+      <Filter>include\hid\game_pad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\modules\hid\game_pad\pov.h">
+      <Filter>include\hid\game_pad</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\include\hid.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\hid\entity.h">
-      <Filter>include\hid</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\hid\peripheral_device.h">
-      <Filter>include\hid</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\hid\peripheral_device_manager.h">
-      <Filter>include\hid</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\source\hid\direct_input\dinput_peripheral_device_manager.h">
+    <ClCompile Include="..\..\..\source\modules\hid\entity.cpp">
+      <Filter>source\hid</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\modules\hid\hid.cpp">
+      <Filter>source\hid</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\modules\hid\peripheral_device_manager.cpp">
+      <Filter>source\hid</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\modules\hid\direct_input\dinput_game_pad.cpp">
       <Filter>source\hid\direct_input</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\source\hid\direct_input\direct_input.h">
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\modules\hid\direct_input\dinput_keyboard.cpp">
       <Filter>source\hid\direct_input</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\source\hid\direct_input\dinput_keyboard.h">
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\modules\hid\direct_input\dinput_mouse.cpp">
       <Filter>source\hid\direct_input</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\hid\input_state.h">
-      <Filter>include\hid</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\source\hid\direct_input\dinput_mouse.h">
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\modules\hid\direct_input\dinput_peripheral_device_manager.cpp">
       <Filter>source\hid\direct_input</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\source\hid\direct_input\dinput_utility.h">
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\modules\hid\direct_input\dinput_utility.cpp">
       <Filter>source\hid\direct_input</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\hid\keyboard\keyboard.h">
-      <Filter>include\hid\keyboard</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\hid\keyboard\key_code.h">
-      <Filter>include\hid\keyboard</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\hid\mouse\mouse.h">
-      <Filter>include\hid\mouse</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\hid\mouse\mouse_axis.h">
-      <Filter>include\hid\mouse</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\hid\mouse\mouse_button.h">
-      <Filter>include\hid\mouse</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\hid\game_pad\analog_input.h">
-      <Filter>include\hid\game_pad</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\hid\game_pad\game_pad.h">
-      <Filter>include\hid\game_pad</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\hid\game_pad\game_pad_button.h">
-      <Filter>include\hid\game_pad</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\hid\game_pad\pov.h">
-      <Filter>include\hid\game_pad</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\source\hid\direct_input\dinput_game_pad.h">
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\modules\hid\direct_input\direct_input.cpp">
       <Filter>source\hid\direct_input</Filter>
-    </ClInclude>
+    </ClCompile>
   </ItemGroup>
 </Project>

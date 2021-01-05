@@ -1,9 +1,9 @@
 ﻿
 #include "memory.h"
-#include "core.h"
-#include "application.h"
-#include "hid.h"
-#include "render.h"
+#include "modules/core/core.h"
+#include "modules/application/application.h"
+#include "modules/hid/hid.h"
+#include "modules/render/render.h"
 
 #include "runtime_heap.h"
 #include "common/utility/loop_timer.h"
@@ -41,7 +41,7 @@ enum class ModuleEntry
 
 typedef wfl::function<bool()> EntryMethod;
 
-class EntryPoint
+class EntryPoint final : public RuntimeEntity
 {
 public:
     EntryPoint() = default;

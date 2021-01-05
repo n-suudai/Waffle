@@ -2,7 +2,7 @@
 
 #include "entity.h"
 #include "memory/stl.h"
-#include "hid.h"
+#include "modules/hid/hid.h"
 
 
 namespace waffle {

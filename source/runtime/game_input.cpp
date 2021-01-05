@@ -1,6 +1,5 @@
 ﻿
 #include "game_input.h"
-#include "application/window.h"
 
 
 namespace waffle {

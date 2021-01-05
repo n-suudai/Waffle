@@ -21,31 +21,31 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\include\application.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\application\window.h">
+    <ClInclude Include="..\..\..\include\modules\application\application.h">
       <Filter>include\application</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\application\entity.h">
+    <ClInclude Include="..\..\..\include\modules\application\entity.h">
       <Filter>include\application</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\source\application\platform\win32\win32_window.h">
+    <ClInclude Include="..\..\..\include\modules\application\window.h">
+      <Filter>include\application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\modules\application\platform\win32\win32_window.h">
       <Filter>source\application\platform\win32</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\source\application\application.cpp">
+    <ClCompile Include="..\..\..\source\modules\application\application.cpp">
       <Filter>source\application</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\application\platform\win32\win32_window.cpp">
+    <ClCompile Include="..\..\..\source\modules\application\entity.cpp">
+      <Filter>source\application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\modules\application\window.cpp">
+      <Filter>source\application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\modules\application\platform\win32\win32_window.cpp">
       <Filter>source\application\platform\win32</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\application\window.cpp">
-      <Filter>source\application</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\application\entity.cpp">
-      <Filter>source\application</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

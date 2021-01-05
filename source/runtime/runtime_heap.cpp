@@ -1,8 +1,7 @@
 ﻿
 #include "runtime_heap.h"
-#include "memory/heap_walk.h"
-#include "memory/heap_factory.h"
-#include "core/logging.h"
+#include "memory.h"
+#include "modules/core/core.h"
 #include <cassert>
 
 
