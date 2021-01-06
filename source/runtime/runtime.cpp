@@ -1,9 +1,6 @@
 ﻿
 #include "memory.h"
-#include "modules/core/core.h"
-#include "modules/application/application.h"
-#include "modules/hid/hid.h"
-#include "modules/render/render.h"
+#include "modules/modules.h"
 
 #include "runtime_heap.h"
 #include "common/utility/loop_timer.h"
@@ -15,102 +12,10 @@
 namespace waffle {
 
 
-
-
-enum class ModuleEntry
-{
-    Initialize,
-    //InitializeStorage,
-    //InitializeResourceManager,
-    //InitializeScene,
-    //InitializeVM,
-
-    Setup,
-
-    Start,
-
-    Update,
-
-    Terminate,
-
-    Finalize,
-
-    Num,
-};
-
-
-typedef wfl::function<bool()> EntryMethod;
-
-class EntryPoint final : public RuntimeEntity
+class CoreEntry : public modules::Entry
 {
 public:
-    EntryPoint() = default;
-    ~EntryPoint() = default;
-
-    void operator +=(const EntryMethod& entryMethod);
-
-    bool operator()(bool reverse = false);
-
-private:
-    Vector<EntryMethod> m_entryMethodArray;
-};
-
-
-class Entry;
-class RuntimeModules : public RuntimeEntity
-{
-public:
-    bool initialize();
-
-    bool finalize();
-
-    bool entryAll();
-
-    bool getModule(const String& moduleName, WeakPtr<Entry>& outModule);
-
-    bool entry(ModuleEntry entry, const EntryMethod& entryMethod);
-
-    bool execute(ModuleEntry entry, bool reverse = false);
-
-private:
-    wfl::array<EntryPoint, static_cast<wfl::size_t>(ModuleEntry::Num)> m_entryPointArray;
-    UnorderedMap<String, SharedPtr<Entry>> m_moduleMap;
-};
-
-
-class Entry : public RuntimeEntity
-{
-public:
-    Entry(RuntimeModules& modules)
-        : m_modules(modules)
-    {}
-
-    virtual ~Entry() = default;
-
-    virtual bool entry() = 0;
-
-    template<typename T>
-    T* As()
-    {
-        return dynamic_cast<T*>(this);
-    }
-
-protected:
-    bool moduleEntry(ModuleEntry entry, const EntryMethod& entryMethod);
-
-    RuntimeModules& m_modules;
-};
-
-bool Entry::moduleEntry(ModuleEntry entry, const EntryMethod& entryMethod)
-{
-    return m_modules.entry(entry, entryMethod);
-}
-
-
-class CoreEntry : public Entry
-{
-public:
-    CoreEntry(RuntimeModules& modules)
+    CoreEntry(modules::RuntimeModules& modules)
         : Entry(modules)
     {}
 
@@ -123,10 +28,10 @@ private:
 };
 
 
-class ApplicationEntry : public Entry
+class ApplicationEntry : public modules::Entry
 {
 public:
-    ApplicationEntry(RuntimeModules& modules)
+    ApplicationEntry(modules::RuntimeModules& modules)
         : Entry(modules)
     {}
 
@@ -148,10 +53,10 @@ private:
 };
 
 
-class HIDEntry : public Entry
+class HIDEntry : public modules::Entry
 {
 public:
-    HIDEntry(RuntimeModules& modules)
+    HIDEntry(modules::RuntimeModules& modules)
         : Entry(modules)
     {}
 
@@ -179,9 +84,14 @@ class Runtime : public RuntimeEntity
 public:
     bool initialize()
     {
-        m_modules = WFL_MAKE_UNIQUE(RuntimeModules);
+        m_modules = WFL_MAKE_UNIQUE(modules::RuntimeModules);
 
-        if (!m_modules->initialize()) { return false; }
+        UnorderedMap<String, SharedPtr<modules::Entry>> moduleMap;
+        moduleMap["Core"] = WFL_MAKE_SHARED(CoreEntry, (*m_modules));
+        moduleMap["Application"] = WFL_MAKE_SHARED(ApplicationEntry, (*m_modules));
+        moduleMap["HID"] = WFL_MAKE_SHARED(HIDEntry, (*m_modules));
+
+        if (!m_modules->initialize(wfl::move(moduleMap))) { return false; }
         
         if (!m_modules->entryAll()) { return false; }
 
@@ -199,6 +109,8 @@ public:
 
     void run()
     {
+        using namespace modules;
+
         m_modules->execute(ModuleEntry::Initialize);
 
         m_modules->execute(ModuleEntry::Setup);
@@ -216,105 +128,15 @@ public:
     }
 
 private:
-    UniquePtr<RuntimeModules> m_modules;
+    UniquePtr<modules::RuntimeModules> m_modules;
 };
-
-
-// EntryPoint
-void EntryPoint::operator +=(const EntryMethod& entryMethod)
-{
-    m_entryMethodArray.push_back(entryMethod);
-}
-
-bool EntryPoint::operator()(bool reverse)
-{
-    if (!reverse)
-    {
-        Vector<EntryMethod>::iterator it = m_entryMethodArray.begin();
-        Vector<EntryMethod>::const_iterator end = m_entryMethodArray.cend();
-        while (it != end)
-        {
-            if (!(*it)())
-            {
-                return false;
-            }
-            ++it;
-        }
-    }
-    else
-    {
-        Vector<EntryMethod>::reverse_iterator it = m_entryMethodArray.rbegin();
-        Vector<EntryMethod>::const_reverse_iterator end = m_entryMethodArray.crend();
-        while (it != end)
-        {
-            if (!(*it)())
-            {
-                return false;
-            }
-            ++it;
-        }
-    }
-
-    return true;
-}
-
-
-// RuntimeModules
-bool RuntimeModules::initialize()
-{
-    m_moduleMap.insert({ "Core", WFL_MAKE_SHARED(CoreEntry, *this) });
-    m_moduleMap.insert({ "Application", WFL_MAKE_SHARED(ApplicationEntry, *this) });
-    m_moduleMap.insert({ "HID", WFL_MAKE_SHARED(HIDEntry, *this) });
-    return true;
-}
-
-bool RuntimeModules::finalize()
-{
-    m_moduleMap.clear();
-    return true;
-}
-
-bool RuntimeModules::entryAll()
-{
-    for (Map<String, SharedPtr<Entry>>::value_type& pair : m_moduleMap)
-    {
-        if (!pair.second->entry())
-        {
-            return false;
-        }
-    }
-
-    return true;
-}
-
-bool RuntimeModules::getModule(const String& moduleName, WeakPtr<Entry>& outModule)
-{
-    UnorderedMap<String, SharedPtr<Entry>>::iterator it = m_moduleMap.find(moduleName);
-
-    if (it != m_moduleMap.end())
-    {
-        outModule = it->second;
-        return true;
-    }
-
-    return false;
-}
-
-bool RuntimeModules::entry(ModuleEntry entry, const EntryMethod& entryMethod)
-{
-    m_entryPointArray[static_cast<wfl::size_t>(entry)] += entryMethod;
-    return true;
-}
-
-bool RuntimeModules::execute(ModuleEntry entry, bool reverse)
-{
-    return m_entryPointArray[static_cast<wfl::size_t>(entry)](reverse);
-}
 
 
 // Core
 bool CoreEntry::entry()
 {
+    using namespace modules;
+
     if (!moduleEntry(ModuleEntry::Initialize, wfl::bind(&CoreEntry::initialize, this)))
     {
         return false;
@@ -343,6 +165,8 @@ bool CoreEntry::finalize()
 // Application
 bool ApplicationEntry::entry()
 {
+    using namespace modules;
+
     if (!moduleEntry(ModuleEntry::Initialize, wfl::bind(&ApplicationEntry::initialize, this)))
     {
         return false;
@@ -413,6 +237,8 @@ bool ApplicationEntry::finalize()
 // HID
 bool HIDEntry::entry()
 {
+    using namespace modules;
+
     if (!moduleEntry(ModuleEntry::Initialize, wfl::bind(&HIDEntry::initialize, this)))
     {
         return false;
@@ -458,7 +284,7 @@ bool HIDEntry::setup()
 
     if (!sharedApplication) { return false; }
 
-    ApplicationEntry* pApplication = sharedApplication->As<ApplicationEntry>();
+    const ApplicationEntry* pApplication = sharedApplication->As<ApplicationEntry>();
 
     if (!pApplication) { return false; }
 

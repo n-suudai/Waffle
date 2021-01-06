@@ -5,7 +5,7 @@ namespace waffle {
 namespace hid {
 
 
-WFL_DEFINE_HEAP(HIDEntity, "HID");
+WFL_DEFINE_HIERARCHAL_HEAP(HIDEntity, "Modules", "HID");
 
 
 } // namespace hid
