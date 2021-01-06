@@ -23,9 +23,9 @@ public:
 
     inline constexpr Coordinate2D(const Coordinate2D&) = default;
 
-    inline constexpr T x() const { return m_X; }
+    [[nodiscard]] inline constexpr T x() const { return m_X; }
 
-    inline constexpr T y() const { return m_Y; }
+    [[nodiscard]] inline constexpr T y() const { return m_Y; }
 
 private:
     T m_X;

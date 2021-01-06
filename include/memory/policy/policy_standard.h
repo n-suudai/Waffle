@@ -43,8 +43,8 @@ class StandardAllocatePolicy final
 {
     WFL_NON_INSTANTIATABLE(StandardAllocatePolicy);
 public:
-    static WFL_DECL_MALLOC void* allocate(wfl::size_t bytes);
-    static WFL_DECL_MALLOC void* allocateAligned(wfl::size_t bytes, wfl::size_t alignment);
+    [[nodiscard]] static WFL_DECL_MALLOC void* allocate(wfl::size_t bytes);
+    [[nodiscard]] static WFL_DECL_MALLOC void* allocateAligned(wfl::size_t bytes, wfl::size_t alignment);
 
     static void deallocate(void* pBlock);
     static void deallocateAligned(void* pBlock);

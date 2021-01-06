@@ -6,6 +6,7 @@ namespace application {
 
 constexpr const char* WINDOW_CLASS_NAME = "WAFFLE_WINDOW";
 
+[[nodiscard]]
 static RECT convertRect(const Rectangle<wfl::int32_t>& rectangle)
 {
     RECT result = {};
@@ -14,6 +15,7 @@ static RECT convertRect(const Rectangle<wfl::int32_t>& rectangle)
     return result;
 }
 
+[[nodiscard]]
 static Rectangle<wfl::int32_t> convertRect(const RECT& rect)
 {
     Rectangle<wfl::int32_t> result(
@@ -23,6 +25,7 @@ static Rectangle<wfl::int32_t> convertRect(const RECT& rect)
     return result;
 }
 
+[[nodiscard]]
 static HICON loadIcon(const char* iconName, HINSTANCE hInstance, wfl::int32_t iconSize)
 {
     HICON result = reinterpret_cast<HICON>(
@@ -36,6 +39,7 @@ static HICON loadIcon(const char* iconName, HINSTANCE hInstance, wfl::int32_t ic
     return result;
 }
 
+[[nodiscard]]
 bool getClassInfo(WNDCLASSEXA& windowClassEX, HINSTANCE hInstance)
 {
     bool result = ::GetClassInfoExA(hInstance, WINDOW_CLASS_NAME, &windowClassEX) != 0;

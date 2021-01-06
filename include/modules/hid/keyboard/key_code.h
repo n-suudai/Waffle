@@ -147,22 +147,22 @@ public:
         : m_type(type)
     {}
 
-    inline constexpr bool is(KeyCodeType type) const
+    [[nodiscard]] inline constexpr bool is(KeyCodeType type) const
     {
         return m_type == type;
     }
 
-    inline constexpr bool isValid() const
+    [[nodiscard]] inline constexpr bool isValid() const
     {
         return KeyCodeType::Key_Unknown <= m_type && m_type < KeyCodeType::Key_Num;
     }
 
-    inline constexpr wfl::size_t toIndex() const
+    [[nodiscard]] inline constexpr wfl::size_t toIndex() const
     {
         return static_cast<wfl::size_t>(m_type);
     }
 
-    inline constexpr StringView toStringView() const
+    [[nodiscard]] inline constexpr StringView toStringView() const
     {
         constexpr wfl::size_t KEY_CODE_NUM = static_cast<wfl::size_t>(KeyCodeType::Key_Num);
 
@@ -291,12 +291,12 @@ public:
         return StringView(TO_STRING_TABLE[static_cast<wfl::size_t>(m_type)]);
     }
 
-    inline String toString() const
+    [[nodiscard]] inline String toString() const
     {
         return String(toStringView());
     }
 
-    inline constexpr explicit operator KeyCodeType() const
+    [[nodiscard]] inline constexpr explicit operator KeyCodeType() const
     {
         return m_type;
     }

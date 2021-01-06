@@ -11,7 +11,7 @@ class Bitwise
 public:
     // 2のべき乗であるか
     template<typename T>
-    static inline bool isPowerOfTwo(T x)
+    [[nodiscard]] static inline bool isPowerOfTwo(T x)
     {
         return (x & (x - 1)) == 0;
     }

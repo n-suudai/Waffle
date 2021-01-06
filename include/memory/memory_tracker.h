@@ -24,7 +24,7 @@ public:
 
     using TrackMap = MapWithoutTracking<void*, AllocHeader*>;
 
-    static MemoryTracker& get();
+    [[nodiscard]] static MemoryTracker& get();
 
     AllocHeader* recordAllocation(
         void* pBlock,
@@ -36,7 +36,7 @@ public:
 
     void recordDeallocation(void* pBlock, Heap* pHeap);
 
-    wfl::size_t getAllocationBookmark() const;
+    [[nodiscard]] wfl::size_t getAllocationBookmark() const;
 
 private:
     MemoryTracker();

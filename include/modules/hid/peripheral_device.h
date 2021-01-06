@@ -16,7 +16,7 @@ public:
 
     virtual void update(const Duration& deltaTime) = 0;
 
-    virtual bool isAnyPressed() const = 0;
+    [[nodiscard]] virtual bool isAnyPressed() const = 0;
 };
 
 

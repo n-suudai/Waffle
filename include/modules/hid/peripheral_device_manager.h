@@ -21,30 +21,30 @@ public:
     virtual ~IPeripheralDeviceManager() = default;
 
 
-    virtual wfl::size_t keyboardCount() const = 0;
+    [[nodiscard]] virtual wfl::size_t keyboardCount() const = 0;
 
-    virtual bool createKeyboardUnique(
+    [[nodiscard]] virtual bool createKeyboardUnique(
         wfl::size_t index, UniquePtr<IKeyboard>& outKeyboard) const = 0;
 
-    virtual bool createKeyboardShared(
+    [[nodiscard]] virtual bool createKeyboardShared(
         wfl::size_t index, SharedPtr<IKeyboard>& outKeyboard) const = 0;
 
 
-    virtual wfl::size_t mouseCount() const = 0;
+    [[nodiscard]] virtual wfl::size_t mouseCount() const = 0;
 
-    virtual bool createMouseUnique(
+    [[nodiscard]] virtual bool createMouseUnique(
         wfl::size_t index, UniquePtr<IMouse>& outMouse) const = 0;
 
-    virtual bool createMouseShared(
+    [[nodiscard]] virtual bool createMouseShared(
         wfl::size_t index, SharedPtr<IMouse>& outMouse) const = 0;
     
 
-    virtual wfl::size_t gamePadCount() const = 0;
+    [[nodiscard]] virtual wfl::size_t gamePadCount() const = 0;
 
-    virtual bool createGamePadUnique(
+    [[nodiscard]] virtual bool createGamePadUnique(
         wfl::size_t index, UniquePtr<IGamePad>& outGamePad) const = 0;
 
-    virtual bool createGamePadShared(
+    [[nodiscard]] virtual bool createGamePadShared(
         wfl::size_t index, SharedPtr<IGamePad>& outGamePad) const = 0;
 };
 
@@ -58,11 +58,11 @@ struct InitializeParameters
 };
 
 
-bool createPeripheralDeviceManagerUnique(
+[[nodiscard]] bool createPeripheralDeviceManagerUnique(
     const InitializeParameters& initializeParameters,
     UniquePtr<IPeripheralDeviceManager>& outPeripheralDeviceManager);
 
-bool createPeripheralDeviceManagerShared(
+[[nodiscard]] bool createPeripheralDeviceManagerShared(
     const InitializeParameters& initializeParameters,
     SharedPtr<IPeripheralDeviceManager>& outPeripheralDeviceManager);
 

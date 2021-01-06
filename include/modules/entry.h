@@ -15,13 +15,11 @@ public:
 
     virtual ~Entry() = default;
 
-    virtual bool entry() = 0;
-
+    [[nodiscard]] virtual bool entry() = 0;
+   
     template<typename T>
-    inline const T* As() const
+    [[nodiscard]] inline bool As(const T*& result) const
     {
-        const T* result = nullptr;
-
         try
         {
             result = dynamic_cast<const T*>(this);
@@ -35,7 +33,7 @@ public:
     }
 
 protected:
-    bool moduleEntry(ModuleEntry entry, const EntryMethod& entryMethod);
+    [[nodiscard]] bool moduleEntry(ModuleEntry entry, const EntryMethod& entryMethod);
 
     RuntimeModules& m_modules;
 };

@@ -18,7 +18,7 @@ namespace waffle {
 namespace render {
 
 
-bool initialize();
+[[nodiscard]] bool initialize();
 
 void finalize();
 

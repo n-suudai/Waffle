@@ -12,12 +12,12 @@ namespace hid {
 class DInputMouse final : public IMouse
 {
 public:
-    static bool createUnique(
+    [[nodiscard]] static bool createUnique(
         const ComPtr<IDirectInputDevice8A>& device,
         HWND hWindow,
         UniquePtr<IMouse>& outMouse);
 
-    static bool createShared(
+    [[nodiscard]] static bool createShared(
         const ComPtr<IDirectInputDevice8A>& device,
         HWND hWindow,
         SharedPtr<IMouse>& outMouse);
@@ -29,22 +29,22 @@ public:
 
     void update(const Duration& deltaTime) override;
 
-    bool isAnyPressed() const override;
+    [[nodiscard]] bool isAnyPressed() const override;
 
-    bool isPressed(MouseButton button) const override;
+    [[nodiscard]] bool isPressed(MouseButton button) const override;
 
-    bool isReleased(MouseButton button) const override;
+    [[nodiscard]] bool isReleased(MouseButton button) const override;
 
-    bool isFirstPressed(MouseButton button) const override;
+    [[nodiscard]] bool isFirstPressed(MouseButton button) const override;
 
-    bool isFirstReleased(MouseButton button) const override;
+    [[nodiscard]] bool isFirstReleased(MouseButton button) const override;
 
-    Duration durationPressed(MouseButton button) const override;
+    [[nodiscard]] Duration durationPressed(MouseButton button) const override;
 
-    wfl::int32_t axisValue(MouseAxis axis) const override;
+    [[nodiscard]] wfl::int32_t axisValue(MouseAxis axis) const override;
 
 private:
-    bool initialize(
+    [[nodiscard]] bool initialize(
         const ComPtr<IDirectInputDevice8A>& device,
         HWND hWindow);
 

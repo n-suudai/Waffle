@@ -15,7 +15,7 @@ namespace application {
 class IWindow : public ApplicationEntity
 {
 public:
-    virtual bool isAlive() const = 0;
+    [[nodiscard]] virtual bool isAlive() const = 0;
 
     virtual bool messagePump() = 0;
 
@@ -23,17 +23,17 @@ public:
 
     virtual bool setClientRect(const Rectangle<wfl::int32_t>& clientRect) = 0;
 
-    virtual void* windowHandle() const = 0;
+    [[nodiscard]] virtual void* windowHandle() const = 0;
 
-    virtual void* applicationHandle() const = 0;
+    [[nodiscard]] virtual void* applicationHandle() const = 0;
 };
 
 
-bool createWindowUnique(
+[[nodiscard]] bool createWindowUnique(
     const Rectangle<wfl::int32_t>& clientRect,
     UniquePtr<IWindow>& outWindow);
 
-bool createWindowShared(
+[[nodiscard]] bool createWindowShared(
     const Rectangle<wfl::int32_t>& clientRect,
     SharedPtr<IWindow>& outWindow);
 

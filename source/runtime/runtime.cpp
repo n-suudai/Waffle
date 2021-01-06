@@ -284,9 +284,9 @@ bool HIDEntry::setup()
 
     if (!sharedApplication) { return false; }
 
-    const ApplicationEntry* pApplication = sharedApplication->As<ApplicationEntry>();
+    const ApplicationEntry* pApplication = nullptr;
 
-    if (!pApplication) { return false; }
+    if (!sharedApplication->As<ApplicationEntry>(pApplication)) { return false; }
 
     if (!m_gameInput.initialize(pApplication->window())) { return false; }
 
@@ -333,7 +333,10 @@ class MemoryInitializer final
 public:
     MemoryInitializer()
     {
-        memory::initialize();
+        if (!memory::initialize())
+        {
+            abort();
+        }
     }
 
     ~MemoryInitializer()

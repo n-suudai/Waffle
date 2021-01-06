@@ -18,7 +18,7 @@ void writeValue(const T& value, void* pBlock)
 }
 
 template<typename T>
-const T& readValue(const void* pBlock)
+[[nodiscard]] const T& readValue(const void* pBlock)
 {
     const T* p = reinterpret_cast<const T*>(pBlock);
     return (*p);

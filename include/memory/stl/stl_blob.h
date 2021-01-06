@@ -24,7 +24,7 @@ struct CustomDeleter_Blob_WithTracking
 
     inline CustomDeleter_Blob_WithTracking() = default;
 
-    inline Heap* getHeap() const
+    [[nodiscard]] inline Heap* getHeap() const
     {
         return m_pHeap;
     }
@@ -99,7 +99,7 @@ using UniqueBlob_WithoutTracking =
 wfl::unique_ptr<wfl::uint8_t, detail::CustomDeleter_Blob_WithoutTracking<wfl::uint8_t>>;
 
 
-inline UniqueBlob_WithTracking makeUniqueBlob_WithTracking(
+[[nodiscard]] inline UniqueBlob_WithTracking makeUniqueBlob_WithTracking(
     wfl::size_t bytes,
     Heap* pHeap,
     const char* file,
@@ -119,7 +119,7 @@ inline UniqueBlob_WithTracking makeUniqueBlob_WithTracking(
         deleter);
 }
 
-inline UniqueBlob_WithTracking makeUniqueBlobAligned_WithTracking(
+[[nodiscard]] inline UniqueBlob_WithTracking makeUniqueBlobAligned_WithTracking(
     wfl::size_t bytes,
     wfl::size_t alignment,
     Heap* pHeap,
@@ -143,7 +143,7 @@ inline UniqueBlob_WithTracking makeUniqueBlobAligned_WithTracking(
         deleter);
 }
 
-inline UniqueBlob_WithoutTracking makeUniqueBlob_WithoutTracking(wfl::size_t bytes)
+[[nodiscard]] inline UniqueBlob_WithoutTracking makeUniqueBlob_WithoutTracking(wfl::size_t bytes)
 {
     detail::CustomDeleter_Blob_WithoutTracking<wfl::uint8_t> deleter;
 
@@ -152,7 +152,7 @@ inline UniqueBlob_WithoutTracking makeUniqueBlob_WithoutTracking(wfl::size_t byt
         deleter);
 }
 
-inline UniqueBlob_WithoutTracking makeUniqueBlobAligned_WithoutTracking(
+[[nodiscard]] inline UniqueBlob_WithoutTracking makeUniqueBlobAligned_WithoutTracking(
     wfl::size_t bytes,
     wfl::size_t alignment)
 {

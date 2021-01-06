@@ -13,23 +13,23 @@ class HeapFactory final
 {
     WFL_NO_NEW_DELETE;
 public:
-    static HeapFactory& get();
+    [[nodiscard]] static HeapFactory& get();
 
     void initialize();
 
-    Heap* getRootHeap();
+    [[nodiscard]] Heap* getRootHeap();
 
-    Heap* getDefaultHeap();
+    [[nodiscard]] Heap* getDefaultHeap();
 
-    Heap* createHeap(
+    [[nodiscard]] Heap* createHeap(
         const char* name,
         const char* parentName);
 
-    Heap* createHeap(const char* name);
+    [[nodiscard]] Heap* createHeap(const char* name);
 
-    Heap* findHeap(const char* name);
+    [[nodiscard]] Heap* findHeap(const char* name);
 
-    Heap* createNewHeap(const char* name);
+    [[nodiscard]] Heap* createNewHeap(const char* name);
 
     // リークのチェック関数
     void reportMemoryLeaks(

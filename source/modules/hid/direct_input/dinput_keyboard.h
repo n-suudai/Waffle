@@ -14,12 +14,12 @@ class DInputKeyboard final : public IKeyboard
 public:
     static void buildKeyMapTable();
 
-    static bool createUnique(
+    [[nodiscard]] static bool createUnique(
         const ComPtr<IDirectInputDevice8A>& device,
         HWND hWindow,
         UniquePtr<IKeyboard>& outKeyboard);
 
-    static bool createShared(
+    [[nodiscard]] static bool createShared(
         const ComPtr<IDirectInputDevice8A>& device,
         HWND hWindow,
         SharedPtr<IKeyboard>& outKeyboard);
@@ -31,20 +31,20 @@ public:
 
     void update(const Duration& deltaTime) override;
 
-    bool isAnyPressed() const override;
+    [[nodiscard]] bool isAnyPressed() const override;
 
-    bool isPressed(KeyCode key) const override;
+    [[nodiscard]] bool isPressed(KeyCode key) const override;
 
-    bool isReleased(KeyCode key) const override;
+    [[nodiscard]] bool isReleased(KeyCode key) const override;
 
-    bool isFirstPressed(KeyCode key) const override;
+    [[nodiscard]] bool isFirstPressed(KeyCode key) const override;
 
-    bool isFirstReleased(KeyCode key) const override;
+    [[nodiscard]] bool isFirstReleased(KeyCode key) const override;
 
-    Duration durationPressed(KeyCode key) const override;
+    [[nodiscard]] Duration durationPressed(KeyCode key) const override;
 
 private:
-    bool initialize(
+    [[nodiscard]] bool initialize(
         const ComPtr<IDirectInputDevice8A>& device,
         HWND hWindow);
 

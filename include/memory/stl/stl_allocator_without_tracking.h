@@ -33,7 +33,7 @@ struct STLAllocator_WithoutTracking final
     {/* DO_NOTHING */
     }
 
-    inline T* allocate(wfl::size_t count)
+    [[nodiscard]] inline T* allocate(wfl::size_t count)
     {
         return reinterpret_cast<T*>(
             AllocatePolicy::allocateAligned(sizeof(T) * count, ALIGNMENT));
@@ -49,13 +49,13 @@ template<typename T>
 const wfl::size_t STLAllocator_WithoutTracking<T>::ALIGNMENT = alignof(T);
 
 template <typename T, typename U>
-inline bool operator==(const STLAllocator_WithoutTracking<T>&, const STLAllocator_WithoutTracking<U>&)
+[[nodiscard]] inline bool operator==(const STLAllocator_WithoutTracking<T>&, const STLAllocator_WithoutTracking<U>&)
 {
     return true;
 }
 
 template <typename T, typename U>
-inline bool operator!=(const STLAllocator_WithoutTracking<T>&, const STLAllocator_WithoutTracking<U>&)
+[[nodiscard]] inline bool operator!=(const STLAllocator_WithoutTracking<T>&, const STLAllocator_WithoutTracking<U>&)
 {
     return false;
 }

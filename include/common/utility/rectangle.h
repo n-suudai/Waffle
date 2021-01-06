@@ -71,29 +71,29 @@ public:
         bottomCast = static_cast<Cast>(bottom);
     }
 
-    inline constexpr T width() const
+    [[nodiscard]] inline constexpr T width() const
     {
         return m_horizontalRange.max() - m_horizontalRange.min();
     }
 
     template<typename Cast>
-    inline constexpr Cast width() const
+    [[nodiscard]] inline constexpr Cast width() const
     {
         return static_cast<Cast>(width());
     }
 
-    inline constexpr T height() const
+    [[nodiscard]] inline constexpr T height() const
     {
         return m_verticalRange.max() - m_verticalRange.min();
     }
 
     template<typename Cast>
-    inline constexpr Cast height() const
+    [[nodiscard]] inline constexpr Cast height() const
     {
         return static_cast<Cast>(height());
     }
 
-    inline constexpr bool isInside(const Coordinate2DType& coordinate) const
+    [[nodiscard]] inline constexpr bool isInside(const Coordinate2DType& coordinate) const
     {
         return m_horizontalRange.isInside(coordinate.x())
             && m_verticalRange.isInside(coordinate.y());

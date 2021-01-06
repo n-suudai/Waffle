@@ -12,12 +12,12 @@ namespace hid {
 class DInputGamePad final : public IGamePad
 {
 public:
-    static bool createUnique(
+    [[nodiscard]] static bool createUnique(
         const ComPtr<IDirectInputDevice8A>& device,
         HWND hWindow,
         UniquePtr<IGamePad>& outGamePad);
 
-    static bool createShared(
+    [[nodiscard]] static bool createShared(
         const ComPtr<IDirectInputDevice8A>& device,
         HWND hWindow,
         SharedPtr<IGamePad>& outGamePad);
@@ -29,29 +29,29 @@ public:
 
     void update(const Duration& deltaTime) override;
 
-    bool isAnyPressed() const override;
-    bool isAnyButtonPressed() const override;
-    bool isAnyPOVPressed() const override;
+    [[nodiscard]]bool isAnyPressed() const override;
+    [[nodiscard]]bool isAnyButtonPressed() const override;
+    [[nodiscard]]bool isAnyPOVPressed() const override;
 
-    bool isPressed(GamePadButton button) const override;
-    bool isPressed(POV pov) const override;
+    [[nodiscard]] bool isPressed(GamePadButton button) const override;
+    [[nodiscard]] bool isPressed(POV pov) const override;
 
-    bool isReleased(GamePadButton button) const override;
-    bool isReleased(POV pov) const override;
+    [[nodiscard]] bool isReleased(GamePadButton button) const override;
+    [[nodiscard]] bool isReleased(POV pov) const override;
 
-    bool isFirstPressed(GamePadButton button) const override;
-    bool isFirstPressed(POV pov) const override;
+    [[nodiscard]] bool isFirstPressed(GamePadButton button) const override;
+    [[nodiscard]] bool isFirstPressed(POV pov) const override;
 
-    bool isFirstReleased(GamePadButton button) const override;
-    bool isFirstReleased(POV pov) const override;
+    [[nodiscard]] bool isFirstReleased(GamePadButton button) const override;
+    [[nodiscard]] bool isFirstReleased(POV pov) const override;
 
-    Duration durationPressed(GamePadButton button) const override;
-    Duration durationPressed(POV pov) const override;
+    [[nodiscard]] Duration durationPressed(GamePadButton button) const override;
+    [[nodiscard]] Duration durationPressed(POV pov) const override;
 
-    wfl::int32_t analogInputValue(AnalogInput analog) const override;
+    [[nodiscard]] wfl::int32_t analogInputValue(AnalogInput analog) const override;
 
 private:
-    bool initialize(
+    [[nodiscard]] bool initialize(
         const ComPtr<IDirectInputDevice8A>& device,
         HWND hWindow);
 

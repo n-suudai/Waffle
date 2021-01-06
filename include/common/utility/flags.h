@@ -56,47 +56,47 @@ public:
         return *this;
     }
 
-    inline constexpr Flags<BitType> operator|(Flags<BitType> const& rhs) const
+    [[nodiscard]] inline constexpr Flags<BitType> operator|(Flags<BitType> const& rhs) const
     {
         return Flags<BitType>(m_mask | rhs.m_mask);
     }
 
-    inline constexpr Flags<BitType> operator&(Flags<BitType> const& rhs) const
+    [[nodiscard]] inline constexpr Flags<BitType> operator&(Flags<BitType> const& rhs) const
     {
         return Flags<BitType>(m_mask & rhs.m_mask);
     }
 
-    inline constexpr Flags<BitType> operator^(Flags<BitType> const& rhs) const
+    [[nodiscard]] inline constexpr Flags<BitType> operator^(Flags<BitType> const& rhs) const
     {
         return Flags<BitType>(m_mask ^ rhs.m_mask);
     }
 
-    inline constexpr bool operator!() const
+    [[nodiscard]] inline constexpr bool operator!() const
     {
         return !m_mask;
     }
 
-    inline constexpr Flags<BitType> operator~() const
+    [[nodiscard]] inline constexpr Flags<BitType> operator~() const
     {
         return Flags<BitType>(m_mask ^ FlagTraits<BitType>::allFlags);
     }
 
-    inline constexpr bool operator==(Flags<BitType> const& rhs) const
+    [[nodiscard]] inline constexpr bool operator==(Flags<BitType> const& rhs) const
     {
         return m_mask == rhs.m_mask;
     }
 
-    inline constexpr bool operator!=(Flags<BitType> const& rhs) const
+    [[nodiscard]] inline constexpr bool operator!=(Flags<BitType> const& rhs) const
     {
         return m_mask != rhs.m_mask;
     }
 
-    inline explicit constexpr operator bool() const
+    [[nodiscard]] inline explicit constexpr operator bool() const
     {
         return !!m_mask;
     }
 
-    inline explicit constexpr operator MaskType() const
+    [[nodiscard]] inline explicit constexpr operator MaskType() const
     {
         return m_mask;
     }
@@ -106,31 +106,31 @@ private:
 };
 
 template <typename BitType>
-inline constexpr Flags<BitType> operator|(BitType bit, Flags<BitType> const& flags)
+[[nodiscard]] inline constexpr Flags<BitType> operator|(BitType bit, Flags<BitType> const& flags)
 {
     return flags | bit;
 }
 
 template <typename BitType>
-inline constexpr Flags<BitType> operator&(BitType bit, Flags<BitType> const& flags)
+[[nodiscard]] inline constexpr Flags<BitType> operator&(BitType bit, Flags<BitType> const& flags)
 {
     return flags & bit;
 }
 
 template <typename BitType>
-inline constexpr Flags<BitType> operator^(BitType bit, Flags<BitType> const& flags)
+[[nodiscard]] inline constexpr Flags<BitType> operator^(BitType bit, Flags<BitType> const& flags)
 {
     return flags ^ bit;
 }
 
 template <typename BitType>
-inline constexpr bool operator==(BitType bit, Flags<BitType> const& flags)
+[[nodiscard]] inline constexpr bool operator==(BitType bit, Flags<BitType> const& flags)
 {
     return flags == bit;
 }
 
 template <typename BitType>
-inline constexpr bool operator!=(BitType bit, Flags<BitType> const& flags)
+[[nodiscard]] inline constexpr bool operator!=(BitType bit, Flags<BitType> const& flags)
 {
     return flags != bit;
 }

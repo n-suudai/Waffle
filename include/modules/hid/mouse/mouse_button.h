@@ -37,22 +37,22 @@ public:
 		: m_type(type)
 	{}
 
-	inline constexpr bool is(MouseButtonType type) const
+	[[nodiscard]] inline constexpr bool is(MouseButtonType type) const
 	{
 		return m_type == type;
 	}
 
-	inline constexpr bool isValid() const
+	[[nodiscard]] inline constexpr bool isValid() const
 	{
 		return MouseButtonType::Button_0 <= m_type && m_type < MouseButtonType::Button_Num;
 	}
 
-	inline constexpr wfl::size_t toIndex() const
+	[[nodiscard]] inline constexpr wfl::size_t toIndex() const
 	{
 		return static_cast<wfl::size_t>(m_type);
 	}
 
-	inline constexpr StringView toStringView() const
+	[[nodiscard]] inline constexpr StringView toStringView() const
 	{
 		constexpr wfl::size_t MOUSE_BUTTON_NUM = static_cast<wfl::size_t>(MouseButtonType::Button_Num);
 
@@ -72,12 +72,12 @@ public:
 		return TO_STRING_TABLE[static_cast<wfl::size_t>(m_type)];
 	}
 
-	inline String toString() const
+	[[nodiscard]] inline String toString() const
 	{
 		return String(toStringView());
 	}
 
-	inline constexpr explicit operator MouseButtonType() const
+	[[nodiscard]] inline constexpr explicit operator MouseButtonType() const
 	{
 		return m_type;
 	}

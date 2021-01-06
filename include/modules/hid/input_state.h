@@ -28,7 +28,7 @@ public:
 		: m_type(type)
 	{}
 
-	inline constexpr bool is(InputStateType type) const
+	[[nodiscard]] inline constexpr bool is(InputStateType type) const
 	{
 		return m_type == type;
 	}
@@ -38,7 +38,7 @@ public:
 		m_type = type;
 	}
 
-	inline constexpr StringView toStringView() const
+	[[nodiscard]] inline constexpr StringView toStringView() const
 	{
 		constexpr const char* Released = "Released";
 		constexpr const char* Pressed = "Pressed";
@@ -46,12 +46,12 @@ public:
 		return m_type == InputStateType::Pressed ? Pressed : Released;
 	}
 
-	inline String toString() const
+	[[nodiscard]] inline String toString() const
 	{
 		return String(toStringView());
 	}
 
-	inline constexpr explicit operator InputStateType() const
+	[[nodiscard]] inline constexpr explicit operator InputStateType() const
 	{
 		return m_type;
 	}

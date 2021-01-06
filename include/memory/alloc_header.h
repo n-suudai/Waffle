@@ -103,46 +103,46 @@ public:
 
 public:
     // どのヘッダ情報を保持するかを渡して初期化
-    static bool initialize(HeaderInfoFlags headerInfos = HeaderInfoFlagBits::Required);
+    [[nodiscard]] static bool initialize(HeaderInfoFlags headerInfos = HeaderInfoFlagBits::Required);
 
     static void finalize();
 
-    static bool isInitialized();
+    [[nodiscard]] static bool isInitialized();
 
-    static bool isEnabled(HeaderInfoFlags headerInfos);
+    [[nodiscard]] static bool isEnabled(HeaderInfoFlags headerInfos);
 
-    static wfl::ptrdiff_t getHeaderOffset(HeaderInfoIndex headerInfoIndex);
+    [[nodiscard]] static wfl::ptrdiff_t getHeaderOffset(HeaderInfoIndex headerInfoIndex);
 
-    static wfl::size_t getHeaderSize();
+    [[nodiscard]] static wfl::size_t getHeaderSize();
 
 public:
-    const void* getBlock() const;
-    void* getBlock();
+    [[nodiscard]] const void* getBlock() const;
+    [[nodiscard]] void* getBlock();
 
-    wfl::size_t getBytes() const;
+    [[nodiscard]] wfl::size_t getBytes() const;
 
-    const char* getFileName() const;
+    [[nodiscard]] const char* getFileName() const;
 
-    wfl::int32_t getLine() const;
+    [[nodiscard]] wfl::int32_t getLine() const;
 
-    const char* getFunctionName() const;
+    [[nodiscard]] const char* getFunctionName() const;
 
-    time_t getDateTime() const;
+    [[nodiscard]] time_t getDateTime() const;
 
-    wfl::size_t getBackTraceHash() const;
+    [[nodiscard]] wfl::size_t getBackTraceHash() const;
 
-    Signature getSignature() const;
+    [[nodiscard]] Signature getSignature() const;
 
-    wfl::size_t getBookmark() const;
+    [[nodiscard]] wfl::size_t getBookmark() const;
 
-    const Heap* getHeap() const;
-    Heap* getHeap();
+    [[nodiscard]] const Heap* getHeap() const;
+    [[nodiscard]] Heap* getHeap();
 
-    const AllocHeader* getNext() const;
-    AllocHeader* getNext();
+    [[nodiscard]] const AllocHeader* getNext() const;
+    [[nodiscard]] AllocHeader* getNext();
 
-    const AllocHeader* getPrev() const;
-    AllocHeader* getPrev();
+    [[nodiscard]] const AllocHeader* getPrev() const;
+    [[nodiscard]] AllocHeader* getPrev();
 
     void addLink(AllocHeader* pAllocHeader);
 
@@ -158,7 +158,7 @@ public:
         wfl::size_t bookmark,
         Heap* pHeap);
 
-    bool isValidSignature() const;
+    [[nodiscard]] bool isValidSignature() const;
 
 private:
     static wfl::ptrdiff_t s_HeaderSize; // ヘッダ情報の全体サイズ

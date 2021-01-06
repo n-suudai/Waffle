@@ -11,16 +11,16 @@
 #define WFL_DECLARE_HEAP \
 private: \
 static waffle::memory::Heap* s_pHeap; \
-static waffle::memory::Heap* getHeap(); \
+[[nodiscard]] static waffle::memory::Heap* getHeap(); \
  \
 protected: \
-    static waffle::memory::UniqueBlob makeUniqueBlob( \
+    [[nodiscard]] static waffle::memory::UniqueBlob makeUniqueBlob( \
         waffle::wfl::size_t bytes, \
         const char* filename, \
         waffle::wfl::int32_t line, \
         const char* function); \
  \
-    static waffle::memory::UniqueBlob makeUniqueBlobAligned( \
+    [[nodiscard]] static waffle::memory::UniqueBlob makeUniqueBlobAligned( \
         waffle::wfl::size_t bytes, \
         waffle::wfl::size_t alignment, \
         const char* filename, \
@@ -28,7 +28,7 @@ protected: \
         const char* function); \
  \
 template<typename T, typename... Arguments> \
-static inline waffle::memory::SharedPtr<T> makeShared( \
+[[nodiscard]] static inline waffle::memory::SharedPtr<T> makeShared( \
     const char* file, \
     waffle::wfl::int32_t line, \
     const char* function, \
@@ -43,7 +43,7 @@ static inline waffle::memory::SharedPtr<T> makeShared( \
 } \
  \
 template<typename T, typename... Arguments> \
-static inline waffle::memory::UniquePtr<T> makeUnique( \
+[[nodiscard]] static inline waffle::memory::UniquePtr<T> makeUnique( \
     const char* file, \
     waffle::wfl::int32_t line, \
     const char* function, \
@@ -57,13 +57,13 @@ static inline waffle::memory::UniquePtr<T> makeUnique( \
 } \
  \
 public: \
-    static void* operator new ( \
+    [[nodiscard]] static void* operator new ( \
         waffle::wfl::size_t bytes, \
         const char* filename, \
         waffle::wfl::int32_t line, \
         const char* function); \
  \
-    static void* operator new[]( \
+    [[nodiscard]] static void* operator new[]( \
         waffle::wfl::size_t bytes, \
         const char* filename, \
         waffle::wfl::int32_t line, \
@@ -216,31 +216,31 @@ waffle::memory::Heap* class_name::getHeap() \
 
 #define WFL_DECLARE_HEAP \
 protected: \
-static waffle::memory::UniqueBlob makeUniqueBlob( \
+[[nodiscard]] static waffle::memory::UniqueBlob makeUniqueBlob( \
     waffle::wfl::size_t bytes); \
  \
-static waffle::memory::UniqueBlob makeUniqueBlobAligned( \
+[[nodiscard]] static waffle::memory::UniqueBlob makeUniqueBlobAligned( \
     waffle::wfl::size_t bytes, \
     waffle::wfl::size_t alignment); \
  \
 template<typename T, typename... Arguments> \
-static inline waffle::memory::SharedPtr<T> makeShared(Arguments &&... arguments) \
+[[nodiscard]] static inline waffle::memory::SharedPtr<T> makeShared(Arguments &&... arguments) \
 { \
     return waffle::memory::makeShared_WithoutTracking<T>( \
         wfl::forward<Arguments>(arguments)...); \
 } \
  \
 template<typename T, typename... Arguments> \
-static inline waffle::memory::UniquePtr<T> makeUnique(Arguments &&... arguments) \
+[[nodiscard]] static inline waffle::memory::UniquePtr<T> makeUnique(Arguments &&... arguments) \
 { \
     return waffle::memory::makeUnique_WithoutTracking<T>( \
         wfl::forward<Arguments>(arguments)...); \
 } \
  \
 public: \
-    static void* operator new(waffle::wfl::size_t bytes); \
+    [[nodiscard]] static void* operator new(waffle::wfl::size_t bytes); \
  \
-    static void* operator new[](waffle::wfl::size_t bytes); \
+    [[nodiscard]] static void* operator new[](waffle::wfl::size_t bytes); \
  \
     static void operator delete(void* pBlock); \
  \

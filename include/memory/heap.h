@@ -30,19 +30,19 @@ public:
 
     void deactivate();
 
-    const char* getName() const;
+    [[nodiscard]] const char* getName() const;
 
-    bool isActive() const;
+    [[nodiscard]] bool isActive() const;
 
     template <typename Policy>
-    inline void* allocate(
+    [[nodiscard]] inline void* allocate(
         wfl::size_t bytes,
         const char* file,
         wfl::int32_t line,
         const char* function);
 
     template <typename Policy>
-    inline void* allocateAligned(
+    [[nodiscard]] inline void* allocateAligned(
         wfl::size_t bytes,
         wfl::size_t alignment,
         const char* file,

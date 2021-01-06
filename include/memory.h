@@ -13,7 +13,7 @@ namespace waffle {
 namespace memory {
 
 
-bool initialize();
+[[nodiscard]] bool initialize();
 
 void finalize();
 

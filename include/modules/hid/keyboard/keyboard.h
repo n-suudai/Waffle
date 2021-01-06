@@ -16,17 +16,17 @@ public:
 
     virtual void update(const Duration& deltaTime) = 0;
 
-    virtual bool isAnyPressed() const = 0;
+    [[nodiscard]] virtual bool isAnyPressed() const = 0;
 
-    virtual bool isPressed(KeyCode key) const = 0;
+    [[nodiscard]] virtual bool isPressed(KeyCode key) const = 0;
 
-    virtual bool isReleased(KeyCode key) const = 0;
+    [[nodiscard]] virtual bool isReleased(KeyCode key) const = 0;
 
-    virtual bool isFirstPressed(KeyCode key) const = 0;
+    [[nodiscard]] virtual bool isFirstPressed(KeyCode key) const = 0;
 
-    virtual bool isFirstReleased(KeyCode key) const = 0;
+    [[nodiscard]] virtual bool isFirstReleased(KeyCode key) const = 0;
 
-    virtual Duration durationPressed(KeyCode key) const = 0;
+    [[nodiscard]] virtual Duration durationPressed(KeyCode key) const = 0;
 };
 
 

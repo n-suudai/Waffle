@@ -11,13 +11,13 @@ namespace hid {
 class DInputUtility
 {
 public:
-	static bool isWindowAvailable(HWND hWindow);
+	[[nodiscard]] static bool isWindowAvailable(HWND hWindow);
 
-	static bool DeviceAcquire(const ComPtr<IDirectInputDevice8A>& device);
+	[[nodiscard]] static bool DeviceAcquire(const ComPtr<IDirectInputDevice8A>& device);
 
-	static bool DevicePoll(const ComPtr<IDirectInputDevice8A>& device);
+	[[nodiscard]] static bool DevicePoll(const ComPtr<IDirectInputDevice8A>& device);
 
-	static bool DeviceGetState(
+	[[nodiscard]] static bool DeviceGetState(
 		const ComPtr<IDirectInputDevice8A>& device,
 		wfl::size_t bytes,
 		void* buffer);

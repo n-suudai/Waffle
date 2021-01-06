@@ -6,7 +6,7 @@ namespace memory {
 
 
 class Heap;
-Heap* getHeapSTL();
+[[nodiscard]] Heap* getHeapSTL();
 
 
 } // namespace memory

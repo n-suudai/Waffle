@@ -19,7 +19,7 @@ namespace waffle {
 namespace application {
 
 
-bool initialize();
+[[nodiscard]] bool initialize();
 
 void finalize();
 

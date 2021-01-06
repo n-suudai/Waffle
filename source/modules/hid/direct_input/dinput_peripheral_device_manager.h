@@ -12,11 +12,11 @@ namespace hid {
 class DInputPeripheralDeviceManager final : public IPeripheralDeviceManager
 {
 public:
-    static bool createUnique(
+    [[nodiscard]] static bool createUnique(
         const InitializeParameters& initializeParameters,
         UniquePtr<IPeripheralDeviceManager>& outPeripheralDeviceManager);
 
-    static bool createShared(
+    [[nodiscard]] static bool createShared(
         const InitializeParameters& initializeParameters,
         SharedPtr<IPeripheralDeviceManager>& outPeripheralDeviceManager);
 
@@ -25,30 +25,30 @@ public:
 
     ~DInputPeripheralDeviceManager();
 
-    wfl::size_t keyboardCount() const override;
+    [[nodiscard]] wfl::size_t keyboardCount() const override;
 
-    bool createKeyboardUnique(
+    [[nodiscard]] bool createKeyboardUnique(
         wfl::size_t index, UniquePtr<IKeyboard>& outKeyboard) const override;
 
-    bool createKeyboardShared(
+    [[nodiscard]] bool createKeyboardShared(
         wfl::size_t index, SharedPtr<IKeyboard>& outKeyboard) const override;
 
 
-    wfl::size_t mouseCount() const override;
+    [[nodiscard]] wfl::size_t mouseCount() const override;
 
-    bool createMouseUnique(
+    [[nodiscard]] bool createMouseUnique(
         wfl::size_t index, UniquePtr<IMouse>& outMouse) const override;
 
-    bool createMouseShared(
+    [[nodiscard]] bool createMouseShared(
         wfl::size_t index, SharedPtr<IMouse>& outMouse) const override;
 
 
-    wfl::size_t gamePadCount() const override;
+    [[nodiscard]] wfl::size_t gamePadCount() const override;
 
-    bool createGamePadUnique(
+    [[nodiscard]] bool createGamePadUnique(
         wfl::size_t index, UniquePtr<IGamePad>& outGamePad) const override;
 
-    bool createGamePadShared(
+    [[nodiscard]] bool createGamePadShared(
         wfl::size_t index, SharedPtr<IGamePad>& outGamePad) const override;
 
 private:
@@ -61,17 +61,17 @@ private:
     static BOOL CALLBACK EnumAndSettingAxesCallback(LPCDIDEVICEOBJECTINSTANCEA lpddoi, LPVOID pvRef);
 
 private:
-    bool initialize(const InitializeParameters& initializeParameters);
+    [[nodiscard]] bool initialize(const InitializeParameters& initializeParameters);
 
-    bool initializeDirectInput();
+    [[nodiscard]] bool initializeDirectInput();
 
-    bool initializeKeyboardDevices();
+    [[nodiscard]] bool initializeKeyboardDevices();
 
-    bool initializeMouseDevices();
+    [[nodiscard]] bool initializeMouseDevices();
 
-    bool initializeGamePadDevices();
+    [[nodiscard]] bool initializeGamePadDevices();
 
-    bool initializePreferredJoyConfig();
+    [[nodiscard]] bool initializePreferredJoyConfig();
 
 private:
     HWND m_hWindow;;

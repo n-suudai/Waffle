@@ -75,7 +75,7 @@ using WeakPtr = wfl::weak_ptr<T>;
 
 
 template<typename T, typename... Arguments>
-inline UniquePtr<T> makeUnique_WithTracking(
+[[nodiscard]] inline UniquePtr<T> makeUnique_WithTracking(
     const char* file,
     wfl::int32_t line,
     const char* function,
@@ -89,7 +89,7 @@ inline UniquePtr<T> makeUnique_WithTracking(
 }
 
 template<typename T, typename... Arguments>
-inline UniquePtr<T> makeUnique_WithoutTracking(Arguments &&... arguments)
+[[nodiscard]] inline UniquePtr<T> makeUnique_WithoutTracking(Arguments &&... arguments)
 {
     static detail::CustomDeleter<T> deleter = detail::CustomDeleter<T>();
 
@@ -100,7 +100,7 @@ inline UniquePtr<T> makeUnique_WithoutTracking(Arguments &&... arguments)
 
 
 template <typename T, typename... Arguments>
-inline SharedPtr<T> makeShared_WithTracking(
+[[nodiscard]] inline SharedPtr<T> makeShared_WithTracking(
     Heap* pHeap,
     const char* file,
     wfl::int32_t line,
@@ -114,7 +114,7 @@ inline SharedPtr<T> makeShared_WithTracking(
 }
 
 template <typename T, typename... Arguments>
-inline SharedPtr<T> makeShared_WithoutTracking(Arguments &&... arguments)
+[[nodiscard]] inline SharedPtr<T> makeShared_WithoutTracking(Arguments &&... arguments)
 {
     STLAllocator_WithoutTracking<T> allocator = STLAllocator_WithoutTracking<T>();
     return wfl::allocate_shared<T, STLAllocator_WithoutTracking<T>>(

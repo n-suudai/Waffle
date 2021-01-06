@@ -23,7 +23,7 @@ public:
     inline ~LoopTimer() = default;
 
     template<typename Duration>
-    inline Duration update()
+    [[nodiscard]] inline Duration update()
     {
         using namespace wfl::chrono;
 

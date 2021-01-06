@@ -21,10 +21,10 @@ class GlobalHeapWithTracking final
     WFL_NON_INSTANTIATABLE(GlobalHeapWithTracking);
 private:
     static Heap* s_pHeap;
-    static Heap* getHeap();
+    [[nodiscard]] static Heap* getHeap();
 
 public:
-    static inline void* heapMalloc(
+    [[nodiscard]] static inline void* heapMalloc(
         wfl::size_t bytes,
         const char* file,
         wfl::int32_t line,
@@ -34,7 +34,7 @@ public:
             bytes, file, line, function);
     }
 
-    static inline void* heapMallocAligned(
+    [[nodiscard]] static inline void* heapMallocAligned(
         wfl::size_t bytes,
         wfl::size_t alignment,
         const char* file,
@@ -59,7 +59,7 @@ public:
     }
 
     template<typename T, typename... Arguments>
-    static inline UniquePtr<T> makeUnique(
+    [[nodiscard]] static inline UniquePtr<T> makeUnique(
         const char* file,
         wfl::int32_t line,
         const char* function,
@@ -73,7 +73,7 @@ public:
     }
 
     template <typename T, typename... Arguments>
-    static inline SharedPtr<T> makeShared(
+    [[nodiscard]] static inline SharedPtr<T> makeShared(
         const char* file,
         wfl::int32_t line,
         const char* function,
@@ -95,13 +95,13 @@ class GlobalHeapWithoutTracking final
 {
     WFL_NON_INSTANTIATABLE(GlobalHeapWithoutTracking);
 public:
-    static inline void* heapMalloc(
+    [[nodiscard]] static inline void* heapMalloc(
         wfl::size_t bytes)
     {
         return AllocatePolicy::allocate(bytes);
     }
 
-    static inline void* heapMallocAligned(
+    [[nodiscard]] static inline void* heapMallocAligned(
         wfl::size_t bytes,
         wfl::size_t alignment)
     {
@@ -122,13 +122,13 @@ public:
     }
 
     template<typename T, typename... Arguments>
-    static inline UniquePtr<T> makeUnique(Arguments &&... arguments)
+    [[nodiscard]] static inline UniquePtr<T> makeUnique(Arguments &&... arguments)
     {
         return makeUnique_WithoutTracking<T>(wfl::forward<Arguments>(arguments)...);
     }
 
     template<typename T, typename... Arguments>
-    static inline SharedPtr<T> makeShared(Arguments &&... arguments)
+    [[nodiscard]] static inline SharedPtr<T> makeShared(Arguments &&... arguments)
     {
         return makeShared_WithoutTracking<T>(wfl::forward<Arguments>(arguments)...);
     }

@@ -11,14 +11,14 @@ namespace waffle {
 
 
 template <typename T>
-inline T clamp(T x, T low, T high)
+[[nodiscard]] inline T clamp(T x, T low, T high)
 {
     assert(low <= high);
     return wfl::min(wfl::max(x, low), high);
 }
 
 template <typename T>
-inline T wrap(T x, T low, T high)
+[[nodiscard]] inline T wrap(T x, T low, T high)
 {
     assert(low < high);
     const T n = (x - low) % (high - low);
@@ -27,7 +27,7 @@ inline T wrap(T x, T low, T high)
 
 // float 特殊化
 template <>
-inline float wrap<float>(float x, float low, float high)
+[[nodiscard]] inline float wrap<float>(float x, float low, float high)
 {
     assert(low < high);
     const float n = wfl::fmod(x - low, high - low);
@@ -36,7 +36,7 @@ inline float wrap<float>(float x, float low, float high)
 
 // double 特殊化
 template <>
-inline double wrap<double>(double x, double low, double high)
+[[nodiscard]] inline double wrap<double>(double x, double low, double high)
 {
     assert(low < high);
     const double n = wfl::fmod(x - low, high - low);
@@ -61,27 +61,27 @@ public:
 
     inline constexpr Range(const Range&) = default;
 
-    inline constexpr bool isInside(T x) const
+    [[nodiscard]] inline constexpr bool isInside(T x) const
     {
         return (m_min <= x) && (x <= m_max);
     }
 
-    inline constexpr T wrap(T x) const
+    [[nodiscard]] inline constexpr T wrap(T x) const
     {
         return waffle::wrap(x, m_min, m_max);
     }
 
-    inline constexpr T clamp(T x) const
+    [[nodiscard]] inline constexpr T clamp(T x) const
     {
         return waffle::clamp(x, m_min, m_max);
     }
 
-    inline constexpr T min() const
+    [[nodiscard]] inline constexpr T min() const
     {
         return m_min;
     }
 
-    inline constexpr T max() const
+    [[nodiscard]] inline constexpr T max() const
     {
         return m_max;
     }

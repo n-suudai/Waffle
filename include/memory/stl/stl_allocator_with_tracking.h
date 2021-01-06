@@ -19,7 +19,7 @@ struct STLAllocator_WithTracking final
     static Heap* s_pHeapSTL;
     Heap* m_pHeap;
 
-    Heap* getHeap()
+    [[nodiscard]] inline Heap* getHeap()
     {
         if (m_pHeap) { return m_pHeap; }
 
@@ -69,7 +69,7 @@ struct STLAllocator_WithTracking final
         this->m_function = other.m_function;
     }
 
-    inline T* allocate(wfl::size_t count)
+    [[nodiscard]] inline T* allocate(wfl::size_t count)
     {
         if (m_pHeap)
         {
@@ -108,13 +108,13 @@ template<typename T>
 const wfl::size_t STLAllocator_WithTracking<T>::ALIGNMENT = alignof(T);
 
 template <typename T, typename U>
-inline bool operator==(const STLAllocator_WithTracking<T>&, const STLAllocator_WithTracking<U>&)
+[[nodiscard]] inline bool operator==(const STLAllocator_WithTracking<T>&, const STLAllocator_WithTracking<U>&)
 {
     return true;
 }
 
 template <typename T, typename U>
-inline bool operator!=(const STLAllocator_WithTracking<T>&, const STLAllocator_WithTracking<U>&)
+[[nodiscard]] inline bool operator!=(const STLAllocator_WithTracking<T>&, const STLAllocator_WithTracking<U>&)
 {
     return false;
 }

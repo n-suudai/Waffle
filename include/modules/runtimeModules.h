@@ -14,15 +14,15 @@ class Entry;
 class RuntimeModules : public ModulesEntity
 {
 public:
-    bool initialize(UnorderedMap<String, SharedPtr<Entry>>&& moduleMap);
+    [[nodiscard]] bool initialize(UnorderedMap<String, SharedPtr<Entry>>&& moduleMap);
 
-    bool finalize();
+    [[nodiscard]] bool finalize();
 
-    bool entryAll();
+    [[nodiscard]] bool entryAll();
 
-    bool getModule(const String& moduleName, WeakPtr<Entry>& outModule);
+    [[nodiscard]] bool getModule(const String& moduleName, WeakPtr<Entry>& outModule);
 
-    bool entry(ModuleEntry entry, const EntryMethod& entryMethod);
+    [[nodiscard]] bool entry(ModuleEntry entry, const EntryMethod& entryMethod);
 
     bool execute(ModuleEntry entry, bool reverse = false);
 

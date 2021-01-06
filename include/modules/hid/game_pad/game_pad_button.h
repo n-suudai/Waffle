@@ -44,22 +44,22 @@ public:
 		: m_type(type)
 	{}
 
-	inline constexpr bool is(GamePadButtonType type) const
+	[[nodiscard]] inline constexpr bool is(GamePadButtonType type) const
 	{
 		return m_type == type;
 	}
 
-	inline constexpr bool isValid() const
+	[[nodiscard]] inline constexpr bool isValid() const
 	{
 		return GamePadButtonType::Button_0 <= m_type && m_type < GamePadButtonType::Button_Num;
 	}
 
-	inline constexpr wfl::size_t toIndex() const
+	[[nodiscard]] inline constexpr wfl::size_t toIndex() const
 	{
 		return static_cast<wfl::size_t>(m_type);
 	}
 
-	inline constexpr StringView toStringView() const
+	[[nodiscard]] inline constexpr StringView toStringView() const
 	{
 		constexpr wfl::size_t GAME_PAD_BUTTON_NUM = static_cast<wfl::size_t>(GamePadButtonType::Button_Num);
 
@@ -86,12 +86,12 @@ public:
 		return TO_STRING_TABLE[static_cast<wfl::size_t>(m_type)];
 	}
 
-	inline String toString() const
+	[[nodiscard]] inline String toString() const
 	{
 		return String(toStringView());
 	}
 
-	inline constexpr explicit operator GamePadButtonType() const
+	[[nodiscard]] inline constexpr explicit operator GamePadButtonType() const
 	{
 		return m_type;
 	}

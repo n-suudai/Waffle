@@ -18,7 +18,7 @@ namespace waffle {
 namespace core {
 
 
-bool initialize();
+[[nodiscard]] bool initialize();
 
 void finalize();
 

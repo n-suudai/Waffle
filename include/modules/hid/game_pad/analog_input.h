@@ -35,22 +35,22 @@ public:
 		: m_type(type)
 	{}
 
-	inline constexpr bool is(AnalogInputType type) const
+	[[nodiscard]] inline constexpr bool is(AnalogInputType type) const
 	{
 		return m_type == type;
 	}
 
-	inline constexpr bool isValid() const
+	[[nodiscard]] inline constexpr bool isValid() const
 	{
 		return AnalogInputType::LeftThumbStickX <= m_type && m_type < AnalogInputType::Num;
 	}
 
-	inline constexpr wfl::size_t toIndex() const
+	[[nodiscard]] inline constexpr wfl::size_t toIndex() const
 	{
 		return static_cast<wfl::size_t>(m_type);
 	}
 
-	inline constexpr StringView toStringView() const
+	[[nodiscard]] inline constexpr StringView toStringView() const
 	{
 		constexpr wfl::size_t ANALOG_INPUT_NUM = static_cast<wfl::size_t>(AnalogInputType::Num);
 
@@ -68,12 +68,12 @@ public:
 		return TO_STRING_TABLE[static_cast<wfl::size_t>(m_type)];
 	}
 
-	inline String toString() const
+	[[nodiscard]] inline String toString() const
 	{
 		return String(toStringView());
 	}
 
-	inline constexpr explicit operator AnalogInputType() const
+	[[nodiscard]] inline constexpr explicit operator AnalogInputType() const
 	{
 		return m_type;
 	}
