@@ -19,7 +19,12 @@ public:
 
     void operator +=(const EntryMethod& entryMethod);
 
-    bool operator()(bool reverse = false);
+    bool operator()(bool reverse = false) const;
+
+private:
+    bool call() const;
+
+    bool callReverse() const;
 
 private:
     Vector<EntryMethod> m_entryMethodArray;
