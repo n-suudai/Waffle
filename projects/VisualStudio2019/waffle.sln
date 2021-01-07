@@ -50,7 +50,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "waffle_editor", "waffle_edi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "waffle_runtime", "waffle_runtime", "{5D30F4F5-9DCF-4AFA-947F-775A79560E3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "editor", "editors\editor\editor.csproj", "{16D57DB8-3935-4CBE-97B2-DB64362461D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "editor", "editors\editor\editor.csproj", "{16D57DB8-3935-4CBE-97B2-DB64362461D6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{411E51B6-5A93-4740-BAF8-88D3C5C47D88} = {411E51B6-5A93-4740-BAF8-88D3C5C47D88}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
