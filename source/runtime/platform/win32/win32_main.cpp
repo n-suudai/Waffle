@@ -1,7 +1,7 @@
 ﻿
 
-#include "common/platform.h"
-#include "common/types.h"
+#include "system/common/platform.h"
+#include "system/common/types.h"
 
 
 namespace waffle {

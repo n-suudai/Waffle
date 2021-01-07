@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{2671b4bf-6de8-4685-8065-8026f777a0fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{2150ad9a-e613-4774-84c9-b8031da67ac8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\core">
+      <UniqueIdentifier>{cd76242e-29f3-4cf7-838b-c2fe862aebcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\core\logging">
+      <UniqueIdentifier>{c2381d1e-16ab-4948-8ad2-e2d3bbaee852}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\core\logging\platform">
+      <UniqueIdentifier>{532ce048-9c82-450a-9e92-0a86e8288522}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\core\logging\platform\win32">
+      <UniqueIdentifier>{0ba57ffc-47f8-4307-9b3f-db09ba7f82fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\modules">
+      <UniqueIdentifier>{1090574d-fcd2-434f-aa67-6e6f370a6647}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\modules\core">
+      <UniqueIdentifier>{b0c965fe-9640-4464-b98c-4802eea7bc1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\modules\core\logging">
+      <UniqueIdentifier>{7ace1941-25f8-4485-a691-cf8f1d2adb16}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\include\modules\core\core.h">
+      <Filter>include\modules\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\modules\core\logging\logging.h">
+      <Filter>include\modules\core\logging</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\modules\core\core.cpp">
+      <Filter>source\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\modules\core\logging\platform\win32\win32_logging.cpp">
+      <Filter>source\core\logging\platform\win32</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

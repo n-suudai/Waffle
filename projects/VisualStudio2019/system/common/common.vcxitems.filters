@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{cf9d7939-2034-4271-843a-92594bf44100}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\common">
+      <UniqueIdentifier>{9e8991a6-c2c2-442a-bab5-df5651c58d46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\common\platform">
+      <UniqueIdentifier>{309f474a-59d4-43bf-ba84-794f961aaf8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\common\platform\win32">
+      <UniqueIdentifier>{6c3be0b6-adcf-402f-8f76-92ce5402b4b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\common\utility">
+      <UniqueIdentifier>{140369b9-a348-452b-b227-01d0ce998f2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\common\memory">
+      <UniqueIdentifier>{e2d39de2-bf2c-4844-8a2b-54877ed942bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\common\signal">
+      <UniqueIdentifier>{011f510e-da33-4ed1-81fd-993e535eb781}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\include\common\platform.h">
+      <Filter>include\common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\include\common\types.h">
+      <Filter>include\common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\include\common\utility.h">
+      <Filter>include\common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\include\common\platform\win32.h">
+      <Filter>include\common\platform</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\include\common\platform\win32\win32_prerequisites.h">
+      <Filter>include\common\platform\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\include\common\utility\bitwise.h">
+      <Filter>include\common\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\include\common\utility\flags.h">
+      <Filter>include\common\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\include\common\utility\loop_timer.h">
+      <Filter>include\common\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\include\common\utility\non_instantiatable.h">
+      <Filter>include\common\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\include\common\utility\no_new_delete.h">
+      <Filter>include\common\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\include\common\utility\coordinate.h">
+      <Filter>include\common\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\include\common\utility\range.h">
+      <Filter>include\common\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\include\common\utility\rectangle.h">
+      <Filter>include\common\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\include\common\memory\config.h">
+      <Filter>include\common\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\include\system\common\common.h">
+      <Filter>include\common</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

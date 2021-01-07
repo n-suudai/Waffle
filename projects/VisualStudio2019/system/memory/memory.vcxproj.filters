@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{2fd25da0-77bd-47e2-80ed-0c94df5730d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{dbd78b7e-1def-46bc-8826-851a87214845}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\system">
+      <UniqueIdentifier>{df7387b7-7010-487a-a6b8-a2b2b225b835}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\system\memory">
+      <UniqueIdentifier>{92021cb1-6eab-478c-b8e5-c7960999f571}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\system\memory\policy">
+      <UniqueIdentifier>{97693976-07d2-4128-b0a0-a7c4f06bda99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\system\memory\stl">
+      <UniqueIdentifier>{42a28b78-073e-4dbd-97b8-d0ac0f9259d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\system">
+      <UniqueIdentifier>{3ad70ded-078d-4f45-b573-59bbf6f63607}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\system\memory">
+      <UniqueIdentifier>{99abff04-f918-4ff5-b646-645457c98cce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\system\memory\policy">
+      <UniqueIdentifier>{5cf03f44-55a8-48ce-be51-6068f57f5b6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\system\memory\stl">
+      <UniqueIdentifier>{9bbc2d34-e69f-400b-959f-f6ccdd3f1701}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\system\memory\alloc_header.cpp">
+      <Filter>source\system\memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\system\memory\global_heap.cpp">
+      <Filter>source\system\memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\system\memory\heap.cpp">
+      <Filter>source\system\memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\system\memory\heap_factory.cpp">
+      <Filter>source\system\memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\system\memory\memory.cpp">
+      <Filter>source\system\memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\system\memory\memory_tracker.cpp">
+      <Filter>source\system\memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\system\memory\stl\stl_heap_factory.cpp">
+      <Filter>source\system\memory\stl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\system\memory\policy\policy_nedmalloc.cpp">
+      <Filter>source\system\memory\policy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\system\memory\policy\policy_nedmalloc_pooling.cpp">
+      <Filter>source\system\memory\policy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\system\memory\policy\policy_standard.cpp">
+      <Filter>source\system\memory\policy</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\include\system\memory\alloc_header.h">
+      <Filter>include\system\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\system\memory\config.h">
+      <Filter>include\system\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\system\memory\global_heap.h">
+      <Filter>include\system\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\system\memory\heap.h">
+      <Filter>include\system\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\system\memory\heap_factory.h">
+      <Filter>include\system\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\system\memory\heap_walk.h">
+      <Filter>include\system\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\system\memory\memory_manager.h">
+      <Filter>include\system\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\system\memory\memory_tracker.h">
+      <Filter>include\system\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\system\memory\stl\stl.h">
+      <Filter>include\system\memory\stl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\system\memory\stl\stl_allocator.h">
+      <Filter>include\system\memory\stl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\system\memory\stl\stl_allocator_with_tracking.h">
+      <Filter>include\system\memory\stl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\system\memory\stl\stl_allocator_without_tracking.h">
+      <Filter>include\system\memory\stl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\system\memory\stl\stl_blob.h">
+      <Filter>include\system\memory\stl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\system\memory\stl\stl_container.h">
+      <Filter>include\system\memory\stl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\system\memory\stl\stl_heap_factory.h">
+      <Filter>include\system\memory\stl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\system\memory\stl\stl_memory.h">
+      <Filter>include\system\memory\stl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\system\memory\stl\stl_string.h">
+      <Filter>include\system\memory\stl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\system\memory\policy\policy.h">
+      <Filter>include\system\memory\policy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\system\memory\policy\policy_nedmalloc.h">
+      <Filter>include\system\memory\policy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\system\memory\policy\policy_nedmalloc_pooling.h">
+      <Filter>include\system\memory\policy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\system\memory\policy\policy_standard.h">
+      <Filter>include\system\memory\policy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\system\memory\memory.h">
+      <Filter>include\system\memory</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

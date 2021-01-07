@@ -1,6 +1,6 @@
 ﻿
 #include "runtime_heap.h"
-#include "memory.h"
+#include "system/memory/memory.h"
 #include "modules/core/core.h"
 #include <cassert>
 

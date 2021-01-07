@@ -1,5 +1,5 @@
 ﻿
-#include "common.h"
+#include "system/common/common.h"
 #include "modules/core/logging/logging.h"
 #include <cstdio>
 #include <cstdarg>

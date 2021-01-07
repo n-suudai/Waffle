@@ -2,7 +2,7 @@
 
 
 #include "modules/application/window.h"
-#include "common/platform/win32.h"
+#include "system/common/platform/win32.h"
 
 
 namespace waffle {

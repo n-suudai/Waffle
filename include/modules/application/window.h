@@ -2,8 +2,7 @@
 
 
 #include "modules/application/entity.h"
-#include "common/utility/rectangle.h"
-#include "memory/stl.h"
+#include "system/common/utility/rectangle.h"
 
 #include <functional>
 

@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 
-#include "memory.h"
+#include "system/memory/memory.h"
 
 
 namespace waffle {

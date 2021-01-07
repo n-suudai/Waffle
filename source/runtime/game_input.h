@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "entity.h"
-#include "memory/stl.h"
+#include "system/memory/stl/stl.h"
 #include "modules/hid/hid.h"
 
 

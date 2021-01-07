@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "common/utility/non_instantiatable.h"
+#include "system/common/utility/non_instantiatable.h"
 
 
 namespace waffle {

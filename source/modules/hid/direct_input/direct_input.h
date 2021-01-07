@@ -18,5 +18,5 @@
 
 #include <dinputd.h>
 
-#include "common/platform/win32.h"
+#include "system/common/platform/win32.h"
 

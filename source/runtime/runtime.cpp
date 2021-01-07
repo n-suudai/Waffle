@@ -1,9 +1,9 @@
 ﻿
-#include "memory.h"
-#include "modules/modules.h"
+#include "system/memory/memory.h"
+#include "system/module_entry/module_entry.h"
 
 #include "runtime_heap.h"
-#include "common/utility/loop_timer.h"
+#include "system/common/utility/loop_timer.h"
 #include "game_input.h"
 
 #include <functional>
@@ -111,20 +111,20 @@ public:
     {
         using namespace modules;
 
-        m_modules->execute(ModuleEntry::Initialize);
+        m_modules->execute(EntryPoint::Initialize);
 
-        m_modules->execute(ModuleEntry::Setup);
+        m_modules->execute(EntryPoint::Setup);
 
-        m_modules->execute(ModuleEntry::Start);
+        m_modules->execute(EntryPoint::Start);
 
-        while (m_modules->execute(ModuleEntry::Update))
+        while (m_modules->execute(EntryPoint::Update))
         {
 
         }
 
-        m_modules->execute(ModuleEntry::Terminate, true);
+        m_modules->execute(EntryPoint::Terminate, true);
 
-        m_modules->execute(ModuleEntry::Finalize, true);
+        m_modules->execute(EntryPoint::Finalize, true);
     }
 
 private:
@@ -137,12 +137,12 @@ bool CoreEntry::entry()
 {
     using namespace modules;
 
-    if (!moduleEntry(ModuleEntry::Initialize, wfl::bind(&CoreEntry::initialize, this)))
+    if (!moduleEntry(EntryPoint::Initialize, wfl::bind(&CoreEntry::initialize, this)))
     {
         return false;
     }
 
-    if (!moduleEntry(ModuleEntry::Finalize, wfl::bind(&CoreEntry::finalize, this)))
+    if (!moduleEntry(EntryPoint::Finalize, wfl::bind(&CoreEntry::finalize, this)))
     {
         return false;
     }
@@ -167,22 +167,22 @@ bool ApplicationEntry::entry()
 {
     using namespace modules;
 
-    if (!moduleEntry(ModuleEntry::Initialize, wfl::bind(&ApplicationEntry::initialize, this)))
+    if (!moduleEntry(EntryPoint::Initialize, wfl::bind(&ApplicationEntry::initialize, this)))
     {
         return false;
     }
 
-    if (!moduleEntry(ModuleEntry::Setup, wfl::bind(&ApplicationEntry::setup, this)))
+    if (!moduleEntry(EntryPoint::Setup, wfl::bind(&ApplicationEntry::setup, this)))
     {
         return false;
     }
 
-    if (!moduleEntry(ModuleEntry::Update, wfl::bind(&ApplicationEntry::update, this)))
+    if (!moduleEntry(EntryPoint::Update, wfl::bind(&ApplicationEntry::update, this)))
     {
         return false;
     }
 
-    if (!moduleEntry(ModuleEntry::Finalize, wfl::bind(&ApplicationEntry::finalize, this)))
+    if (!moduleEntry(EntryPoint::Finalize, wfl::bind(&ApplicationEntry::finalize, this)))
     {
         return false;
     }
@@ -239,27 +239,27 @@ bool HIDEntry::entry()
 {
     using namespace modules;
 
-    if (!moduleEntry(ModuleEntry::Initialize, wfl::bind(&HIDEntry::initialize, this)))
+    if (!moduleEntry(EntryPoint::Initialize, wfl::bind(&HIDEntry::initialize, this)))
     {
         return false;
     }
 
-    if (!moduleEntry(ModuleEntry::Setup, wfl::bind(&HIDEntry::setup, this)))
+    if (!moduleEntry(EntryPoint::Setup, wfl::bind(&HIDEntry::setup, this)))
     {
         return false;
     }
 
-    if (!moduleEntry(ModuleEntry::Update, wfl::bind(&HIDEntry::update, this)))
+    if (!moduleEntry(EntryPoint::Update, wfl::bind(&HIDEntry::update, this)))
     {
         return false;
     }
 
-    if (!moduleEntry(ModuleEntry::Terminate, wfl::bind(&HIDEntry::terminate, this)))
+    if (!moduleEntry(EntryPoint::Terminate, wfl::bind(&HIDEntry::terminate, this)))
     {
         return false;
     }
 
-    if (!moduleEntry(ModuleEntry::Finalize, wfl::bind(&HIDEntry::finalize, this)))
+    if (!moduleEntry(EntryPoint::Finalize, wfl::bind(&HIDEntry::finalize, this)))
     {
         return false;
     }

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{e5a080c9-1202-4704-bb84-c90c85ef3ba3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{22910d66-9420-4775-aec0-792176f4034d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\modules">
+      <UniqueIdentifier>{6d2f85d9-a9db-4d69-aeb4-7e7cfde6d7a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\modules\render">
+      <UniqueIdentifier>{7ad42133-9a02-483b-b771-e17dfa1d51de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\modules">
+      <UniqueIdentifier>{37540fa4-ebc5-4fe9-b1ef-7db9ab830798}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\modules\render">
+      <UniqueIdentifier>{a784c34c-f65c-433e-a8d2-9c5d416cb8c4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\include\modules\render\render.h">
+      <Filter>include\modules\render</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\modules\render\render.cpp">
+      <Filter>source\modules\render</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

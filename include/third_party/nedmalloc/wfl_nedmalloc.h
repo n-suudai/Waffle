@@ -1,9 +1,9 @@
 ﻿#pragma once
 
 
-#include "common/types.h"
-#include "common/utility/non_instantiatable.h"
-#include "common/memory/config.h"
+#include "system/common/types.h"
+#include "system/common/utility/non_instantiatable.h"
+#include "system/common/memory/config.h"
 
 
 namespace waffle {

@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include "common/utility/no_new_delete.h"
-#include "memory/stl.h"
+#include "system/common/utility/no_new_delete.h"
+#include "system/memory/stl/stl.h"
 #include <array>
 
 

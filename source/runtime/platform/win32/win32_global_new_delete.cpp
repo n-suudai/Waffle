@@ -1,7 +1,7 @@
 ﻿
-#include "common/types.h"
-#include "common/platform/win32.h"
-#include "memory/global_heap.h"
+#include "system/common/types.h"
+#include "system/common/platform/win32.h"
+#include "system/memory/global_heap.h"
 #include <new>
 
 

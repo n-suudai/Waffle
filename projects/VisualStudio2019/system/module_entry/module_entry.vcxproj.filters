@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{5284efa7-6957-4444-9ffa-252854a9e7d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\system">
+      <UniqueIdentifier>{f1c5b3ea-7125-40e2-9e50-48c8125780bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\system\module_entry">
+      <UniqueIdentifier>{681ca57b-94d8-48b7-b750-70a68a240735}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{9c44d5c4-c41b-4694-aa8e-4aa5b34725e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\system">
+      <UniqueIdentifier>{0e7d0070-c450-46f7-a642-604c85b76ab2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\system\module_entry">
+      <UniqueIdentifier>{21a111ad-27f0-429c-bbfa-6bf360e07e4f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\include\system\module_entry\entity.h">
+      <Filter>include\system\module_entry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\system\module_entry\entry.h">
+      <Filter>include\system\module_entry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\system\module_entry\module_entry.h">
+      <Filter>include\system\module_entry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\system\module_entry\runtime_modules.h">
+      <Filter>include\system\module_entry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\system\module_entry\entry_method_list.h">
+      <Filter>include\system\module_entry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\system\module_entry\entry_point.h">
+      <Filter>include\system\module_entry</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\system\module_entry\entity.cpp">
+      <Filter>source\system\module_entry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\system\module_entry\entry.cpp">
+      <Filter>source\system\module_entry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\system\module_entry\runtime_modules.cpp">
+      <Filter>source\system\module_entry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\system\module_entry\entry_method_list.cpp">
+      <Filter>source\system\module_entry</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

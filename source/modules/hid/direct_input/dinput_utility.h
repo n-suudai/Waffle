@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "direct_input.h"
-#include "common/types.h"
+#include "system/common/types.h"
 
 
 namespace waffle {
