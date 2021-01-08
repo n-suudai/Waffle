@@ -5,7 +5,7 @@ namespace waffle {
 namespace application {
 
 
-WFL_DEFINE_HIERARCHAL_HEAP(ApplicationEntity, "Modules", "Application");
+WFL_DEFINE_HIERARCHAL_HEAP(ApplicationEntity, "Application", "Modules");
 
 
 } // namespace application
