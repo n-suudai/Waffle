@@ -30,18 +30,12 @@
     <ClCompile Include="..\..\..\source\runtime\runtime_heap.cpp">
       <Filter>source\runtime</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\runtime\game_input.cpp">
-      <Filter>source\runtime</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\source\runtime\entity.cpp">
       <Filter>source\runtime</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\source\runtime\runtime_heap.h">
-      <Filter>source\runtime</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\source\runtime\game_input.h">
       <Filter>source\runtime</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\source\runtime\entity.h">

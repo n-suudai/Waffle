@@ -3,6 +3,7 @@
 
 
 namespace waffle {
+namespace hid {
 
 
 GameInput::GameInput()
@@ -18,11 +19,11 @@ bool GameInput::initialize(const UniquePtr<application::IWindow>& window)
 {
     assert(window);
 
-    hid::InitializeParameters initializeParameters = {};
+    InitializeParameters initializeParameters = {};
     initializeParameters.windowHandle = window->windowHandle();
     initializeParameters.applicationHandle = window->applicationHandle();
 
-    if (!hid::createPeripheralDeviceManagerUnique(initializeParameters, m_peripheralDeviceManager))
+    if (!createPeripheralDeviceManagerUnique(initializeParameters, m_peripheralDeviceManager))
     {
         return false;
     }
@@ -47,7 +48,7 @@ bool GameInput::finalize()
     return true;
 }
 
-void GameInput::update(const hid::Duration& deltaTime)
+void GameInput::update(const Duration& deltaTime)
 {
     if (!m_peripheralDeviceManager) { return; }
 
@@ -90,5 +91,6 @@ bool GameInput::isAnyPressed() const
 }
 
 
+} // namespace hid
 } // namespace waffle
 

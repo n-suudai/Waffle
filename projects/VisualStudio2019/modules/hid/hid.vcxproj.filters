@@ -93,6 +93,9 @@
     <ClInclude Include="..\..\..\..\source\modules\hid\direct_input\direct_input.h">
       <Filter>source\modules\hid\direct_input</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\source\modules\hid\game_input.h">
+      <Filter>source\modules\hid</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\modules\hid\entity.cpp">
@@ -121,6 +124,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\modules\hid\direct_input\direct_input.cpp">
       <Filter>source\modules\hid\direct_input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\modules\hid\game_input.cpp">
+      <Filter>source\modules\hid</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

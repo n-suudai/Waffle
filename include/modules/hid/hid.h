@@ -22,9 +22,11 @@ namespace waffle {
 namespace hid {
 
 
-[[nodiscard]] bool initialize();
+[[nodiscard]] String moduleName();
 
-void finalize();
+[[nodiscard]] bool moduleEntry(
+    SharedPtr<modules::Entry>& moduleEntry,
+    modules::RuntimeModules& runtimeModules);
 
 
 } // namespace hid

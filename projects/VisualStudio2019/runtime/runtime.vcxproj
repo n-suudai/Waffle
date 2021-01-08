@@ -147,7 +147,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\runtime\entity.cpp" />
-    <ClCompile Include="..\..\..\source\runtime\game_input.cpp" />
     <ClCompile Include="..\..\..\source\runtime\platform\win32\win32_global_new_delete.cpp" />
     <ClCompile Include="..\..\..\source\runtime\platform\win32\win32_main.cpp" />
     <ClCompile Include="..\..\..\source\runtime\runtime.cpp" />
@@ -155,7 +154,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\source\runtime\entity.h" />
-    <ClInclude Include="..\..\..\source\runtime\game_input.h" />
     <ClInclude Include="..\..\..\source\runtime\runtime_heap.h" />
   </ItemGroup>
   <ItemGroup>

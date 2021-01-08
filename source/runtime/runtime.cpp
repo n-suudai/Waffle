@@ -1,46 +1,18 @@
 ﻿
+// System
 #include "system/memory/memory.h"
 #include "system/module_entry/module_entry.h"
-
+#include "entity.h"
 #include "runtime_heap.h"
-#include "system/common/utility/loop_timer.h"
-#include "game_input.h"
 
-#include <functional>
+
+// Modules
+#include "modules/core/core.h"
+#include "modules/application/application.h"
+#include "modules/hid/hid.h"
 
 
 namespace waffle {
-
-
-class HIDEntry : public modules::Entry
-{
-public:
-    HIDEntry(modules::RuntimeModules& modules)
-        : Entry(modules)
-    {}
-
-    bool entry() override;
-
-    const void* getProperty(const String&) const override
-    {
-        return nullptr;
-    }
-
-private:
-    bool initialize();
-
-    bool setup();
-
-    bool update();
-
-    bool terminate();
-
-    bool finalize();
-
-private:
-    LoopTimer m_loopTimer;
-    GameInput m_gameInput;
-};
 
 
 class Runtime : public RuntimeEntity
@@ -65,7 +37,10 @@ public:
         moduleName = application::moduleName();
         moduleMap[moduleName] = entry;
 
-        moduleMap["HID"] = WFL_MAKE_SHARED(HIDEntry, (*m_modules));
+        if (!hid::moduleEntry(entry, *m_modules)) { return false; }
+
+        moduleName = hid::moduleName();
+        moduleMap[moduleName] = entry;
 
         if (!m_modules->initialize(wfl::move(moduleMap))) { return false; }
         
@@ -106,94 +81,6 @@ public:
 private:
     UniquePtr<modules::RuntimeModules> m_modules;
 };
-
-
-// HID
-bool HIDEntry::entry()
-{
-    using namespace modules;
-
-    if (!moduleEntry(EntryPoint::Initialize, wfl::bind(&HIDEntry::initialize, this)))
-    {
-        return false;
-    }
-
-    if (!moduleEntry(EntryPoint::Setup, wfl::bind(&HIDEntry::setup, this)))
-    {
-        return false;
-    }
-
-    if (!moduleEntry(EntryPoint::Update, wfl::bind(&HIDEntry::update, this)))
-    {
-        return false;
-    }
-
-    if (!moduleEntry(EntryPoint::Terminate, wfl::bind(&HIDEntry::terminate, this)))
-    {
-        return false;
-    }
-
-    if (!moduleEntry(EntryPoint::Finalize, wfl::bind(&HIDEntry::finalize, this)))
-    {
-        return false;
-    }
-
-    return true;
-}
-
-bool HIDEntry::initialize()
-{
-    return hid::initialize();
-}
-
-bool HIDEntry::setup()
-{
-    WeakPtr<Entry> weakApplication;
-    if (!m_modules.getModule("application", weakApplication))
-    {
-        return false;
-    }
-
-    SharedPtr<Entry> sharedApplication = weakApplication.lock();
-
-    if (!sharedApplication) { return false; }
-
-    const UniquePtr<application::IWindow>* window =
-        reinterpret_cast<const UniquePtr<application::IWindow>*>(sharedApplication->getProperty("window"));
-
-    if (!window) { return false; }
-
-    if (!m_gameInput.initialize(*window)) { return false; }
-
-    m_loopTimer = LoopTimer();
-
-    return true;
-}
-
-bool HIDEntry::update()
-{
-    hid::Duration elapsed = m_loopTimer.update<hid::Duration>();
-
-    m_gameInput.update(elapsed);
-
-    if (m_gameInput.isAnyPressed()) { return false; }
-
-    return true;
-}
-
-bool HIDEntry::terminate()
-{
-    if (!m_gameInput.finalize()) { return false; }
-
-    return true;
-}
-
-bool HIDEntry::finalize()
-{
-    hid::finalize();
-
-    return true;
-}
 
 
 } // namespace waffle

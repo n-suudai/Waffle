@@ -21,6 +21,7 @@
 namespace waffle {
 namespace core {
 
+
 [[nodiscard]] String moduleName();
 
 [[nodiscard]] bool moduleEntry(
