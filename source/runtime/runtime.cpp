@@ -12,22 +12,6 @@
 namespace waffle {
 
 
-class CoreEntry : public modules::Entry
-{
-public:
-    CoreEntry(modules::RuntimeModules& modules)
-        : Entry(modules)
-    {}
-
-    bool entry() override;
-
-private:
-    bool initialize();
-
-    bool finalize();
-};
-
-
 class ApplicationEntry : public modules::Entry
 {
 public:
@@ -87,7 +71,16 @@ public:
         m_modules = WFL_MAKE_UNIQUE(modules::RuntimeModules);
 
         UnorderedMap<String, SharedPtr<modules::Entry>> moduleMap;
-        moduleMap["Core"] = WFL_MAKE_SHARED(CoreEntry, (*m_modules));
+
+        SharedPtr<modules::Entry> entry;
+        String moduleName;
+
+        if (!core::moduleEntry(entry, *m_modules)) { return false; }
+        
+        moduleName = core::moduleName();
+        moduleMap[moduleName] = entry;
+
+
         moduleMap["Application"] = WFL_MAKE_SHARED(ApplicationEntry, (*m_modules));
         moduleMap["HID"] = WFL_MAKE_SHARED(HIDEntry, (*m_modules));
 
@@ -130,36 +123,6 @@ public:
 private:
     UniquePtr<modules::RuntimeModules> m_modules;
 };
-
-
-// Core
-bool CoreEntry::entry()
-{
-    using namespace modules;
-
-    if (!moduleEntry(EntryPoint::Initialize, wfl::bind(&CoreEntry::initialize, this)))
-    {
-        return false;
-    }
-
-    if (!moduleEntry(EntryPoint::Finalize, wfl::bind(&CoreEntry::finalize, this)))
-    {
-        return false;
-    }
-
-    return true;
-}
-
-bool CoreEntry::initialize()
-{
-    return core::initialize();
-}
-
-bool CoreEntry::finalize()
-{
-    core::finalize();
-    return true;
-}
 
 
 // Application
