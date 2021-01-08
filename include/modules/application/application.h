@@ -19,9 +19,11 @@ namespace waffle {
 namespace application {
 
 
-[[nodiscard]] bool initialize();
+[[nodiscard]] String moduleName();
 
-void finalize();
+[[nodiscard]] bool moduleEntry(
+    SharedPtr<modules::Entry>& moduleEntry,
+    modules::RuntimeModules& runtimeModules);
 
 
 } // namespace application

@@ -12,31 +12,6 @@
 namespace waffle {
 
 
-class ApplicationEntry : public modules::Entry
-{
-public:
-    ApplicationEntry(modules::RuntimeModules& modules)
-        : Entry(modules)
-    {}
-
-    bool entry() override;
-
-    const UniquePtr<application::IWindow>& window() const;
-
-private:
-    bool initialize();
-
-    bool setup();
-
-    bool update();
-
-    bool finalize();
-
-private:
-    UniquePtr<application::IWindow> m_window;
-};
-
-
 class HIDEntry : public modules::Entry
 {
 public:
@@ -45,6 +20,11 @@ public:
     {}
 
     bool entry() override;
+
+    const void* getProperty(const String&) const override
+    {
+        return nullptr;
+    }
 
 private:
     bool initialize();
@@ -80,8 +60,11 @@ public:
         moduleName = core::moduleName();
         moduleMap[moduleName] = entry;
 
+        if (!application::moduleEntry(entry, *m_modules)) { return false; }
 
-        moduleMap["Application"] = WFL_MAKE_SHARED(ApplicationEntry, (*m_modules));
+        moduleName = application::moduleName();
+        moduleMap[moduleName] = entry;
+
         moduleMap["HID"] = WFL_MAKE_SHARED(HIDEntry, (*m_modules));
 
         if (!m_modules->initialize(wfl::move(moduleMap))) { return false; }
@@ -125,78 +108,6 @@ private:
 };
 
 
-// Application
-bool ApplicationEntry::entry()
-{
-    using namespace modules;
-
-    if (!moduleEntry(EntryPoint::Initialize, wfl::bind(&ApplicationEntry::initialize, this)))
-    {
-        return false;
-    }
-
-    if (!moduleEntry(EntryPoint::Setup, wfl::bind(&ApplicationEntry::setup, this)))
-    {
-        return false;
-    }
-
-    if (!moduleEntry(EntryPoint::Update, wfl::bind(&ApplicationEntry::update, this)))
-    {
-        return false;
-    }
-
-    if (!moduleEntry(EntryPoint::Finalize, wfl::bind(&ApplicationEntry::finalize, this)))
-    {
-        return false;
-    }
-
-    return true;
-}
-
-const UniquePtr<application::IWindow>& ApplicationEntry::window() const
-{
-    return m_window;
-}
-
-bool ApplicationEntry::initialize()
-{
-    return application::initialize();
-}
-
-bool ApplicationEntry::setup()
-{
-    constexpr Rectangle<wfl::int32_t> defaultClientRect(0, 640, 0, 480);
-
-    if (!application::createWindowUnique(defaultClientRect, m_window))
-    {
-        return false;
-    }
-
-    if (!m_window->setTitle("Waffle"))
-    {
-        return false;
-    }
-
-    return true;
-}
-
-bool ApplicationEntry::update()
-{
-    if (!m_window) { return false; }
-
-    if (!m_window->isAlive()) { return false; }
-
-    return m_window->messagePump();
-}
-
-bool ApplicationEntry::finalize()
-{
-    m_window.reset();
-    application::finalize();
-    return true;
-}
-
-
 // HID
 bool HIDEntry::entry()
 {
@@ -238,7 +149,7 @@ bool HIDEntry::initialize()
 bool HIDEntry::setup()
 {
     WeakPtr<Entry> weakApplication;
-    if (!m_modules.getModule("Application", weakApplication))
+    if (!m_modules.getModule("application", weakApplication))
     {
         return false;
     }
@@ -247,11 +158,12 @@ bool HIDEntry::setup()
 
     if (!sharedApplication) { return false; }
 
-    const ApplicationEntry* pApplication = nullptr;
+    const UniquePtr<application::IWindow>* window =
+        reinterpret_cast<const UniquePtr<application::IWindow>*>(sharedApplication->getProperty("window"));
 
-    if (!sharedApplication->As<ApplicationEntry>(pApplication)) { return false; }
+    if (!window) { return false; }
 
-    if (!m_gameInput.initialize(pApplication->window())) { return false; }
+    if (!m_gameInput.initialize(*window)) { return false; }
 
     m_loopTimer = LoopTimer();
 

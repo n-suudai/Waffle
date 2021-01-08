@@ -5,7 +5,20 @@ namespace waffle {
 namespace core {
 
 
-class CoreEntry : public modules::Entry
+bool initialize()
+{
+    logging::put("[core] initialized.");
+
+    return true;
+}
+
+void finalize()
+{
+    logging::put("[core] finalized.");
+}
+
+
+class CoreEntry final : public modules::Entry
 {
 public:
     [[nodiscard]] static bool createShared(
@@ -42,6 +55,11 @@ public:
         return true;
     }
 
+    const void* getProperty(const String&) const override
+    {
+        return nullptr;
+    }
+
 private:
 
 
@@ -57,14 +75,6 @@ private:
     }
 };
 
-
-bool initialize()
-{
-    logging::put("[core] initialized.");
-
-    return true;
-}
-
 String moduleName()
 {
     return "core";
@@ -77,11 +87,6 @@ bool moduleEntry(
     return CoreEntry::createShared(
         moduleEntry,
         runtimeModules);
-}
-
-void finalize()
-{
-    logging::put("[core] finalized.");
 }
 
 
