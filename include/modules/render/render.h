@@ -1,6 +1,10 @@
 ﻿#pragma once
 
 
+// System
+#include "system/module_entry/module_entry.h"
+
+
 // Require Modules
 #include "modules/application/application.h"
 
@@ -18,9 +22,11 @@ namespace waffle {
 namespace render {
 
 
-[[nodiscard]] bool initialize();
+[[nodiscard]] String moduleName();
 
-void finalize();
+[[nodiscard]] bool moduleEntry(
+    SharedPtr<modules::Entry>& moduleEntry,
+    modules::RuntimeModules& runtimeModules);
 
 
 } // namespace render

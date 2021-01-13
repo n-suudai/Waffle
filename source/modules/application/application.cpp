@@ -66,6 +66,11 @@ public:
         return true;
     }
 
+    String moduleName() const override
+    {
+        return "application";
+    }
+
     const void* getProperty(const String& name) const override
     {
         if (name == "applicationHandle")
@@ -129,12 +134,8 @@ private:
     UniquePtr<application::IWindow> m_window;
 };
 
-[[nodiscard]] String moduleName()
-{
-    return "application";
-}
 
-[[nodiscard]] bool moduleEntry(
+bool moduleEntry(
     SharedPtr<modules::Entry>& moduleEntry,
     modules::RuntimeModules& runtimeModules)
 {

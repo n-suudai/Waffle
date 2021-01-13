@@ -55,6 +55,11 @@ public:
         return true;
     }
 
+    String moduleName() const override
+    {
+        return "core";
+    }
+
     const void* getProperty(const String&) const override
     {
         return nullptr;
@@ -75,10 +80,6 @@ private:
     }
 };
 
-String moduleName()
-{
-    return "core";
-}
 
 bool moduleEntry(
     SharedPtr<modules::Entry>& moduleEntry,

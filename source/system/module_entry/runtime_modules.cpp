@@ -5,23 +5,29 @@ namespace waffle {
 namespace modules {
 
 
-bool RuntimeModules::initialize(UnorderedMap<String, SharedPtr<Entry>>&& moduleMap)
+bool RuntimeModules::initialize(Vector<SharedPtr<Entry>>&& modules)
 {
-    m_moduleMap = wfl::move(moduleMap);
+    clearEntryPoints();
+
+    m_modules = wfl::move(modules);
+
     return true;
 }
 
 bool RuntimeModules::finalize()
 {
-    m_moduleMap.clear();
+    clearEntryPoints();
+
+    m_modules.clear();
+
     return true;
 }
 
 bool RuntimeModules::entryAll()
 {
-    for (Map<String, SharedPtr<Entry>>::value_type& pair : m_moduleMap)
+    for (SharedPtr<Entry>& entryModule : m_modules)
     {
-        if (!pair.second->entry())
+        if (!entryModule->entry())
         {
             return false;
         }
@@ -32,11 +38,17 @@ bool RuntimeModules::entryAll()
 
 bool RuntimeModules::getModule(const String& moduleName, WeakPtr<Entry>& outModule)
 {
-    UnorderedMap<String, SharedPtr<Entry>>::iterator it = m_moduleMap.find(moduleName);
+    Vector<SharedPtr<Entry>>::iterator it = wfl::find_if(
+        m_modules.begin(),
+        m_modules.end(),
+        [moduleName](const SharedPtr<Entry>& entryModule) -> bool
+        {
+            return entryModule->moduleName() == moduleName;
+        });
 
-    if (it != m_moduleMap.end())
+    if (it != m_modules.end())
     {
-        outModule = it->second;
+        outModule = (*it);
         return true;
     }
 
@@ -45,13 +57,24 @@ bool RuntimeModules::getModule(const String& moduleName, WeakPtr<Entry>& outModu
 
 bool RuntimeModules::entry(EntryPoint entry, const EntryMethod& entryMethod)
 {
-    m_entryPointArray[static_cast<wfl::size_t>(entry)] += entryMethod;
+    m_entryPoints[static_cast<wfl::size_t>(entry)] += entryMethod;
     return true;
 }
 
 bool RuntimeModules::execute(EntryPoint entry, bool reverse)
 {
-    return m_entryPointArray[static_cast<wfl::size_t>(entry)](reverse);
+    return m_entryPoints[static_cast<wfl::size_t>(entry)](reverse);
+}
+
+void RuntimeModules::clearEntryPoints()
+{
+    wfl::for_each(
+        m_entryPoints.begin(),
+        m_entryPoints.end(),
+        [](EntryMethodList& methodList)
+        {
+            methodList.clear();
+        });
 }
 
 

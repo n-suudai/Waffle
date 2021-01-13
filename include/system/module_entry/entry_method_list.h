@@ -21,13 +21,15 @@ public:
 
     [[nodiscard]] bool operator()(bool reverse = false) const;
 
+    void clear();
+
 private:
     [[nodiscard]] bool call() const;
 
     [[nodiscard]] bool callReverse() const;
 
 private:
-    Vector<EntryMethod> m_entryMethodArray;
+    Vector<EntryMethod> m_entryMethods;
 };
 
 

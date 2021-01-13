@@ -22,8 +22,6 @@ namespace waffle {
 namespace core {
 
 
-[[nodiscard]] String moduleName();
-
 [[nodiscard]] bool moduleEntry(
     SharedPtr<modules::Entry>& moduleEntry,
     modules::RuntimeModules& runtimeModules);

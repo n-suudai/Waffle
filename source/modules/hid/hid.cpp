@@ -70,6 +70,11 @@ public:
         return true;
     }
 
+    String moduleName() const override
+    {
+        return "hid";
+    }
+
     const void* getProperty(const String&) const override
     {
         return nullptr;
@@ -136,12 +141,7 @@ private:
 };
 
 
-[[nodiscard]] String moduleName()
-{
-    return "hid";
-}
-
-[[nodiscard]] bool moduleEntry(
+bool moduleEntry(
     SharedPtr<modules::Entry>& moduleEntry,
     modules::RuntimeModules& runtimeModules)
 {

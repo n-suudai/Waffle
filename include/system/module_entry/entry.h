@@ -17,6 +17,8 @@ public:
 
     [[nodiscard]] virtual bool entry() = 0;
 
+    [[nodiscard]] virtual String moduleName() const = 0;
+
     [[nodiscard]] virtual const void* getProperty(const String& name) const = 0;
 
 protected:

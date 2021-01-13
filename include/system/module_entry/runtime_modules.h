@@ -14,7 +14,7 @@ class Entry;
 class RuntimeModules : public ModulesEntity
 {
 public:
-    [[nodiscard]] bool initialize(UnorderedMap<String, SharedPtr<Entry>>&& moduleMap);
+    [[nodiscard]] bool initialize(Vector<SharedPtr<Entry>>&& modules);
 
     [[nodiscard]] bool finalize();
 
@@ -27,8 +27,11 @@ public:
     bool execute(EntryPoint entry, bool reverse = false);
 
 private:
-    wfl::array<EntryMethodList, static_cast<wfl::size_t>(EntryPoint::Num)> m_entryPointArray;
-    UnorderedMap<String, SharedPtr<Entry>> m_moduleMap;
+    void clearEntryPoints();
+
+private:
+    wfl::array<EntryMethodList, static_cast<wfl::size_t>(EntryPoint::Num)> m_entryPoints;
+    Vector<SharedPtr<Entry>> m_modules;
 };
 
 

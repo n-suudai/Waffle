@@ -10,6 +10,7 @@
 #include "modules/core/core.h"
 #include "modules/application/application.h"
 #include "modules/hid/hid.h"
+#include "modules/render/render.h"
 
 
 namespace waffle {
@@ -22,28 +23,29 @@ public:
     {
         m_modules = WFL_MAKE_UNIQUE(modules::RuntimeModules);
 
-        UnorderedMap<String, SharedPtr<modules::Entry>> moduleMap;
+        Vector<SharedPtr<modules::Entry>> modules;
 
         SharedPtr<modules::Entry> entry;
         String moduleName;
 
         if (!core::moduleEntry(entry, *m_modules)) { return false; }
         
-        moduleName = core::moduleName();
-        moduleMap[moduleName] = entry;
+        modules.push_back(entry);
 
         if (!application::moduleEntry(entry, *m_modules)) { return false; }
 
-        moduleName = application::moduleName();
-        moduleMap[moduleName] = entry;
+        modules.push_back(entry);
 
         if (!hid::moduleEntry(entry, *m_modules)) { return false; }
 
-        moduleName = hid::moduleName();
-        moduleMap[moduleName] = entry;
+        modules.push_back(entry);
 
-        if (!m_modules->initialize(wfl::move(moduleMap))) { return false; }
-        
+        if (!render::moduleEntry(entry, *m_modules)) { return false; }
+
+        modules.push_back(entry);
+
+        if (!m_modules->initialize(wfl::move(modules))) { return false; }
+
         if (!m_modules->entryAll()) { return false; }
 
         return true;
@@ -63,6 +65,8 @@ public:
         using namespace modules;
 
         m_modules->execute(EntryPoint::Initialize);
+        
+        m_modules->execute(EntryPoint::InitializeScene);
 
         m_modules->execute(EntryPoint::Setup);
 
@@ -70,7 +74,13 @@ public:
 
         while (m_modules->execute(EntryPoint::Update))
         {
+            m_modules->execute(EntryPoint::UpdateRemoteHost);
+            
+            m_modules->execute(EntryPoint::UpdateScene);
 
+            m_modules->execute(EntryPoint::WaitRenderring);
+
+            m_modules->execute(EntryPoint::BeginRenderring);
         }
 
         m_modules->execute(EntryPoint::Terminate, true);

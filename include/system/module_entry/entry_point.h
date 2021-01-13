@@ -10,7 +10,7 @@ enum class EntryPoint
     Initialize,
     //InitializeStorage,
     //InitializeResourceManager,
-    //InitializeScene,
+    InitializeScene,
     //InitializeVM,
 
     Setup,
@@ -18,6 +18,16 @@ enum class EntryPoint
     Start,
 
     Update,
+
+    UpdateRemoteHost,
+
+    UpdateScene,
+
+    WaitRenderring,
+
+    BeginRenderring,
+
+    //WaitForVblank,
 
     Terminate,
 

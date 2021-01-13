@@ -7,7 +7,7 @@ namespace modules {
 
 void EntryMethodList::operator +=(const EntryMethod& entryMethod)
 {
-    m_entryMethodArray.push_back(entryMethod);
+    m_entryMethods.push_back(entryMethod);
 }
 
 bool EntryMethodList::operator()(bool reverse) const
@@ -19,10 +19,15 @@ bool EntryMethodList::operator()(bool reverse) const
     return call();
 }
 
+void EntryMethodList::clear()
+{
+    m_entryMethods.clear();
+}
+
 bool EntryMethodList::call() const
 {
-    Vector<EntryMethod>::const_iterator it = m_entryMethodArray.cbegin();
-    Vector<EntryMethod>::const_iterator end = m_entryMethodArray.cend();
+    Vector<EntryMethod>::const_iterator it = m_entryMethods.cbegin();
+    Vector<EntryMethod>::const_iterator end = m_entryMethods.cend();
     while (it != end)
     {
         if (!(*it)())
@@ -36,8 +41,8 @@ bool EntryMethodList::call() const
 
 bool EntryMethodList::callReverse() const
 {
-    Vector<EntryMethod>::const_reverse_iterator it = m_entryMethodArray.crbegin();
-    Vector<EntryMethod>::const_reverse_iterator end = m_entryMethodArray.crend();
+    Vector<EntryMethod>::const_reverse_iterator it = m_entryMethods.crbegin();
+    Vector<EntryMethod>::const_reverse_iterator end = m_entryMethods.crend();
     while (it != end)
     {
         if (!(*it)())
