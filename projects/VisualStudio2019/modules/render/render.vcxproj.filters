@@ -19,15 +19,39 @@
     <Filter Include="source\modules\render">
       <UniqueIdentifier>{a784c34c-f65c-433e-a8d2-9c5d416cb8c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\modules\render\platform">
+      <UniqueIdentifier>{547fe195-5db6-42f2-9bcb-a21cfb6e30b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\modules\render\platform\d3d11">
+      <UniqueIdentifier>{d5fd2b85-2b2a-4195-b6d9-356fee023b3f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\include\modules\render\render.h">
       <Filter>include\modules\render</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\include\modules\render\entity.h">
+      <Filter>include\modules\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\include\modules\render\render_device.h">
+      <Filter>include\modules\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\modules\render\platform\d3d11\d3d11_render_device.h">
+      <Filter>source\modules\render\platform\d3d11</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\modules\render\render.cpp">
       <Filter>source\modules\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\modules\render\entity.cpp">
+      <Filter>source\modules\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\modules\render\platform\d3d11\render_device.cpp">
+      <Filter>source\modules\render\platform\d3d11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\modules\render\platform\d3d11\d3d11_render_device.cpp">
+      <Filter>source\modules\render\platform\d3d11</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

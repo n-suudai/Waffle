@@ -1,29 +1,12 @@
 ﻿#include "win32_window.h"
+#include "system/common/platform/win32/win32_utility.h"
 
 
 namespace waffle {
 namespace application {
 
+
 constexpr const char* WINDOW_CLASS_NAME = "WAFFLE_WINDOW";
-
-[[nodiscard]]
-static RECT convertRect(const Rectangle<wfl::int32_t>& rectangle)
-{
-    RECT result = {};
-    rectangle.getHorizontal(result.left, result.right);
-    rectangle.getVertical(result.top, result.bottom);
-    return result;
-}
-
-[[nodiscard]]
-static Rectangle<wfl::int32_t> convertRect(const RECT& rect)
-{
-    Rectangle<wfl::int32_t> result(
-        rect.left, rect.right,
-        rect.top, rect.bottom
-    );
-    return result;
-}
 
 [[nodiscard]]
 static HICON loadIcon(const char* iconName, HINSTANCE hInstance, wfl::int32_t iconSize)
@@ -353,30 +336,14 @@ bool Win32Window::updateClientRect()
 {
     if (!isAlive()) { return false; }
 
-    RECT clientRect = {};
-    if (!::GetClientRect(m_hWindow, &clientRect))
-    {
-        return false;
-    }
-
-    m_clientRect = convertRect(clientRect);
-
-    return true;
+    return getClientRect(m_hWindow, m_clientRect);
 }
 
 bool Win32Window::updateWindowRect()
 {
     if (!isAlive()) { return false; }
 
-    RECT windowRect = {};
-    if (!::GetWindowRect(m_hWindow, &windowRect))
-    {
-        return false;
-    }
-
-    m_windowRect = convertRect(windowRect);
-
-    return true;
+    return getWindowRect(m_hWindow, m_windowRect);
 }
 
 

@@ -69,5 +69,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\include\system\common\common.h">
       <Filter>include\common</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\include\system\common\platform\win32\win32_utility.h">
+      <Filter>include\common\platform\win32</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

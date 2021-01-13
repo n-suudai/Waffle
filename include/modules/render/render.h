@@ -16,6 +16,7 @@
 
 
 // Public Interfaces
+#include "modules/render/render_device.h"
 
 
 namespace waffle {

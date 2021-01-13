@@ -19,9 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\include\modules\render\render_device.h" />
+    <ClInclude Include="..\..\..\..\include\modules\render\entity.h" />
     <ClInclude Include="..\..\..\..\include\modules\render\render.h" />
+    <ClInclude Include="..\..\..\..\source\modules\render\platform\d3d11\d3d11_render_device.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\modules\render\entity.cpp" />
+    <ClCompile Include="..\..\..\..\source\modules\render\platform\d3d11\d3d11_render_device.cpp" />
+    <ClCompile Include="..\..\..\..\source\modules\render\platform\d3d11\render_device.cpp" />
     <ClCompile Include="..\..\..\..\source\modules\render\render.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

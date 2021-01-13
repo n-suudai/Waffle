@@ -4,7 +4,7 @@
 namespace waffle {
 
 
-WFL_DEFINE_HEAP(RuntimeEntity, "Runtime");
+WFL_DEFINE_HEAP(RuntimeEntity, "runtime");
 
 
 } // namespace waffle

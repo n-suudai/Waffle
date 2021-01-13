@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\include\system\common\common.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\include\system\common\platform\win32\win32_utility.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\include\common\memory\config.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\include\common\platform.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\include\common\platform\win32.h">

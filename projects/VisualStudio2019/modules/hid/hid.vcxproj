@@ -48,10 +48,10 @@
     <ClCompile Include="..\..\..\..\source\modules\hid\direct_input\dinput_peripheral_device_manager.cpp" />
     <ClCompile Include="..\..\..\..\source\modules\hid\direct_input\dinput_utility.cpp" />
     <ClCompile Include="..\..\..\..\source\modules\hid\direct_input\direct_input.cpp" />
+    <ClCompile Include="..\..\..\..\source\modules\hid\direct_input\peripheral_device_manager.cpp" />
     <ClCompile Include="..\..\..\..\source\modules\hid\entity.cpp" />
     <ClCompile Include="..\..\..\..\source\modules\hid\game_input.cpp" />
     <ClCompile Include="..\..\..\..\source\modules\hid\hid.cpp" />
-    <ClCompile Include="..\..\..\..\source\modules\hid\peripheral_device_manager.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

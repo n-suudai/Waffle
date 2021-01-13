@@ -1,6 +1,6 @@
 ﻿
 #include "modules/hid/peripheral_device_manager.h"
-#include "direct_input/dinput_peripheral_device_manager.h"
+#include "dinput_peripheral_device_manager.h"
 
 
 namespace waffle {

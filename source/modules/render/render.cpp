@@ -93,7 +93,28 @@ private:
 
     bool setup()
     {
-        return true;
+        InitializeParameters initializeParameters = {};
+
+        WeakPtr<Entry> weakApplication;
+        if (!m_modules.getModule("application", weakApplication))
+        {
+            return false;
+        }
+
+        SharedPtr<Entry> sharedApplication = weakApplication.lock();
+
+        if (!sharedApplication) { return false; }
+
+        const UniquePtr<application::IWindow>* window =
+            reinterpret_cast<const UniquePtr<application::IWindow>*>(sharedApplication->getProperty("window"));
+
+        if (!window) { return false; }
+
+        initializeParameters.windowHandle = (*window)->windowHandle();
+
+        return createRenderDeviceUnique(
+            initializeParameters,
+            m_renderDevice);
     }
 
     bool waitRenderring()
@@ -103,11 +124,15 @@ private:
 
     bool beginRenderring()
     {
+        if (!m_renderDevice->clear()) { return false; }
+
         return true;
     }
 
     bool terminate()
     {
+        m_renderDevice.reset();
+
         return true;
     }
 
@@ -117,6 +142,9 @@ private:
 
         return true;
     }
+
+private:
+    UniquePtr<IRenderDevice> m_renderDevice;
 };
 
 

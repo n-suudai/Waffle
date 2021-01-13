@@ -5,7 +5,7 @@ namespace waffle {
 namespace modules {
 
 
-WFL_DEFINE_HEAP(ModulesEntity, "Modules");
+WFL_DEFINE_HIERARCHAL_HEAP(ModulesEntity, "modules", "runtime");
 
 
 } // namespace modules

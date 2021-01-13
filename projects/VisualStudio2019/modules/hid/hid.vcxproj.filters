@@ -104,9 +104,6 @@
     <ClCompile Include="..\..\..\..\source\modules\hid\hid.cpp">
       <Filter>source\modules\hid</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\source\modules\hid\peripheral_device_manager.cpp">
-      <Filter>source\modules\hid</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\source\modules\hid\direct_input\dinput_game_pad.cpp">
       <Filter>source\modules\hid\direct_input</Filter>
     </ClCompile>
@@ -127,6 +124,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\modules\hid\game_input.cpp">
       <Filter>source\modules\hid</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\modules\hid\direct_input\peripheral_device_manager.cpp">
+      <Filter>source\modules\hid\direct_input</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
